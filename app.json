@@ -1,0 +1,19 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "mars/create-react-app"
+    }
+  ],
+  "description": "Somatic Germline Website",
+  "env": {
+  },
+  "formation": {
+  },
+  "name": "germopath",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}

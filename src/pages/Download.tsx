@@ -5,7 +5,13 @@ class Download extends React.Component<{}>
 {
     public render()
     {
-        return <span>Download</span>;
+        return (
+            <React.Fragment>
+                <p>
+                    Download data will be available after publication.
+                </p>
+            </React.Fragment>
+        );
     }
 }
 

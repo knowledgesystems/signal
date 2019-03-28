@@ -23,7 +23,7 @@ class Header extends React.Component<{}>
                     <Container>
                         <Navbar.Brand>
                             <Link to="/" className="brand-title-link">
-                                <i className="fa fa-arrow-up" /> GermoPath
+                                <i className="fa fa-arrow-up" /> INSIGHT
                             </Link>
                         </Navbar.Brand>
                         <Navbar.Toggle />
@@ -39,7 +39,7 @@ class Header extends React.Component<{}>
                 </Navbar>
                 <Navbar bg="mskcc-subheader" expand="lg" className="navbar-dark sub-navbar">
                     <Container>
-                        A resource for TODO!
+                        A resource for the integration of somatic with germline heritability in tumorigenesis
                     </Container>
                 </Navbar>
             </header>

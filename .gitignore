@@ -1,13 +1,15 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules
 
 # testing
-/coverage
+/client/coverage
 
 # production
-/build
+/server/dist
+/server/resources/data
+/client/build
 
 # intellij idea
 *.iml

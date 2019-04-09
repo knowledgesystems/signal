@@ -1,41 +1,16 @@
 {
-  "name": "germopath",
+  "name": "msk-insight",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "^24.0.11",
-    "@types/node": "^11.11.1",
-    "@types/react": "^16.8.7",
-    "@types/react-dom": "^16.8.2",
-    "@types/react-router-bootstrap": "^0.24.5",
-    "@types/react-table": "^6.8.0",
-    "autobind-decorator": "^2.4.0",
-    "bootstrap": "^4.3.1",
-    "dejavu-sans": "^1.0.0",
-    "font-awesome": "^4.7.0",
-    "mobx": "^5.9.0",
-    "mobx-react": "^5.4.3",
-    "react": "^16.8.4",
-    "react-bootstrap": "^1.0.0-beta.5",
-    "react-dom": "^16.8.4",
-    "react-router-bootstrap": "^0.24.4",
-    "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "3.1.0",
-    "react-table": "^6.9.2"
-  },
-  "resolutions": {
-    "cbioportal-frontend-commons/react-bootstrap": "0.32.0"
-  },
-  "engines": {
-    "node": "8.12.0"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node start-server.js",
+    "client": "node start-client.js",
+    "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1"
   },
   "devDependencies": {
-    "typescript": "^3.3.3333"
+    "concurrently": "^3.6.1"
   }
 }

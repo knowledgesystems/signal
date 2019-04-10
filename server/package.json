@@ -3,11 +3,17 @@
   "version": "0.1.0",
   "description": "MSK Insight Server Side Component",
   "main": "dist/src/server.js",
+  "engines": {
+    "node": "8.12.0"
+  },
   "scripts": {
-    "build-ts": "tsc && npm run tslint",
-    "restart": "npm run build-ts && npm run start",
-    "start": "npm run serve",
-    "serve": "node dist/src/server.js",
+    "clean": "rimraf dist",
+    "copy-resources": "node copy-resources.js",
+    "build": "yarn run build-ts && yarn run copy-resources",
+    "build-ts": "yarn run clean && tsc && yarn run tslint",
+    "restart": "yarn run build && yarn run start",
+    "start": "yarn run serve",
+    "serve": "node dist/server.js",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "watch-node": "nodemon dist/src/server.js",
     "watch-ts": "tsc -w"
@@ -17,12 +23,16 @@
   "dependencies": {
     "@types/express": "^4.16.0",
     "autobind-decorator": "^2.4.0",
-    "express": "^4.16.3"
+    "csvtojson": "^2.0.8",
+    "express": "^4.16.3",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "nodemon": "^1.18.3",
+    "rimraf": "^2.6.3",
+    "shelljs": "^0.8.3",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.0.1"
+    "typescript": "^3.4.3"
   }
 }

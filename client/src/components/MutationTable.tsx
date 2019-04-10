@@ -32,8 +32,7 @@ class MutationTable extends React.Component<IMutationTableProps>
         {
             return (
                 <div style={{padding: '10px'}}>
-                    TODO: Visualize Frequencies Here...
-                    {row.original["Adrenocortical Carcinoma_tumortype_count"]}, {row.original["Adrenocortical Carcinoma_variant_count"]}
+                    TODO: Visualize Frequencies Here?
                 </div>
             );
         }

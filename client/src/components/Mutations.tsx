@@ -7,7 +7,7 @@ import {
 } from 'react-bootstrap';
 
 import MutationStore from "../store/MutationStore";
-import MutationTable from "./MutationTable";
+import FrequencyTable from "./FrequencyTable";
 import SearchBox from "./SearchBox";
 
 @observer
@@ -41,7 +41,7 @@ class Mutations extends React.Component<{}>
     {
         // TODO get the actual data for the search input and visualize it!
         if (input.length > 0) {
-            this.mainContent = <MutationTable data={this.store.mutations} />;
+            this.mainContent = <FrequencyTable data={this.store.mutationFrequencies} />;
         }
         else {
             this.mainContent = undefined;

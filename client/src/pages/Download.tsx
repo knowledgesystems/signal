@@ -8,7 +8,7 @@ class Download extends React.Component<{}>
         return (
             <React.Fragment>
                 <p>
-                    Download data will be available after publication.
+                    Download data will be available soon.
                 </p>
             </React.Fragment>
         );

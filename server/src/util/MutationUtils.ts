@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 import {ICountByCancerType, IMutation, MutationCategory} from "../model/Mutation";
-import {IMutationFrequencyByGene} from "../model/MutationFrequency";
+import {IAggregatedMutationFrequencyByGene, IMutationFrequencyByGene} from "../model/MutationFrequency";
 
 export function isPathogenic(pathogenic: string): boolean|undefined
 {
@@ -23,7 +23,21 @@ export function getCountOrDefault(countByCancerType: ICountByCancerType,
     return countByCancerType[cancerType];
 }
 
-export function calculateFrequenciesByGene(mutations: IMutation[]) {
+export function getFrequencyOrDefault(frequencyMap: {[hugoSymbol: string]: IAggregatedMutationFrequencyByGene},
+                                      hugoSymbol: string): IAggregatedMutationFrequencyByGene
+{
+    frequencyMap[hugoSymbol] = frequencyMap[hugoSymbol] || {
+        hugoSymbol,
+        somaticFrequency: {all: 0, pathogenic: 0},
+        germlineFrequency: {all: 0, pathogenic: 0},
+        biallelicFrequency: {all: 0, pathogenic: 0},
+    };
+
+    return frequencyMap[hugoSymbol];
+}
+
+export function calculateFrequenciesByGene(mutations: IMutation[]): IAggregatedMutationFrequencyByGene[]
+{
     const groupedByCategory: {[category: string]: IMutation[]} = _.groupBy(mutations, "category");
 
     const somatic = calculateFrequencyByGene(groupedByCategory[MutationCategory.SOMATIC]);
@@ -32,11 +46,21 @@ export function calculateFrequenciesByGene(mutations: IMutation[]) {
         groupedByCategory[MutationCategory.BIALLELIC_GERMLINE],
         groupedByCategory[MutationCategory.QC_GERMLINE]);
 
-    return {
-        [MutationCategory.SOMATIC]: somatic,
-        [MutationCategory.GERMLINE]: germline,
-        [MutationCategory.BIALLELIC_GERMLINE]: biallelic
-    };
+    const frequencyMap: {[hugoSymbol: string]: IAggregatedMutationFrequencyByGene} = {};
+
+    somatic.forEach(frequency => {
+        getFrequencyOrDefault(frequencyMap, frequency.hugoSymbol).somaticFrequency = frequency.frequency;
+    });
+
+    germline.forEach(frequency => {
+        getFrequencyOrDefault(frequencyMap, frequency.hugoSymbol).germlineFrequency = frequency.frequency;
+    });
+
+    biallelic.forEach(frequency => {
+        getFrequencyOrDefault(frequencyMap, frequency.hugoSymbol).biallelicFrequency = frequency.frequency;
+    });
+
+    return _.values(frequencyMap);
 }
 
 export function calculateFrequencyByGene(mutations: IMutation[], qcMutations?: IMutation[]): IMutationFrequencyByGene[]

@@ -1,4 +1,5 @@
 import {ICountByCancerType, IMutation, MutationCategory} from "../model/Mutation";
+import {IAggregatedMutationFrequencyByGene} from "../model/MutationFrequency";
 import MutationRepository from "../repository/MutationRepository";
 import {calculateFrequenciesByGene, getCountOrDefault, isPathogenic} from "../util/MutationUtils";
 
@@ -42,7 +43,7 @@ class MutationService
         this.mutationRepository = mutationRepository;
     }
 
-    public getMutationFrequenciesByGene()
+    public getMutationFrequenciesByGene(): IAggregatedMutationFrequencyByGene[]
     {
         return calculateFrequenciesByGene(this.getAllMutationsByGene());
     }

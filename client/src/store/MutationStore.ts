@@ -1,23 +1,25 @@
 import {computed, observable} from "mobx";
 
+import {IAggregatedMutationFrequencyByGene} from "../../../server/src/model/MutationFrequency";
+
 class MutationStore
 {
     @observable
-    protected mutationData: any[] = []; // TODO: Mutation[]
+    protected mutationFrequencyData: IAggregatedMutationFrequencyByGene[] = [];
 
     constructor() {
-        fetch("/api/mutations")
+        fetch("/api/mutation/frequency/byGene")
             .then(response => response.json())
             .then(data => {
-                this.mutationData = data
+                this.mutationFrequencyData = data
             })
             .catch(() => {
-                this.mutationData = [];
+                this.mutationFrequencyData = [];
             });
     }
 
-    @computed get mutations() {
-        return this.mutationData;
+    @computed get mutationFrequencies() {
+        return this.mutationFrequencyData;
     }
 }
 

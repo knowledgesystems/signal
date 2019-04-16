@@ -21,7 +21,7 @@ class Main extends React.Component<{}>
             <BrowserRouter>
                 <div className="Main">
                     <Header />
-                    <Container style={{paddingTop: 20, fontSize: "1.25rem", color: "#2c3e50"}}>
+                    <Container style={{paddingTop: 20, paddingBottom: 100, fontSize: "1.25rem", color: "#2c3e50"}}>
                         <Switch>
                             <Route exact={true} path="/" component={Home}/>
                             <Route exact={true} path="/about" component={About}/>

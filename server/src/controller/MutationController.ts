@@ -12,21 +12,21 @@ class MutationController
                 mutationService: MutationService = new MutationService())
     {
         // configure endpoints
-        app.get("/api/mutation/counts/byGene", this.fetchMutationCountsByGeneGET);
+        app.get("/api/mutation/count/byGene", this.fetchMutationsByGeneGET);
+        app.get("/api/mutation/frequency/byGene", this.fetchMutationFrequenciesByGeneGET);
 
         // init services
         this.mutationService = mutationService;
     }
 
     @autobind
-    private fetchMutationCountsByGeneGET(req: Request, res: Response) {
-        const counts = {
-            somatic: this.mutationService.getSomaticMutationCountByGene(),
-            pathogenicGermline: this.mutationService.getPathogenicGermlineMutationCountByGene(),
-            biallelicPathogenicGermline: this.mutationService.getBiallelicPathogenicGermlineMutationCountByGene()
-        };
+    private fetchMutationsByGeneGET(req: Request, res: Response) {
+        res.send(this.mutationService.getAllMutationsByGene());
+    }
 
-        res.send(counts);
+    @autobind
+    private fetchMutationFrequenciesByGeneGET(req: Request, res: Response) {
+        res.send(this.mutationService.getMutationFrequenciesByGene());
     }
 }
 

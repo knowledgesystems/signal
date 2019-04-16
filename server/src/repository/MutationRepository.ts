@@ -10,32 +10,40 @@ function readCounts(filePath: string): Converter
 class MutationRepository
 {
     private somaticMutationCountByGene: any[];
-    private pathogenicGermlineMutationCountByGene: any[];
-    private biallelicPathogenicGermlineMutationCountByGene: any[];
+    private germlineMutationCountByGene: any[];
+    private biallelicGermlineMutationCountByGene: any[];
+    private germlineQCPassMutationCountByGene: any[];
 
     constructor()
     {
         // const mutationsFilePath = path.join(__dirname, "../resources/data/mutations_by_tumortype_merge.txt");
-        const somaticMutationCountByGenePath = path.join(__dirname, "../resources/data/somatic_mutation_count_by_gene.txt");
-        const pathogenicGermlineMutationCountByGenePath = path.join(__dirname, "../resources/data/pathogenic_germline_mutation_count_by_gene.txt");
-        const biallelicPathogenicGermlineMutationByGene = path.join(__dirname, "../resources/data/biallelic_pathogenic_germline_mutation_count_by_gene.txt");
+        const somaticMutationCountByGenePath = path.join(__dirname, "../resources/data/somatic_genelevel_summary.txt");
+        const germlineMutationCountByGenePath = path.join(__dirname, "../resources/data/gene_by_tumortype_merge.txt");
+        const biallelicGermlineMutationByGenePath = path.join(__dirname, "../resources/data/gene_biallelic_by_tumortype_merge.txt");
+        const germlineQCPassMutationCountByGenePath = path.join(__dirname, "../resources/data/gene_QCpass_by_tumortype_merge.txt");
 
         readCounts(somaticMutationCountByGenePath).then(json => this.somaticMutationCountByGene = json);
-        readCounts(pathogenicGermlineMutationCountByGenePath).then(json => this.pathogenicGermlineMutationCountByGene = json);
-        readCounts(biallelicPathogenicGermlineMutationByGene).then(json => this.biallelicPathogenicGermlineMutationCountByGene = json);
+        readCounts(germlineMutationCountByGenePath).then(json => this.germlineMutationCountByGene = json);
+        readCounts(biallelicGermlineMutationByGenePath).then(json => this.biallelicGermlineMutationCountByGene = json);
+        readCounts(germlineQCPassMutationCountByGenePath).then(json => this.germlineQCPassMutationCountByGene = json);
     }
 
-    public findSomaticMutationCountByGene(): any[] {
+    public findSomaticMutationsByGene(): any[] {
         return(this.somaticMutationCountByGene);
     }
 
-    public findPathogenicGermlineMutationCountByGene(): any[] {
-        return(this.pathogenicGermlineMutationCountByGene);
+    public findGermlineMutationsByGene(): any[] {
+        return(this.germlineMutationCountByGene);
     }
 
-    public findBiallelicPathogenicGermlineMutationCountByGene(): any[] {
-        return(this.biallelicPathogenicGermlineMutationCountByGene);
+    public findBiallelicGermlineMutationsByGene(): any[] {
+        return(this.biallelicGermlineMutationCountByGene);
     }
+
+    public findGermlineQCPassMutationsByGene(): any[] {
+        return(this.germlineQCPassMutationCountByGene);
+    }
+
 }
 
 export default MutationRepository;

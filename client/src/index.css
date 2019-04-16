@@ -3,3 +3,7 @@ body {
   padding: 0;
   font-family: "Open Sans", Georgia, sans-serif, serif;
 }
+
+.rc-tooltip {
+  opacity: 1 !important;
+}

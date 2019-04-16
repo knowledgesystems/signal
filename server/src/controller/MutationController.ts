@@ -12,7 +12,7 @@ class MutationController
                 mutationService: MutationService = new MutationService())
     {
         // configure endpoints
-        app.get("/api/mutation/count/byGene", this.fetchMutationsByGeneGET);
+        app.get("/api/mutation/count/byGene", this.fetchMutationCountsByGeneGET);
         app.get("/api/mutation/frequency/byGene", this.fetchMutationFrequenciesByGeneGET);
 
         // init services
@@ -20,8 +20,16 @@ class MutationController
     }
 
     @autobind
-    private fetchMutationsByGeneGET(req: Request, res: Response) {
-        res.send(this.mutationService.getAllMutationsByGene());
+    private fetchMutationCountsByGeneGET(req: Request, res: Response) {
+        const hugoSymbol = req.query.hugoSymbol;
+        const category = req.query.category;
+
+        if (hugoSymbol || category) {
+            res.send(this.mutationService.getMutationsByGene(hugoSymbol, category));
+        }
+        else {
+            res.send(this.mutationService.getAllMutationsByGene());
+        }
     }
 
     @autobind

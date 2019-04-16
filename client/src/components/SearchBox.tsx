@@ -15,7 +15,7 @@ interface ISearchBoxProps
 class SearchBox extends React.Component<ISearchBoxProps>
 {
     public static defaultProps = {
-        placeholder: "Search...",
+        placeholder: "Search Genes",
         searchIconClassName: "fa fa-search"
     };
 
@@ -24,6 +24,7 @@ class SearchBox extends React.Component<ISearchBoxProps>
         return (
             <FormControl
                 onChange={this.onChange}
+                className="text-center"
                 placeholder={this.props.placeholder}
                 aria-label="Search"
                 aria-describedby="basic-addon2"

@@ -58,6 +58,21 @@ class MutationService
         ];
     }
 
+    public getMutationsByGene(hugoSymbol?: string, category?: string): IMutation[]
+    {
+        let mutations = this.getAllMutationsByGene();
+
+        if (hugoSymbol) {
+            mutations = mutations.filter(m => m.hugoSymbol === hugoSymbol);
+        }
+
+        if (category) {
+            mutations = mutations.filter(m => m.category === category);
+        }
+
+        return mutations;
+    }
+
     public getSomaticMutationsByGene(): IMutation[]
     {
         return getMutationsByGene(

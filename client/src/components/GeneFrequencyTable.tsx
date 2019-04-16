@@ -1,21 +1,44 @@
 import * as React from "react";
 import ReactTable from "react-table";
 
-import "react-table/react-table.css";
-
 import {IAggregatedMutationFrequencyByGene} from "../../../server/src/model/MutationFrequency";
+import {fetchMutationsByGene} from "../store/DataUtils";
+import FrequencyCell from "./FrequencyCell";
+import TumorTypeFrequencyTable from "./TumorTypeFrequencyTable";
 
-interface IMutationTableProps
+import "react-table/react-table.css";
+import "./FrequencyTable.css";
+
+interface IFrequencyTableProps
 {
     data: IAggregatedMutationFrequencyByGene[];
 }
 
-class FrequencyTable extends React.Component<IMutationTableProps>
+function renderPercentage(cellProps: any)
+{
+    function overlay() {
+        // TODO category
+        return (
+            <TumorTypeFrequencyTable
+                dataPromise={fetchMutationsByGene(cellProps.original.hugoSymbol)}
+            />
+        );
+    }
+
+    return (
+        <FrequencyCell
+            frequency={cellProps.value}
+            overlay={overlay}
+        />
+    );
+}
+
+class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
 {
     public render() {
 
         return (
-            <div style={{fontSize: "1rem"}}>
+            <div className="insight-frequency-table">
                 <ReactTable
                     data={this.props.data}
                     columns={[
@@ -27,14 +50,17 @@ class FrequencyTable extends React.Component<IMutationTableProps>
                             Header: "Mutation Frequencies",
                             columns: [
                                 {
+                                    Cell: renderPercentage,
                                     Header: "Somatic",
                                     accessor: "somaticFrequency.all"
                                 },
                                 {
+                                    Cell: renderPercentage,
                                     Header: "Pathogenic Germline",
                                     accessor: "germlineFrequency.pathogenic"
                                 },
                                 {
+                                    Cell: renderPercentage,
                                     Header: "Biallelic Pathogenic Germline",
                                     accessor: "biallelicFrequency.pathogenic"
                                 },
@@ -43,10 +69,12 @@ class FrequencyTable extends React.Component<IMutationTableProps>
                     ]}
                     defaultPageSize={10}
                     className="-striped -highlight"
+                    previousText="<"
+                    nextText=">"
                 />
             </div>
         );
     }
 }
 
-export default FrequencyTable;
+export default GeneFrequencyTable;

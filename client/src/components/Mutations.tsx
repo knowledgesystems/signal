@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import {action, observable} from "mobx";
+import {action} from "mobx";
 import {observer} from "mobx-react";
 import * as React from 'react';
 import {
@@ -7,15 +7,12 @@ import {
 } from 'react-bootstrap';
 
 import MutationStore from "../store/MutationStore";
-import FrequencyTable from "./FrequencyTable";
+import GeneFrequencyTable from "./GeneFrequencyTable";
 import SearchBox from "./SearchBox";
 
 @observer
 class Mutations extends React.Component<{}>
 {
-    @observable
-    private mainContent: JSX.Element | undefined;
-
     private store: MutationStore = new MutationStore();
 
     public render() {
@@ -28,7 +25,7 @@ class Mutations extends React.Component<{}>
                 </Row>
                 <Row className="py-4">
                     <Col className="m-auto">
-                        {this.mainContent}
+                        <GeneFrequencyTable data={this.store.filteredMutationFrequencyData} />
                     </Col>
                 </Row>
             </Container>
@@ -37,15 +34,8 @@ class Mutations extends React.Component<{}>
 
     @autobind
     @action
-    private onSearch(input: string)
-    {
-        // TODO get the actual data for the search input and visualize it!
-        if (input.length > 0) {
-            this.mainContent = <FrequencyTable data={this.store.mutationFrequencies} />;
-        }
-        else {
-            this.mainContent = undefined;
-        }
+    private onSearch(input: string) {
+        this.store.filterFrequenciesByGene(input);
     }
 }
 

@@ -27,7 +27,7 @@ enum MutationCategory {
 }
 
 
-function renderPercentage(frequency: number, hugoSymbol: string, category: MutationCategory, pathogenic?: boolean)
+function renderPercentage(frequency: number|null, hugoSymbol: string, category: MutationCategory, pathogenic?: boolean)
 {
     function overlay() {
         return (
@@ -39,8 +39,8 @@ function renderPercentage(frequency: number, hugoSymbol: string, category: Mutat
 
     return (
         <FrequencyCell
-            frequency={frequency}
-            overlay={overlay}
+            frequency={frequency || 0}
+            overlay={frequency ? overlay : undefined}
         />
     );
 }
@@ -100,6 +100,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                         {
                             Header: "Gene",
                             accessor: "hugoSymbol",
+                            defaultSortDesc: false
                         },
                         {
                             Header: "Mutation Frequencies",
@@ -126,6 +127,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                         }
                     ]}
                     defaultPageSize={10}
+                    defaultSortDesc={true}
                     className="-striped -highlight"
                     previousText="<"
                     nextText=">"

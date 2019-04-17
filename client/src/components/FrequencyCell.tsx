@@ -34,7 +34,17 @@ class FrequencyCell extends React.Component<IFrequencyCellProps>
 
     private mainContent(): JSX.Element
     {
-        return <span>{(this.props.frequency * 100).toFixed(2)} %</span>;
+        const fractionDigits = 2;
+        const fixed = (this.props.frequency * 100).toFixed(fractionDigits);
+
+        let displayValue = fixed;
+
+        // if the actual value is not zero but the display value is like 0.00, then show instead < 0.01
+        if (this.props.frequency !== 0 && Number(fixed) === 0) {
+            displayValue = `< ${1 / Math.pow(10, fractionDigits)}`;
+        }
+
+        return <span>{displayValue} %</span>;
     }
 }
 

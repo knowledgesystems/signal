@@ -1,11 +1,14 @@
 import _ from 'lodash';
 
-import {IMutation} from "../../../server/src/model/Mutation";
+import {IMutation, MutationCategory} from "../../../server/src/model/Mutation";
 import {IAggregatedMutationFrequencyByGene} from "../../../server/src/model/MutationFrequency";
 
-export function fetchMutationsByGene(hugoSymbol: string): Promise<IMutation[]> {
+export function fetchMutationsByGene(hugoSymbol: string,
+                                     category?: MutationCategory,
+                                     pathogenic?: boolean): Promise<IMutation[]>
+{
     return new Promise<IMutation[]>((resolve, reject) => {
-        fetch(`/api/mutation/count/byGene?hugoSymbol=${hugoSymbol}`)
+        fetch(`/api/mutation/count/byGene?hugoSymbol=${hugoSymbol}&category=${category}&pathogenic=${pathogenic}`)
             .then(response => resolve(response.json()))
             .catch(err => reject(err));
     });

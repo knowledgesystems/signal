@@ -16,23 +16,74 @@ interface IFrequencyTableProps
     status: DataStatus;
 }
 
-function renderPercentage(cellProps: any)
+// TODO duplicate server side code, remove after resolving import from server issues
+enum MutationCategory {
+    DEFAULT = "NA",
+    SOMATIC = "somaticByGene",
+    GERMLINE = "germlineByGene",
+    BIALLELIC_GERMLINE = "biallelicGermlineByGene",
+    QC_GERMLINE = "qcGermlineByGene",
+    BIALLELIC_QC_OVERRIDDEN_GERMLINE = "biallelicQCOverriddenGermlineByGene"
+}
+
+
+function renderPercentage(frequency: number, hugoSymbol: string, category: MutationCategory, pathogenic?: boolean)
 {
     function overlay() {
-        // TODO category
         return (
             <TumorTypeFrequencyTable
-                dataPromise={fetchMutationsByGene(cellProps.original.hugoSymbol)}
+                dataPromise={fetchMutationsByGene(hugoSymbol, category, pathogenic)}
             />
         );
     }
 
     return (
         <FrequencyCell
-            frequency={cellProps.value}
+            frequency={frequency}
             overlay={overlay}
         />
     );
+}
+
+function renderSomatic(cellProps: any) {
+    return renderPercentage(cellProps.value,
+        cellProps.original.hugoSymbol,
+        MutationCategory.SOMATIC);
+}
+
+function renderGermline(cellProps: any) {
+    return renderPercentage(cellProps.value,
+        cellProps.original.hugoSymbol,
+        MutationCategory.GERMLINE,
+        true);
+}
+
+function renderBiallelic(cellProps: any) {
+    return renderPercentage(cellProps.value,
+        cellProps.original.hugoSymbol,
+        MutationCategory.BIALLELIC_QC_OVERRIDDEN_GERMLINE,
+        true);
+}
+
+export function somaticAccessor(aggregatedFrequency: IAggregatedMutationFrequencyByGene) {
+    const somaticFrequencies = aggregatedFrequency.frequencies.filter(
+        f => f.category === MutationCategory.SOMATIC);
+
+    return somaticFrequencies.length > 0 ? somaticFrequencies[0].all : null;
+}
+
+export function germlineAccessor(aggregatedFrequency: IAggregatedMutationFrequencyByGene) {
+    const germlineFrequencies = aggregatedFrequency.frequencies.filter(
+        f => f.category === MutationCategory.GERMLINE);
+
+    return germlineFrequencies.length > 0 ? germlineFrequencies[0].pathogenic : null;
+}
+
+export function biallelicAccessor(aggregatedFrequency: IAggregatedMutationFrequencyByGene) {
+    const biallelicFrequencies = aggregatedFrequency.frequencies.filter(
+        f => f.category === MutationCategory.BIALLELIC_QC_OVERRIDDEN_GERMLINE);
+
+    return biallelicFrequencies.length > 0 ? biallelicFrequencies[0].pathogenic : null;
 }
 
 class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
@@ -54,19 +105,22 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                             Header: "Mutation Frequencies",
                             columns: [
                                 {
-                                    Cell: renderPercentage,
+                                    id: "somatic",
+                                    Cell: renderSomatic,
                                     Header: "Somatic",
-                                    accessor: "somaticFrequency.all"
+                                    accessor: somaticAccessor
                                 },
                                 {
-                                    Cell: renderPercentage,
+                                    id: "germline",
+                                    Cell: renderGermline,
                                     Header: "Pathogenic Germline",
-                                    accessor: "germlineFrequency.pathogenic"
+                                    accessor: germlineAccessor
                                 },
                                 {
-                                    Cell: renderPercentage,
+                                    id: "biallelic",
+                                    Cell: renderBiallelic,
                                     Header: "Biallelic Pathogenic Germline",
-                                    accessor: "biallelicFrequency.pathogenic"
+                                    accessor: biallelicAccessor
                                 },
                             ]
                         }

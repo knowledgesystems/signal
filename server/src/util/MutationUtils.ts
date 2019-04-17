@@ -32,9 +32,7 @@ export function getFrequencyOrDefault(frequencyMap: {[hugoSymbol: string]: IAggr
 {
     frequencyMap[hugoSymbol] = frequencyMap[hugoSymbol] || {
         hugoSymbol,
-        somaticFrequency: {all: 0, pathogenic: 0},
-        germlineFrequency: {all: 0, pathogenic: 0},
-        biallelicFrequency: {all: 0, pathogenic: 0},
+        frequencies: []
     };
 
     return frequencyMap[hugoSymbol];
@@ -51,15 +49,18 @@ export function calculateFrequenciesByGene(mutations: IMutation[]): IAggregatedM
     const frequencyMap: {[hugoSymbol: string]: IAggregatedMutationFrequencyByGene} = {};
 
     somatic.forEach(frequency => {
-        getFrequencyOrDefault(frequencyMap, frequency.hugoSymbol).somaticFrequency = frequency.frequency;
+        getFrequencyOrDefault(frequencyMap, frequency.hugoSymbol).frequencies.push(
+            {...frequency.frequency, category: MutationCategory.SOMATIC});
     });
 
     germline.forEach(frequency => {
-        getFrequencyOrDefault(frequencyMap, frequency.hugoSymbol).germlineFrequency = frequency.frequency;
+        getFrequencyOrDefault(frequencyMap, frequency.hugoSymbol).frequencies.push(
+            {...frequency.frequency, category: MutationCategory.GERMLINE});
     });
 
     biallelic.forEach(frequency => {
-        getFrequencyOrDefault(frequencyMap, frequency.hugoSymbol).biallelicFrequency = frequency.frequency;
+        getFrequencyOrDefault(frequencyMap, frequency.hugoSymbol).frequencies.push(
+            {...frequency.frequency, category: MutationCategory.BIALLELIC_QC_OVERRIDDEN_GERMLINE});
     });
 
     return _.values(frequencyMap);

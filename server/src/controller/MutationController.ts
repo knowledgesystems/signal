@@ -23,9 +23,10 @@ class MutationController
     private fetchMutationCountsByGeneGET(req: Request, res: Response) {
         const hugoSymbol = req.query.hugoSymbol;
         const category = req.query.category;
+        const pathogenic = req.query.pathogenic === "true";
 
-        if (hugoSymbol || category) {
-            res.send(this.mutationService.getMutationsByGene(hugoSymbol, category));
+        if (hugoSymbol || category || pathogenic) {
+            res.send(this.mutationService.getMutationsByGene(hugoSymbol, category, pathogenic));
         }
         else {
             res.send(this.mutationService.getAllMutationsByGene());

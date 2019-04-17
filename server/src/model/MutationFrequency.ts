@@ -1,6 +1,9 @@
+import {MutationCategory} from "./Mutation";
+
 export interface IMutationFrequency {
     all: number;
     pathogenic: number;
+    category?: MutationCategory;
 }
 
 export interface IMutationFrequencyByGene
@@ -11,7 +14,5 @@ export interface IMutationFrequencyByGene
 
 export interface IAggregatedMutationFrequencyByGene {
     hugoSymbol: string;
-    somaticFrequency: IMutationFrequency;
-    germlineFrequency: IMutationFrequency;
-    biallelicFrequency: IMutationFrequency;
+    frequencies: IMutationFrequency[];
 }

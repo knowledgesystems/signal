@@ -31,7 +31,7 @@ class MutationService
         ];
     }
 
-    public getMutationsByGene(hugoSymbol?: string, category?: string): IMutation[]
+    public getMutationsByGene(hugoSymbol?: string, category?: string, pathogenic?: boolean): IMutation[]
     {
         let mutations = this.getAllMutationsByGene();
 
@@ -41,6 +41,10 @@ class MutationService
 
         if (category) {
             mutations = mutations.filter(m => m.category === category);
+        }
+
+        if (pathogenic) {
+            mutations = mutations.filter(m => m.isPathogenic);
         }
 
         return mutations;

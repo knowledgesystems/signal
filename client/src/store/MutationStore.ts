@@ -1,9 +1,16 @@
 import {action, computed, observable} from "mobx";
 
 import {IAggregatedMutationFrequencyByGene} from "../../../server/src/model/MutationFrequency";
+import {DataStatus} from "./DataStatus";
+import {fetchMutationFrequencyByGene} from "./DataUtils";
 
 class MutationStore
 {
+    @observable
+    public mutationFrequencyDataStatus: DataStatus = 'pending';
+
+    public mutationFrequencyDataPromise: Promise<IAggregatedMutationFrequencyByGene[]>;
+
     @observable
     protected mutationFrequencyData: IAggregatedMutationFrequencyByGene[] = [];
 
@@ -24,13 +31,16 @@ class MutationStore
     }
 
     constructor() {
-        fetch("/api/mutation/frequency/byGene")
-            .then(response => response.json())
+        this.mutationFrequencyDataPromise = fetchMutationFrequencyByGene();
+
+        this.mutationFrequencyDataPromise
             .then(data => {
-                this.mutationFrequencyData = data
+                this.mutationFrequencyData = data;
+                this.mutationFrequencyDataStatus = 'complete';
             })
             .catch(() => {
                 this.mutationFrequencyData = [];
+                this.mutationFrequencyDataStatus = 'error';
             });
     }
 

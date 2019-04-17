@@ -2,6 +2,7 @@ import * as React from "react";
 import ReactTable from "react-table";
 
 import {IAggregatedMutationFrequencyByGene} from "../../../server/src/model/MutationFrequency";
+import {DataStatus} from "../store/DataStatus";
 import {fetchMutationsByGene} from "../store/DataUtils";
 import FrequencyCell from "./FrequencyCell";
 import TumorTypeFrequencyTable from "./TumorTypeFrequencyTable";
@@ -12,6 +13,7 @@ import "./FrequencyTable.css";
 interface IFrequencyTableProps
 {
     data: IAggregatedMutationFrequencyByGene[];
+    status: DataStatus;
 }
 
 function renderPercentage(cellProps: any)
@@ -41,6 +43,8 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
             <div className="insight-frequency-table">
                 <ReactTable
                     data={this.props.data}
+                    loading={this.props.status === 'pending'}
+                    loadingText={<i className="fa fa-refresh fa-spin fa-2x" />}
                     columns={[
                         {
                             Header: "Gene",

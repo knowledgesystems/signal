@@ -25,7 +25,10 @@ class Mutations extends React.Component<{}>
                 </Row>
                 <Row className="py-4">
                     <Col className="m-auto">
-                        <GeneFrequencyTable data={this.store.filteredMutationFrequencyData} />
+                        <GeneFrequencyTable
+                            data={this.store.filteredMutationFrequencyData}
+                            status={this.store.mutationFrequencyDataStatus}
+                        />
                     </Col>
                 </Row>
             </Container>

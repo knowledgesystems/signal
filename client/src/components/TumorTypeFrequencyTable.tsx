@@ -4,6 +4,7 @@ import * as React from "react";
 import ReactTable from "react-table";
 
 import {IMutation} from "../../../server/src/model/Mutation";
+import {DataStatus} from "../store/DataStatus";
 import {extractTumorTypeFrequencyData} from "../store/DataUtils";
 import FrequencyCell from "./FrequencyCell";
 
@@ -37,7 +38,7 @@ class TumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTablePr
     private data: ITumorTypeFrequency[] = [];
 
     @observable
-    private status: 'pending' | 'error' | 'complete' = 'pending';
+    private status: DataStatus = 'pending';
 
     public render()
     {

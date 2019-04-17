@@ -1,39 +1,11 @@
-import {ICountByCancerType, IMutation, MutationCategory} from "../model/Mutation";
+import {IMutation, MutationCategory} from "../model/Mutation";
 import {IAggregatedMutationFrequencyByGene} from "../model/MutationFrequency";
 import MutationRepository from "../repository/MutationRepository";
-import {calculateFrequenciesByGene, getCountOrDefault, isPathogenic} from "../util/MutationUtils";
-
-const VARIANT_COUNT_POSTFIX = "_variant_count";
-const TUMOR_TYPE_COUNT_POSTFIX = "_tumortype_count";
-const GENE_COUNT_POSTFIX = "_gene_count";
-
-function getMutationsByGene(rows: any[], category?: MutationCategory): IMutation[]
-{
-    return rows.map(row => {
-        const countByCancerType: ICountByCancerType = {};
-
-        Object.keys(row).forEach(key => {
-            let cancerType: string|undefined;
-
-            if (key.endsWith(GENE_COUNT_POSTFIX)) {
-                cancerType = key.replace(GENE_COUNT_POSTFIX ,"");
-                getCountOrDefault(countByCancerType, cancerType).variantCount = Number(row[key]);
-            }
-            else if (key.endsWith((TUMOR_TYPE_COUNT_POSTFIX))) {
-                cancerType = key.replace(TUMOR_TYPE_COUNT_POSTFIX ,"");
-                getCountOrDefault(countByCancerType, cancerType).tumorTypeCount = Number(row[key]);
-            }
-        });
-
-        return {
-            category: category || MutationCategory.DEFAULT,
-            hugoSymbol: row.Hugo_Symbol,
-            isPathogenic: isPathogenic(row.classifier_pathogenic_final),
-            penetrance: row.penetrance,
-            countByCancerType
-        };
-    });
-}
+import {
+    calculateFrequenciesByGene,
+    getMutationsByGene,
+    overrideTumorTypeCounts
+} from "../util/MutationUtils";
 
 class MutationService
 {
@@ -54,7 +26,8 @@ class MutationService
             ...this.getSomaticMutationsByGene(),
             ...this.getGermlineMutationsByGene(),
             ...this.getBiallelicGermlineMutationsByGene(),
-            ...this.getGermlineQCPassMutationsByGene()
+            ...this.getGermlineQCPassMutationsByGene(),
+            ...this.getBiallelicGermlineQCPassOverriddenMutationsByGene()
         ];
     }
 
@@ -99,6 +72,14 @@ class MutationService
         return getMutationsByGene(
             this.mutationRepository.findGermlineQCPassMutationsByGene(),
             MutationCategory.QC_GERMLINE);
+    }
+
+    public getBiallelicGermlineQCPassOverriddenMutationsByGene(): IMutation[]
+    {
+        return overrideTumorTypeCounts(
+            this.getBiallelicGermlineMutationsByGene(),
+            this.getGermlineQCPassMutationsByGene(),
+            MutationCategory.BIALLELIC_QC_OVERRIDDEN_GERMLINE);
     }
 }
 

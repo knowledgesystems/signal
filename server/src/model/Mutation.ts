@@ -16,5 +16,6 @@ export enum MutationCategory {
     SOMATIC = "somaticByGene",
     GERMLINE = "germlineByGene",
     BIALLELIC_GERMLINE = "biallelicGermlineByGene",
-    QC_GERMLINE = "qcGermlineByGene"
+    QC_GERMLINE = "qcGermlineByGene",
+    BIALLELIC_QC_OVERRIDDEN_GERMLINE = "biallelicQCOverriddenGermlineByGene"
 }

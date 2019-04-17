@@ -3,6 +3,10 @@ import _ from "lodash";
 import {ICountByCancerType, IMutation, MutationCategory} from "../model/Mutation";
 import {IAggregatedMutationFrequencyByGene, IMutationFrequencyByGene} from "../model/MutationFrequency";
 
+const VARIANT_COUNT_POSTFIX = "_variant_count";
+const TUMOR_TYPE_COUNT_POSTFIX = "_tumortype_count";
+const GENE_COUNT_POSTFIX = "_gene_count";
+
 export function isPathogenic(pathogenic: string): boolean|undefined
 {
     if (pathogenic.trim() === "0") {
@@ -42,9 +46,7 @@ export function calculateFrequenciesByGene(mutations: IMutation[]): IAggregatedM
 
     const somatic = calculateFrequencyByGene(groupedByCategory[MutationCategory.SOMATIC]);
     const germline = calculateFrequencyByGene(groupedByCategory[MutationCategory.GERMLINE]);
-    const biallelic = calculateFrequencyByGene(
-        groupedByCategory[MutationCategory.BIALLELIC_GERMLINE],
-        groupedByCategory[MutationCategory.QC_GERMLINE]);
+    const biallelic = calculateFrequencyByGene(groupedByCategory[MutationCategory.BIALLELIC_QC_OVERRIDDEN_GERMLINE]);
 
     const frequencyMap: {[hugoSymbol: string]: IAggregatedMutationFrequencyByGene} = {};
 
@@ -63,11 +65,9 @@ export function calculateFrequenciesByGene(mutations: IMutation[]): IAggregatedM
     return _.values(frequencyMap);
 }
 
-export function calculateFrequencyByGene(mutations: IMutation[], qcMutations?: IMutation[]): IMutationFrequencyByGene[]
+export function calculateFrequencyByGene(mutations: IMutation[]): IMutationFrequencyByGene[]
 {
     const groupedByGene: {[hugoSymbol: string]: IMutation[]} = _.groupBy(mutations, "hugoSymbol");
-    const qcGroupedByGene: {[hugoSymbol: string]: IMutation[]} | undefined =
-        qcMutations ? _.groupBy(qcMutations, "hugoSymbol") : undefined;
 
     return _.keys(groupedByGene).map(hugoSymbol => {
         const mergedAllCounts = mergeMutationCounts(groupedByGene[hugoSymbol]);
@@ -113,4 +113,63 @@ export function sumToSingleCount(count: ICountByCancerType)
             tumorTypeCount: acc.tumorTypeCount + curr.tumorTypeCount
          })
         , {variantCount: 0, tumorTypeCount: 0});
+}
+
+export function getMutationsByGene(rows: any[], category?: MutationCategory): IMutation[]
+{
+    return rows.map(row => {
+        const countByCancerType: ICountByCancerType = {};
+
+        Object.keys(row).forEach(key => {
+            let cancerType: string|undefined;
+
+            if (key.endsWith(GENE_COUNT_POSTFIX)) {
+                cancerType = key.replace(GENE_COUNT_POSTFIX ,"");
+                getCountOrDefault(countByCancerType, cancerType).variantCount = Number(row[key]);
+            }
+            else if (key.endsWith((TUMOR_TYPE_COUNT_POSTFIX))) {
+                cancerType = key.replace(TUMOR_TYPE_COUNT_POSTFIX ,"");
+                getCountOrDefault(countByCancerType, cancerType).tumorTypeCount = Number(row[key]);
+            }
+        });
+
+        return {
+            category: category || MutationCategory.DEFAULT,
+            hugoSymbol: row.Hugo_Symbol,
+            isPathogenic: isPathogenic(row.classifier_pathogenic_final),
+            penetrance: row.penetrance,
+            countByCancerType
+        };
+    });
+}
+
+
+export function overrideTumorTypeCounts(overrideTargetMutations: IMutation[],
+                                        overrideSourceMutations: IMutation[],
+                                        category?: MutationCategory): IMutation[]
+{
+    const sourceGroupedByGene: {[hugoSymbol: string]: IMutation[]} = _.groupBy(overrideSourceMutations, "hugoSymbol");
+
+    return overrideTargetMutations.map(m => {
+        const sourceMutations = sourceGroupedByGene[m.hugoSymbol];
+        const overriddenCountByCancerType: ICountByCancerType = {};
+
+        _.keys(m.countByCancerType).forEach((cancerType: string) => {
+            overriddenCountByCancerType[cancerType] = {
+                variantCount: m.countByCancerType[cancerType].variantCount,
+                // try to override tumor type counts from the source
+                tumorTypeCount: sourceMutations.length > 0 && sourceMutations[0].countByCancerType[cancerType] ?
+                    sourceMutations[0].countByCancerType[cancerType].tumorTypeCount :
+                    m.countByCancerType[cancerType].tumorTypeCount
+            }
+        });
+
+        return {
+            category,
+            hugoSymbol: m.hugoSymbol,
+            isPathogenic: m.isPathogenic,
+            penetrance: m.penetrance,
+            countByCancerType: overriddenCountByCancerType
+        };
+    });
 }

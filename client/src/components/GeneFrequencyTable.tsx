@@ -114,13 +114,13 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                                 {
                                     id: "germline",
                                     Cell: renderGermline,
-                                    Header: "Pathogenic Germline",
+                                    Header: <span className="text-wrap">Pathogenic Germline</span>,
                                     accessor: germlineAccessor
                                 },
                                 {
                                     id: "biallelic",
                                     Cell: renderBiallelic,
-                                    Header: "Biallelic Pathogenic Germline",
+                                    Header: <span className="text-wrap">Biallelic Pathogenic Germline</span>,
                                     accessor: biallelicAccessor
                                 },
                             ]

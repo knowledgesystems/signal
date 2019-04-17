@@ -130,10 +130,10 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-table@^6.8.0":
-  version "6.8.0"
-  resolved "https://registry.yarnpkg.com/@types/react-table/-/react-table-6.8.0.tgz#97cd60a119d5a969ff6aa73ca6e55847ce8ae703"
-  integrity sha512-2oIZ8kXGK5Pka2MrdNcPCED0NUVEc3tcOI2/Q4vHjeSghHr470AEEidxG19/KMZfCGl5/ISEcKtCHCiFNAFhyg==
+"@types/react-table@^6.8.1":
+  version "6.8.1"
+  resolved "https://registry.yarnpkg.com/@types/react-table/-/react-table-6.8.1.tgz#ff92b25677a220356064321234fd89ba590db1e3"
+  integrity sha512-56wi1s7+H4eGbtXsppNz/OeBeUiPQZnJYLxia0ZpwcD47VfYFE1EkbVadEoJshJIjR4nbSQSF/AgJHvC/ZwHaQ==
   dependencies:
     "@types/react" "*"
 
@@ -7093,10 +7093,10 @@ react-scripts-ts@3.1.0:
   optionalDependencies:
     fsevents "^1.1.3"
 
-react-table@^6.9.2:
-  version "6.9.2"
-  resolved "https://registry.yarnpkg.com/react-table/-/react-table-6.9.2.tgz#6a59adfeb8d5deced288241ed1c7847035b5ec5f"
-  integrity sha512-sTbNHU8Um0xRtmCd1js873HXnXaMWeBwZoiljuj0l1d44eaqjKyYPK/3HCBbJg1yeE2O5pQJ3Km0tlm9niNL9w==
+react-table@6.8.6:
+  version "6.8.6"
+  resolved "https://registry.yarnpkg.com/react-table/-/react-table-6.8.6.tgz#a0ad8b4839319052d5befc012603fb161e52ede3"
+  integrity sha1-oK2LSDkxkFLVvvwBJgP7Fh5S7eM=
   dependencies:
     classnames "^2.2.5"
 

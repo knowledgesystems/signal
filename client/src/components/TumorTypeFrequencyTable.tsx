@@ -51,15 +51,15 @@ class TumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTablePr
                     loadingText={<i className="fa fa-refresh fa-spin fa-2x" />}
                     columns={[
                         {
-                            Header: "Tumor Type",
+                            Header: <span className="text-wrap">Tumor Type</span>,
                             accessor: "cancerType"
                         },
                         {
-                            Header: "# Samples with variant",
+                            Header: <span className="text-wrap"># Samples with variant</span>,
                             accessor: "variantCount"
                         },
                         {
-                            Header: "Total samples",
+                            Header: <span className="text-wrap">Total samples</span>,
                             accessor: "tumorTypeCount"
                         },
                         {

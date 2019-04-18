@@ -48,7 +48,7 @@ class TumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTablePr
                     onFetchData={this.onFetchData}
                     data={this.data}
                     loading={this.status === 'pending'}
-                    loadingText={<i className="fa fa-refresh fa-spin fa-2x" />}
+                    loadingText={<i className="fa fa-spinner fa-pulse fa-2x" />}
                     columns={[
                         {
                             Header: <span className="text-wrap">Tumor type</span>,

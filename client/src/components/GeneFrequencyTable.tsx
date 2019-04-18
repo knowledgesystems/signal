@@ -95,7 +95,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                 <ReactTable
                     data={this.props.data}
                     loading={this.props.status === 'pending'}
-                    loadingText={<i className="fa fa-refresh fa-spin fa-2x" />}
+                    loadingText={<i className="fa fa-spinner fa-pulse fa-2x" />}
                     columns={[
                         {
                             Header: "Gene",

@@ -1,3 +1,4 @@
+import compression from "compression";
 import express from 'express';
 import path from 'path';
 
@@ -13,6 +14,7 @@ const mutationController = new MutationController(app);
 
 if (process.env.NODE_ENV === "production")
 {
+    app.use(compression());
     app.use(express.static(path.join(__dirname, staticAppDir)));
 
     app.get('/*', (req, res) => {

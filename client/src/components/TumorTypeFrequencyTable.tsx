@@ -51,28 +51,33 @@ class TumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTablePr
                     loadingText={<i className="fa fa-refresh fa-spin fa-2x" />}
                     columns={[
                         {
-                            Header: <span className="text-wrap">Tumor Type</span>,
-                            accessor: "cancerType"
+                            Header: <span className="text-wrap">Tumor type</span>,
+                            accessor: "cancerType",
+                            minWidth: 250
                         },
                         {
-                            Header: <span className="text-wrap"># Samples with variant</span>,
-                            accessor: "variantCount"
+                            Header: <span className="text-wrap">Samples with variant</span>,
+                            accessor: "variantCount",
+                            maxWidth: 80
                         },
                         {
                             Header: <span className="text-wrap">Total samples</span>,
-                            accessor: "tumorTypeCount"
+                            accessor: "tumorTypeCount",
+                            maxWidth: 80
                         },
                         {
                             id: "frequency",
                             Cell: renderPercentage,
                             Header: "Frequency",
-                            accessor: row => row.variantCount / row.tumorTypeCount
+                            accessor: row => row.variantCount / row.tumorTypeCount,
+                            maxWidth: 100
                         }
                     ]}
                     defaultSorted={[{
                         id: "frequency",
                         desc: true
                     }]}
+                    defaultSortDesc={true}
                     defaultPageSize={5}
                     className="-striped -highlight"
                     previousText="<"

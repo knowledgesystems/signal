@@ -127,6 +127,10 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                         }
                     ]}
                     defaultPageSize={10}
+                    defaultSorted={[{
+                        id: "germline",
+                        desc: true
+                    }]}
                     defaultSortDesc={true}
                     className="-striped -highlight"
                     previousText="<"

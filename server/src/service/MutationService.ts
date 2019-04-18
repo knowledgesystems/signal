@@ -11,8 +11,25 @@ class MutationService
 {
     private mutationRepository: MutationRepository;
 
-    constructor(mutationRepository: MutationRepository = new MutationRepository()) {
-        this.mutationRepository = mutationRepository;
+    // TODO use mobx computed and observable if possible
+    private somaticMutationsByGene: IMutation[] | undefined;
+    private germlineMutationsByGene: IMutation[] | undefined;
+    private biallelicGermlineMutationsByGene: IMutation[] | undefined;
+    private germlineQCPassMutationsByGene: IMutation[] | undefined;
+    private biallelicGermlineQCPassOverriddenMutationsByGene: IMutation[] | undefined;
+    private allMutationsByGene: IMutation[] | undefined;
+
+    constructor(mutationRepository?: MutationRepository)
+    {
+        this.mutationRepository = mutationRepository || new MutationRepository(() => {
+            // precompute mutations by gene
+            this.somaticMutationsByGene = this.getSomaticMutationsByGene();
+            this.germlineMutationsByGene = this.getGermlineMutationsByGene();
+            this.biallelicGermlineMutationsByGene = this.getBiallelicGermlineMutationsByGene();
+            this.germlineQCPassMutationsByGene = this.getGermlineQCPassMutationsByGene();
+            this.biallelicGermlineQCPassOverriddenMutationsByGene = this.getBiallelicGermlineQCPassOverriddenMutationsByGene();
+            this.allMutationsByGene = this.getAllMutationsByGene();
+        });
     }
 
     public getMutationFrequenciesByGene(): IAggregatedMutationFrequencyByGene[]
@@ -22,7 +39,7 @@ class MutationService
 
     public getAllMutationsByGene(): IMutation[]
     {
-        return [
+        return this.allMutationsByGene || [
             ...this.getSomaticMutationsByGene(),
             ...this.getGermlineMutationsByGene(),
             ...this.getBiallelicGermlineMutationsByGene(),
@@ -52,35 +69,35 @@ class MutationService
 
     public getSomaticMutationsByGene(): IMutation[]
     {
-        return getMutationsByGene(
+        return this.somaticMutationsByGene || getMutationsByGene(
             this.mutationRepository.findSomaticMutationsByGene(),
             MutationCategory.SOMATIC);
     }
 
     public getGermlineMutationsByGene(): IMutation[]
     {
-        return getMutationsByGene(
+        return this.germlineMutationsByGene || getMutationsByGene(
             this.mutationRepository.findGermlineMutationsByGene(),
             MutationCategory.GERMLINE);
     }
 
     public getBiallelicGermlineMutationsByGene(): IMutation[]
     {
-        return getMutationsByGene(
+        return this.biallelicGermlineMutationsByGene || getMutationsByGene(
             this.mutationRepository.findBiallelicGermlineMutationsByGene(),
             MutationCategory.BIALLELIC_GERMLINE);
     }
 
     public getGermlineQCPassMutationsByGene(): IMutation[]
     {
-        return getMutationsByGene(
+        return this.germlineQCPassMutationsByGene || getMutationsByGene(
             this.mutationRepository.findGermlineQCPassMutationsByGene(),
             MutationCategory.QC_GERMLINE);
     }
 
     public getBiallelicGermlineQCPassOverriddenMutationsByGene(): IMutation[]
     {
-        return overrideTumorTypeCounts(
+        return this.biallelicGermlineQCPassOverriddenMutationsByGene || overrideTumorTypeCounts(
             this.getBiallelicGermlineMutationsByGene(),
             this.getGermlineQCPassMutationsByGene(),
             MutationCategory.BIALLELIC_QC_OVERRIDDEN_GERMLINE);

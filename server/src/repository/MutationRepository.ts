@@ -14,7 +14,7 @@ class MutationRepository
     private biallelicGermlineMutationCountByGene: any[];
     private germlineQCPassMutationCountByGene: any[];
 
-    constructor()
+    constructor(onReady?: () => void)
     {
         // const mutationsFilePath = path.join(__dirname, "../resources/data/mutations_by_tumortype_merge.txt");
         const somaticMutationCountByGenePath = path.join(__dirname, "../resources/data/somatic_genelevel_summary.txt");
@@ -22,10 +22,20 @@ class MutationRepository
         const biallelicGermlineMutationByGenePath = path.join(__dirname, "../resources/data/gene_biallelic_by_tumortype_merge.txt");
         const germlineQCPassMutationCountByGenePath = path.join(__dirname, "../resources/data/gene_QCpass_by_tumortype_merge.txt");
 
-        readCounts(somaticMutationCountByGenePath).then(json => this.somaticMutationCountByGene = json);
-        readCounts(germlineMutationCountByGenePath).then(json => this.germlineMutationCountByGene = json);
-        readCounts(biallelicGermlineMutationByGenePath).then(json => this.biallelicGermlineMutationCountByGene = json);
-        readCounts(germlineQCPassMutationCountByGenePath).then(json => this.germlineQCPassMutationCountByGene = json);
+        const promises = [
+            readCounts(somaticMutationCountByGenePath).then(
+                json => this.somaticMutationCountByGene = json),
+            readCounts(germlineMutationCountByGenePath).then(
+                json => this.germlineMutationCountByGene = json),
+            readCounts(biallelicGermlineMutationByGenePath).then(
+                json => this.biallelicGermlineMutationCountByGene = json),
+            readCounts(germlineQCPassMutationCountByGenePath).then(
+                json => this.germlineQCPassMutationCountByGene = json)
+        ];
+
+        if (onReady) {
+            Promise.all(promises).then(() => onReady());
+        }
     }
 
     public findSomaticMutationsByGene(): any[] {

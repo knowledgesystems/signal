@@ -8,6 +8,7 @@ import {DataStatus} from "../store/DataStatus";
 import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelper";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
 import FrequencyCell from "./FrequencyCell";
+import Gene from "./Gene";
 
 import "react-table/react-table.css";
 import "./FrequencyTable.css";
@@ -15,6 +16,7 @@ import "./FrequencyTable.css";
 interface ITumorTypeFrequencyTableProps
 {
     dataPromise: Promise<ITumorTypeFrequencySummary[]>;
+    penetrance: string[];
     hugoSymbol: string;
 }
 
@@ -57,7 +59,14 @@ class TumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTablePr
                     loadingText={<i className="fa fa-spinner fa-pulse fa-2x" />}
                     columns={[
                         {
-                            Header: <strong className="pull-left ml-4">{this.props.hugoSymbol}</strong>,
+                            Header: (
+                                <Gene
+                                    hugoSymbol={this.props.hugoSymbol}
+                                    hugoSymbolClassName="pull-left ml-4"
+                                    penetrance={this.props.penetrance}
+                                    penetranceClassName="pull-left ml-4"
+                                />
+                            ),
                             columns: [
                                 {
                                     id: "tumorType",

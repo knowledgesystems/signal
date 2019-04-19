@@ -11,6 +11,7 @@ import TumorTypeFrequencyTable from "./TumorTypeFrequencyTable";
 
 import "react-table/react-table.css";
 import "./FrequencyTable.css";
+import Gene from "./Gene";
 
 interface IFrequencyTableProps
 {
@@ -28,12 +29,11 @@ function renderPercentage(cellProps: any)
 
 function renderHugoSymbol(cellProps: any)
 {
-    // TODO forEach -> <Penetrance />
-
     return (
-        <span>
-            {cellProps.value}
-        </span>
+        <Gene
+            hugoSymbol={cellProps.value}
+            penetrance={cellProps.original.penetrance.split(",")}
+        />
     );
 }
 
@@ -42,6 +42,7 @@ function renderSubComponent(row: any) {
         <div className="p-4">
             <TumorTypeFrequencyTable
                 hugoSymbol={row.original.hugoSymbol}
+                penetrance={row.original.penetrance.split(",")}
                 dataPromise={fetchTumorTypeFrequenciesByGene(row.original.hugoSymbol)}
             />
         </div>

@@ -1,4 +1,6 @@
+import Tooltip from "rc-tooltip";
 import * as React from "react";
+
 import CircledLetter from "./CircledLetter";
 
 export interface IPenetranceProps
@@ -7,9 +9,10 @@ export interface IPenetranceProps
 }
 
 const STYLE_MAP = {
-    Low: {displayValue: "L", color: "#808080"},
-    Moderate: {displayValue: "M", color: "#0066AA"},
-    High: {displayValue: "H", color: "#AA3636"}
+    Uncertain: {displayValue: "U", color: "#C1C1C1"},
+    Low: {displayValue: "L", color: "#FFD700"},
+    Moderate: {displayValue: "M", color: "#FFAA22"},
+    High: {displayValue: "H", color: "#FF0000"},
 };
 
 class Penetrance extends React.Component<IPenetranceProps>
@@ -20,11 +23,20 @@ class Penetrance extends React.Component<IPenetranceProps>
 
         if (style) {
             return (
-                <CircledLetter
-                    key={this.props.value}
-                    letter={style.displayValue}
-                    color={style.color}
-                />
+                <Tooltip
+                    mouseEnterDelay={0.5}
+                    arrowContent={<div className="rc-tooltip-arrow-inner"/>}
+                    placement="top"
+                    overlay={<span>{this.props.value} penetrance</span>}
+                    destroyTooltipOnHide={true}
+                >
+                    <span>
+                        <CircledLetter
+                            letter={style.displayValue}
+                            color={style.color}
+                        />
+                    </span>
+                </Tooltip>
             );
         }
         else {

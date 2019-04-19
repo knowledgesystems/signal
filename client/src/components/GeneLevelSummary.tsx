@@ -6,14 +6,14 @@ import {
     Col, Container, Row
 } from 'react-bootstrap';
 
-import MutationStore from "../store/MutationStore";
+import GeneFrequencyStore from "../store/GeneFrequencyStore";
 import GeneFrequencyTable from "./GeneFrequencyTable";
 import SearchBox from "./SearchBox";
 
 @observer
-class Mutations extends React.Component<{}>
+class GeneLevelSummary extends React.Component<{}>
 {
-    private store: MutationStore = new MutationStore();
+    private store: GeneFrequencyStore = new GeneFrequencyStore();
 
     public render() {
         return (
@@ -26,8 +26,8 @@ class Mutations extends React.Component<{}>
                 <Row className="py-4">
                     <Col className="m-auto">
                         <GeneFrequencyTable
-                            data={this.store.filteredMutationFrequencyData}
-                            status={this.store.mutationFrequencyDataStatus}
+                            data={this.store.filteredGeneFrequencySummaryData}
+                            status={this.store.geneFrequencyDataStatus}
                         />
                     </Col>
                 </Row>
@@ -42,4 +42,4 @@ class Mutations extends React.Component<{}>
     }
 }
 
-export default Mutations;
+export default GeneLevelSummary;

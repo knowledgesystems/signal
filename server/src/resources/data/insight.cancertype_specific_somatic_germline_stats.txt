@@ -1,0 +1,1142 @@
+Hugo_Symbol	penetrance	Proposed_level	num_samples	somatic_driver_rate	pathogenic_germline_rate	percent_biallelic
+HIST3H3	Uncertain	Adrenocortical Carcinoma	35	0	0.0286	0
+BARD1	Uncertain	Adrenocortical Carcinoma	41	0	0.0244	0
+DNMT3B	Uncertain	Adrenocortical Carcinoma	41	0	0.0244	0
+EGFL7	Uncertain	Adrenocortical Carcinoma	41	0	0.0244	1
+MSH2	High	Adrenocortical Carcinoma	41	0.0732	0.0244	1
+MSH6	High	Adrenocortical Carcinoma	41	0.0244	0.0244	1
+MUTYH	Low	Adrenocortical Carcinoma	41	0	0.0244	1
+PIK3C2G	Uncertain	Adrenocortical Carcinoma	41	0	0.0244	NA
+SDHC	High	Adrenocortical Carcinoma	41	0	0.0244	1
+NUP93	Uncertain	Ampullary Carcinoma	43	0	0.0233	0
+APC	Low,High	Ampullary Carcinoma	47	0.1489	0.0213	0
+ATM	Moderate	Ampullary Carcinoma	47	0.0426	0.0638	0.667
+BRCA2	High	Ampullary Carcinoma	47	0	0.0851	0.75
+FANCA	Uncertain	Ampullary Carcinoma	47	0.0213	0.0213	0
+MUTYH	Low	Ampullary Carcinoma	47	0	0.0426	0
+RAD50	Uncertain	Ampullary Carcinoma	47	0	0.0213	0
+APC	Low,High	Anal Cancer	48	0	0.0417	0
+BRCA2	High	Anal Cancer	48	0.0208	0.0208	0
+CHEK2	Moderate,Uncertain	Anal Cancer	48	0	0.0208	0
+IFNGR1	Uncertain	Anal Cancer	48	0	0.0208	0
+MITF	Moderate	Anal Cancer	48	0	0.0208	1
+PIK3C2G	Uncertain	Anal Cancer	48	0	0.0417	0
+PMS1	Uncertain	Anal Cancer	48	0	0.0208	0
+SDHB	High	Anal Cancer	48	0	0.0208	0
+TET2	Uncertain	Anal Cancer	48	0	0.0208	0
+ATM	Moderate	Appendiceal Adenocarcinoma	122	0.0574	0.0164	NA
+BARD1	Uncertain	Appendiceal Adenocarcinoma	122	0	0.0082	0
+BRCA2	High	Appendiceal Adenocarcinoma	122	0	0.0082	0
+CHEK2	Moderate,Uncertain	Appendiceal Adenocarcinoma	122	0	0.0082	NA
+FANCC	Uncertain	Appendiceal Adenocarcinoma	122	0	0.0082	0
+MSH2	High	Appendiceal Adenocarcinoma	122	0	0.0082	0
+MUTYH	Low	Appendiceal Adenocarcinoma	122	0	0.0164	0.5
+SHQ1	Uncertain	Appendiceal Adenocarcinoma	122	0	0.0082	0
+HIST1H3A	Uncertain	Bladder Cancer	460	0	0.0022	0
+HIST1H3F	Uncertain	Bladder Cancer	460	0	0.0022	0
+HIST3H3	Uncertain	Bladder Cancer	460	0	0.0022	0
+MST1	Uncertain	Bladder Cancer	460	0	0.0022	0
+APC	Low,High	Bladder Cancer	548	0.0255	0.0182	0.5
+ATM	Moderate	Bladder Cancer	548	0.1131	0.0036	0
+ATR	Uncertain	Bladder Cancer	548	0.0146	0.0036	0
+BAP1	High	Bladder Cancer	548	0.0219	0.0018	NA
+BARD1	Uncertain	Bladder Cancer	548	0	0.0018	1
+BCL2L11	Uncertain	Bladder Cancer	548	0.0055	0.0018	0
+BRCA1	High	Bladder Cancer	548	0.0091	0.0109	0.167
+BRCA2	High	Bladder Cancer	548	0.0237	0.0164	0.333
+BRIP1	Moderate	Bladder Cancer	548	0.0255	0.0018	1
+CASP8	Uncertain	Bladder Cancer	548	0.0128	0.0018	1
+CHEK2	Moderate,Uncertain	Bladder Cancer	548	0	0.0109	0
+CSF1R	Uncertain	Bladder Cancer	548	0	0.0018	0
+DIS3	Uncertain	Bladder Cancer	548	0.0018	0.0018	0
+ERCC2	Uncertain	Bladder Cancer	548	0.0474	0.0036	0.5
+ERCC3	Uncertain	Bladder Cancer	548	0.0036	0.0091	0
+FANCA	Uncertain	Bladder Cancer	548	0.0055	0.0018	0
+FANCC	Uncertain	Bladder Cancer	548	0.0036	0.0018	0
+FH	Uncertain,High	Bladder Cancer	548	0	0.0073	0.333
+INPP4A	Uncertain	Bladder Cancer	548	0	0.0018	0
+LATS1	Uncertain	Bladder Cancer	548	0.0182	0.0018	0
+MLH1	High	Bladder Cancer	548	0.0018	0.0018	1
+MRE11A	Uncertain	Bladder Cancer	548	0	0.0018	0
+MSH2	High	Bladder Cancer	548	0.0201	0.0109	1
+MSH6	High	Bladder Cancer	548	0.0109	0.0036	1
+MUTYH	Low	Bladder Cancer	548	0	0.0109	0
+NBN	Moderate	Bladder Cancer	548	0	0.0055	0
+NOTCH3	Uncertain	Bladder Cancer	548	0	0.0018	1
+PALB2	High	Bladder Cancer	548	0	0.0018	NA
+PARK2	Uncertain	Bladder Cancer	548	0	0.0018	0
+PIK3C2G	Uncertain	Bladder Cancer	548	0	0.0036	0.5
+PLK2	Uncertain	Bladder Cancer	548	0	0.0018	NA
+PMS1	Uncertain	Bladder Cancer	548	0	0.0018	1
+RAD50	Uncertain	Bladder Cancer	548	0.0055	0.0055	0
+RECQL4	Uncertain	Bladder Cancer	548	0	0.0036	0
+SDHA	High	Bladder Cancer	548	0	0.0018	1
+TET2	Uncertain	Bladder Cancer	548	0.0109	0.0036	0.5
+TP53	High	Bladder Cancer	548	0.4325	0.0018	0
+APC	Low,High	Bone Cancer	206	0	0.0049	0
+BARD1	Uncertain	Bone Cancer	206	0	0.0049	0
+BRCA1	High	Bone Cancer	206	0.0049	0.0097	0
+BRCA2	High	Bone Cancer	206	0.0049	0.0049	0
+BRIP1	Moderate	Bone Cancer	206	0	0.0049	0
+CHEK2	Moderate,Uncertain	Bone Cancer	206	0	0.0146	0
+DIS3	Uncertain	Bone Cancer	206	0	0.0049	0
+ERCC2	Uncertain	Bone Cancer	206	0	0.0049	0
+ERCC3	Uncertain	Bone Cancer	206	0	0.0146	0
+ERCC4	Uncertain	Bone Cancer	206	0	0.0049	0
+FANCC	Uncertain	Bone Cancer	206	0	0.0049	1
+FH	Uncertain,High	Bone Cancer	206	0	0.0049	0
+LATS2	Uncertain	Bone Cancer	206	0.0049	0.0049	1
+MLH1	High	Bone Cancer	206	0	0.0097	1
+MRE11A	Uncertain	Bone Cancer	206	0	0.0049	0
+MSH2	High	Bone Cancer	206	0	0.0049	1
+MUTYH	Low	Bone Cancer	206	0	0.0097	0
+PIK3C2G	Uncertain	Bone Cancer	206	0	0.0146	0
+RB1	High	Bone Cancer	206	0.0291	0.0146	1
+RECQL4	Uncertain	Bone Cancer	206	0	0.0049	0
+SHQ1	Uncertain	Bone Cancer	206	0	0.0097	0
+SPOP	Uncertain	Bone Cancer	206	0	0.0049	1
+STAG2	Uncertain	Bone Cancer	206	0.0291	0.0049	NA
+SUZ12	Uncertain	Bone Cancer	206	0	0.0049	1
+TP53	High	Bone Cancer	206	0.165	0.0097	1
+TSHR	Uncertain	Bone Cancer	206	0	0.0049	0
+VHL	High,Uncertain	Bone Cancer	206	0	0.0097	0.5
+MST1	Uncertain	Cancer of Unknown Primary	368	0	0.0027	1
+TCF7L2	Uncertain	Cancer of Unknown Primary	368	0.0054	0.0027	0
+APC	Low,High	Cancer of Unknown Primary	409	0.0416	0.0171	0.4
+ASXL2	Uncertain	Cancer of Unknown Primary	409	0.0073	0.0024	1
+ATM	Moderate	Cancer of Unknown Primary	409	0.088	0.0098	0.333
+BBC3	Uncertain	Cancer of Unknown Primary	409	0	0.0024	0
+BLM	Uncertain	Cancer of Unknown Primary	409	0	0.0049	0
+BRCA1	High	Cancer of Unknown Primary	409	0.0049	0.0073	1
+BRCA2	High	Cancer of Unknown Primary	409	0.0049	0.0171	0.714
+BRIP1	Moderate	Cancer of Unknown Primary	409	0.0391	0.0049	0
+CDKN1A	Uncertain	Cancer of Unknown Primary	409	0	0.0024	0
+CHEK2	Moderate,Uncertain	Cancer of Unknown Primary	409	0	0.0293	0.333
+CIC	Uncertain	Cancer of Unknown Primary	409	0.0049	0.0024	0
+EPCAM	Uncertain	Cancer of Unknown Primary	409	0	0.0024	NA
+ERCC2	Uncertain	Cancer of Unknown Primary	409	0	0.0049	0
+ERCC3	Uncertain	Cancer of Unknown Primary	409	0	0.0049	1
+FANCA	Uncertain	Cancer of Unknown Primary	409	0	0.0024	NA
+FANCC	Uncertain	Cancer of Unknown Primary	409	0	0.0024	1
+JAK3	Uncertain	Cancer of Unknown Primary	409	0	0.0024	0
+MDC1	Uncertain	Cancer of Unknown Primary	409	0	0.0024	0
+MITF	Moderate	Cancer of Unknown Primary	409	0	0.0049	0
+MRE11A	Uncertain	Cancer of Unknown Primary	409	0	0.0024	0
+MSH2	High	Cancer of Unknown Primary	409	0.0049	0.0024	1
+MUTYH	Low	Cancer of Unknown Primary	409	0	0.0269	0.25
+NOTCH4	Uncertain	Cancer of Unknown Primary	409	0	0.0073	0
+PARK2	Uncertain	Cancer of Unknown Primary	409	0	0.0024	0
+PIK3C2G	Uncertain	Cancer of Unknown Primary	409	0	0.0024	1
+PRDM1	Uncertain	Cancer of Unknown Primary	409	0	0.0024	1
+RAD54L	Uncertain	Cancer of Unknown Primary	409	0	0.0024	0
+RECQL4	Uncertain	Cancer of Unknown Primary	409	0	0.0024	0
+RPS6KB2	Uncertain	Cancer of Unknown Primary	409	0	0.0049	1
+SHQ1	Uncertain	Cancer of Unknown Primary	409	0	0.0049	0.5
+TGFBR1	Uncertain	Cancer of Unknown Primary	409	0.0098	0.0024	0
+TP53	High	Cancer of Unknown Primary	409	0.467	0.0024	1
+ATM	Moderate	Cervical Cancer	79	0.0633	0.0253	0
+BRCA2	High	Cervical Cancer	79	0.0127	0.0127	0
+CHEK2	Moderate,Uncertain	Cervical Cancer	79	0	0.0253	0
+DIS3	Uncertain	Cervical Cancer	79	0	0.0127	1
+FANCC	Uncertain	Cervical Cancer	79	0	0.0127	0
+RAD51B	Uncertain	Cervical Cancer	79	0	0.0127	0
+MST1	Uncertain	Cholangiocarcinoma	239	0	0.0084	1
+APC	Low,High	Cholangiocarcinoma	288	0.0174	0.0104	0
+ATM	Moderate	Cholangiocarcinoma	288	0.0764	0.0069	1
+ATR	Uncertain	Cholangiocarcinoma	288	0	0.0069	0
+AXIN1	Uncertain	Cholangiocarcinoma	288	0.0104	0.0035	NA
+BAP1	High	Cholangiocarcinoma	288	0.1076	0.0069	1
+BRCA1	High	Cholangiocarcinoma	288	0	0.0069	1
+BRCA2	High	Cholangiocarcinoma	288	0.0104	0.0208	0.5
+CHEK2	Moderate,Uncertain	Cholangiocarcinoma	288	0	0.0035	0
+ERCC2	Uncertain	Cholangiocarcinoma	288	0	0.0069	0
+FANCC	Uncertain	Cholangiocarcinoma	288	0.0035	0.0069	1
+FH	Uncertain,High	Cholangiocarcinoma	288	0	0.0104	1
+JAK3	Uncertain	Cholangiocarcinoma	288	0	0.0035	0
+KDM5C	Uncertain	Cholangiocarcinoma	288	0.0069	0.0035	0
+MDC1	Uncertain	Cholangiocarcinoma	288	0	0.0035	0
+MITF	Moderate	Cholangiocarcinoma	288	0	0.0139	0
+MLH1	High	Cholangiocarcinoma	288	0.0139	0.0035	1
+MSH6	High	Cholangiocarcinoma	288	0	0.0035	0
+MUTYH	Low	Cholangiocarcinoma	288	0	0.0312	0.25
+NOTCH3	Uncertain	Cholangiocarcinoma	288	0	0.0035	NA
+PALB2	High	Cholangiocarcinoma	288	0	0.0069	0
+PMS2	High	Cholangiocarcinoma	288	0	0.0104	0
+RECQL4	Uncertain	Cholangiocarcinoma	288	0	0.0104	0
+RNF43	Uncertain	Cholangiocarcinoma	288	0.0208	0.0035	0
+SHQ1	Uncertain	Cholangiocarcinoma	288	0	0.0035	NA
+TSC2	High	Cholangiocarcinoma	288	0	0.0035	0
+BCL10	Uncertain	Colorectal Adenocarcinoma	1306	0.0023	8e-04	1
+HOXB13	Moderate	Colorectal Adenocarcinoma	1306	0	8e-04	0
+MST1	Uncertain	Colorectal Adenocarcinoma	1306	0	8e-04	0
+TCF7L2	Uncertain	Colorectal Adenocarcinoma	1306	0.0835	8e-04	1
+XRCC2	Uncertain	Colorectal Adenocarcinoma	1306	0.0069	8e-04	0
+ZFHX3	Uncertain	Colorectal Adenocarcinoma	1306	0	8e-04	0
+ALOX12B	Uncertain	Colorectal Adenocarcinoma	1495	0	7e-04	1
+APC	Low,High	Colorectal Adenocarcinoma	1495	0.7064	0.0181	0.846
+ARID2	Uncertain	Colorectal Adenocarcinoma	1495	0.0167	7e-04	NA
+ATM	Moderate	Colorectal Adenocarcinoma	1495	0.1184	0.008	0.5
+ATR	Uncertain	Colorectal Adenocarcinoma	1495	0.01	0.0013	0
+BARD1	Uncertain	Colorectal Adenocarcinoma	1495	0.0094	7e-04	0
+BLM	Uncertain	Colorectal Adenocarcinoma	1495	0	0.0027	0.25
+BRCA1	High	Colorectal Adenocarcinoma	1495	0.0161	0.0033	0.25
+BRCA2	High	Colorectal Adenocarcinoma	1495	0.0288	0.0067	0
+BRIP1	Moderate	Colorectal Adenocarcinoma	1495	0.0388	0.004	0.167
+CASP8	Uncertain	Colorectal Adenocarcinoma	1495	0.0181	0.0013	0.5
+CDH1	High	Colorectal Adenocarcinoma	1495	0.0134	7e-04	0
+CHEK2	Moderate,Uncertain	Colorectal Adenocarcinoma	1495	7e-04	0.0127	0.471
+CTCF	Uncertain	Colorectal Adenocarcinoma	1495	0.0187	7e-04	0
+DIS3	Uncertain	Colorectal Adenocarcinoma	1495	0.0013	0.0027	0
+EPCAM	Uncertain	Colorectal Adenocarcinoma	1495	0	7e-04	0
+ERCC2	Uncertain	Colorectal Adenocarcinoma	1495	0.0013	0.002	0
+ERCC3	Uncertain	Colorectal Adenocarcinoma	1495	0.0027	0.0074	0
+ERCC5	Uncertain	Colorectal Adenocarcinoma	1495	0	0.0013	0
+FANCA	Uncertain	Colorectal Adenocarcinoma	1495	0.0033	0.0027	0
+FANCC	Uncertain	Colorectal Adenocarcinoma	1495	0.0027	0.0033	0.2
+FAT1	Uncertain	Colorectal Adenocarcinoma	1495	0.0221	7e-04	0
+FBXW7	Uncertain	Colorectal Adenocarcinoma	1495	0.1064	7e-04	0
+FH	Uncertain,High	Colorectal Adenocarcinoma	1495	0	0.004	0.5
+FLCN	High	Colorectal Adenocarcinoma	1495	0	7e-04	1
+FUBP1	Uncertain	Colorectal Adenocarcinoma	1495	0.0067	7e-04	NA
+INSR	Uncertain	Colorectal Adenocarcinoma	1495	0	7e-04	NA
+JAK3	Uncertain	Colorectal Adenocarcinoma	1495	7e-04	0.0013	0
+KEAP1	Uncertain	Colorectal Adenocarcinoma	1495	0.0013	7e-04	0
+MITF	Moderate	Colorectal Adenocarcinoma	1495	0	0.0054	0
+MLH1	High	Colorectal Adenocarcinoma	1495	0.0147	0.006	1
+MRE11A	Uncertain	Colorectal Adenocarcinoma	1495	0	0.0013	0
+MSH2	High	Colorectal Adenocarcinoma	1495	0.0194	0.0074	0.818
+MSH6	High	Colorectal Adenocarcinoma	1495	0.0234	0.004	0.667
+MUTYH	Low	Colorectal Adenocarcinoma	1495	0	0.0147	0.211
+NOTCH4	Uncertain	Colorectal Adenocarcinoma	1495	0	7e-04	0
+PARK2	Uncertain	Colorectal Adenocarcinoma	1495	0	0.002	0.5
+PIK3C2G	Uncertain	Colorectal Adenocarcinoma	1495	0	0.0027	0.5
+PIK3R3	Uncertain	Colorectal Adenocarcinoma	1495	0.0054	7e-04	0
+PMS1	Uncertain	Colorectal Adenocarcinoma	1495	0	0.0013	0
+PMS2	High	Colorectal Adenocarcinoma	1495	0.0047	7e-04	1
+PPP2R1A	Uncertain	Colorectal Adenocarcinoma	1495	0.008	7e-04	0
+PRDM1	Uncertain	Colorectal Adenocarcinoma	1495	0.0013	7e-04	1
+PTCH1	High	Colorectal Adenocarcinoma	1495	0.0241	7e-04	0
+RAD50	Uncertain	Colorectal Adenocarcinoma	1495	0.012	0.0013	0
+RAD51C	Moderate	Colorectal Adenocarcinoma	1495	0	7e-04	1
+RAD51D	Moderate	Colorectal Adenocarcinoma	1495	0	7e-04	0
+RAD54L	Uncertain	Colorectal Adenocarcinoma	1495	0	0.0013	0
+RECQL4	Uncertain	Colorectal Adenocarcinoma	1495	0	0.004	0
+RET	High	Colorectal Adenocarcinoma	1495	0.0013	7e-04	1
+RNF43	Uncertain	Colorectal Adenocarcinoma	1495	0.0662	7e-04	1
+RPS6KB2	Uncertain	Colorectal Adenocarcinoma	1495	0	0.0013	0
+SDHA	High	Colorectal Adenocarcinoma	1495	0	7e-04	0
+SDHD	High	Colorectal Adenocarcinoma	1495	0	7e-04	0
+SETD2	Uncertain	Colorectal Adenocarcinoma	1495	0.0207	7e-04	NA
+SHQ1	Uncertain	Colorectal Adenocarcinoma	1495	7e-04	0.0013	0
+TBX3	Uncertain	Colorectal Adenocarcinoma	1495	0	7e-04	0
+TP53	High	Colorectal Adenocarcinoma	1495	0.7258	7e-04	0
+TSHR	Uncertain	Colorectal Adenocarcinoma	1495	0	0.002	0.667
+VHL	High,Uncertain	Colorectal Adenocarcinoma	1495	0	0.0013	0
+DNAJB1	Uncertain	Cutaneous Melanoma	292	0	0.0034	0
+ALOX12B	Uncertain	Cutaneous Melanoma	322	0	0.0031	0
+APC	Low,High	Cutaneous Melanoma	322	0.0342	0.0217	0.143
+ATM	Moderate	Cutaneous Melanoma	322	0.1491	0.0031	1
+BLM	Uncertain	Cutaneous Melanoma	322	0	0.0062	0.5
+BRCA1	High	Cutaneous Melanoma	322	0.0124	0.0093	0.5
+BRCA2	High	Cutaneous Melanoma	322	0.0155	0.0062	0
+CHEK2	Moderate,Uncertain	Cutaneous Melanoma	322	0	0.0217	0.571
+CIC	Uncertain	Cutaneous Melanoma	322	0	0.0031	0
+DIS3	Uncertain	Cutaneous Melanoma	322	0	0.0062	0
+ERCC2	Uncertain	Cutaneous Melanoma	322	0	0.0031	0
+ERCC3	Uncertain	Cutaneous Melanoma	322	0.0031	0.0124	0
+FANCA	Uncertain	Cutaneous Melanoma	322	0	0.0031	0
+FANCC	Uncertain	Cutaneous Melanoma	322	0.0031	0.0031	0
+FH	Uncertain,High	Cutaneous Melanoma	322	0	0.0062	0
+INPP4A	Uncertain	Cutaneous Melanoma	322	0	0.0031	0
+JAK3	Uncertain	Cutaneous Melanoma	322	0	0.0031	0
+KIT	High	Cutaneous Melanoma	322	0.0248	0.0031	1
+MEN1	High	Cutaneous Melanoma	322	0.0093	0.0031	0
+MITF	Moderate	Cutaneous Melanoma	322	0	0.0093	0
+MUTYH	Low	Cutaneous Melanoma	322	0	0.0124	0.333
+NOTCH3	Uncertain	Cutaneous Melanoma	322	0	0.0031	0
+PIK3C2G	Uncertain	Cutaneous Melanoma	322	0	0.0062	0.5
+PIK3R3	Uncertain	Cutaneous Melanoma	322	0	0.0031	0
+PMS1	Uncertain	Cutaneous Melanoma	322	0	0.0031	1
+RAD50	Uncertain	Cutaneous Melanoma	322	0	0.0031	0
+RAD51D	Moderate	Cutaneous Melanoma	322	0	0.0031	0
+RET	High	Cutaneous Melanoma	322	0	0.0031	0
+HIST1H3A	Uncertain	Diffuse Glioma	739	0	0.0027	0
+ALOX12B	Uncertain	Diffuse Glioma	836	0	0.0024	0.5
+APC	Low,High	Diffuse Glioma	836	0.0036	0.0179	0.133
+ATM	Moderate	Diffuse Glioma	836	0.0371	0.0024	0.5
+BARD1	Uncertain	Diffuse Glioma	836	0.0012	0.0012	0
+BLM	Uncertain	Diffuse Glioma	836	0	0.0036	0
+BRCA1	High	Diffuse Glioma	836	0.0012	0.0012	0
+BRCA2	High	Diffuse Glioma	836	0.0084	0.0036	0.333
+BRIP1	Moderate	Diffuse Glioma	836	0.0156	0.0036	0
+CASP8	Uncertain	Diffuse Glioma	836	0.0012	0.0012	0
+CD274	Uncertain	Diffuse Glioma	836	0	0.0012	0
+CHEK1	Uncertain	Diffuse Glioma	836	0	0.0012	0
+CHEK2	Moderate,Uncertain	Diffuse Glioma	836	0	0.012	0.222
+DIS3	Uncertain	Diffuse Glioma	836	0.0012	0.0024	0
+EPCAM	Uncertain	Diffuse Glioma	836	0	0.0024	0.5
+ERCC2	Uncertain	Diffuse Glioma	836	0.0024	0.0024	0
+ERCC3	Uncertain	Diffuse Glioma	836	0	0.006	0
+ERCC5	Uncertain	Diffuse Glioma	836	0	0.0036	0
+FAM175A	Uncertain	Diffuse Glioma	836	0	0.0024	0
+FANCA	Uncertain	Diffuse Glioma	836	0.0036	0.0024	0
+FANCC	Uncertain	Diffuse Glioma	836	0.0012	0.0012	0
+FH	Uncertain,High	Diffuse Glioma	836	0	0.006	0.2
+FLCN	High	Diffuse Glioma	836	0	0.0012	0
+FOXP1	Uncertain	Diffuse Glioma	836	0.0036	0.0012	0
+FUBP1	Uncertain	Diffuse Glioma	836	0.0395	0.0012	0
+HIST1H3B	Uncertain	Diffuse Glioma	836	0.0012	0.0012	0
+IFNGR1	Uncertain	Diffuse Glioma	836	0	0.0012	0
+MITF	Moderate	Diffuse Glioma	836	0	0.0024	0
+MRE11A	Uncertain	Diffuse Glioma	836	0	0.0024	0
+MSH2	High	Diffuse Glioma	836	0.0096	0.0012	0
+MSH6	High	Diffuse Glioma	836	0.0108	0.0012	1
+MUTYH	Low	Diffuse Glioma	836	0	0.0203	0.059
+NBN	Moderate	Diffuse Glioma	836	0	0.006	0
+NF1	High	Diffuse Glioma	836	0.1244	0.0012	1
+NOTCH3	Uncertain	Diffuse Glioma	836	0	0.0012	0
+NOTCH4	Uncertain	Diffuse Glioma	836	0	0.0024	0
+PALB2	High	Diffuse Glioma	836	0	0.0024	0
+PARK2	Uncertain	Diffuse Glioma	836	0	0.0012	0
+PIK3C2G	Uncertain	Diffuse Glioma	836	0	0.0036	0.333
+PMS1	Uncertain	Diffuse Glioma	836	0	0.0024	0
+PTEN	High	Diffuse Glioma	836	0.2309	0.0012	1
+RAD50	Uncertain	Diffuse Glioma	836	0.0072	0.0012	0
+RAD51B	Uncertain	Diffuse Glioma	836	0	0.0024	1
+RAD51C	Moderate	Diffuse Glioma	836	0.0036	0.0012	0
+SDHAF2	High	Diffuse Glioma	836	0	0.0012	0
+SDHD	High	Diffuse Glioma	836	0	0.0012	0
+SETD2	Uncertain	Diffuse Glioma	836	0.0275	0.0012	1
+SHQ1	Uncertain	Diffuse Glioma	836	0.0024	0.0012	0
+SMAD3	Uncertain	Diffuse Glioma	836	0	0.0012	0
+TMEM127	High	Diffuse Glioma	836	0	0.0012	0
+TNFRSF14	Uncertain	Diffuse Glioma	836	0	0.0012	0
+TP53	High	Diffuse Glioma	836	0.3792	0.0036	1
+TSC2	High	Diffuse Glioma	836	0.0096	0.0012	1
+BLM	Uncertain	Embryonal Tumor	112	0	0.0089	0
+BRIP1	Moderate	Embryonal Tumor	112	0.0089	0.0089	0
+CHEK2	Moderate,Uncertain	Embryonal Tumor	112	0	0.0179	0.5
+CIC	Uncertain	Embryonal Tumor	112	0.0089	0.0089	1
+FANCA	Uncertain	Embryonal Tumor	112	0	0.0089	0
+MAP3K13	Uncertain	Embryonal Tumor	112	0	0.0089	0
+MITF	Moderate	Embryonal Tumor	112	0	0.0089	1
+MUTYH	Low	Embryonal Tumor	112	0	0.0179	0
+PALB2	High	Embryonal Tumor	112	0	0.0089	NA
+PTCH1	High	Embryonal Tumor	112	0	0.0089	1
+RECQL4	Uncertain	Embryonal Tumor	112	0	0.0179	NA
+SDHA	High	Embryonal Tumor	112	0	0.0089	1
+SHQ1	Uncertain	Embryonal Tumor	112	0	0.0089	0
+TBX3	Uncertain	Embryonal Tumor	112	0	0.0089	0
+TP53	High	Embryonal Tumor	112	0.0268	0.0089	1
+HOXB13	Moderate	Endometrial Carcinoma	483	0	0.0041	0
+APC	Low,High	Endometrial Carcinoma	547	0.0293	0.0238	0.364
+ATM	Moderate	Endometrial Carcinoma	547	0.17	0.0055	1
+AXIN1	Uncertain	Endometrial Carcinoma	547	0.0018	0.0018	0
+AXIN2	Uncertain	Endometrial Carcinoma	547	0.0128	0.0018	0
+BRCA1	High	Endometrial Carcinoma	547	0.0091	0.0073	0.75
+BRCA2	High	Endometrial Carcinoma	547	0.0329	0.0091	0.333
+CASP8	Uncertain	Endometrial Carcinoma	547	0.0311	0.0018	1
+CHEK2	Moderate,Uncertain	Endometrial Carcinoma	547	0.0018	0.011	0.2
+ERCC4	Uncertain	Endometrial Carcinoma	547	0.0055	0.0073	0.667
+FANCA	Uncertain	Endometrial Carcinoma	547	0.0018	0.0018	1
+FANCC	Uncertain	Endometrial Carcinoma	547	0.0018	0.0037	0.5
+FH	Uncertain,High	Endometrial Carcinoma	547	0	0.0037	0
+H3F3C	Uncertain	Endometrial Carcinoma	547	0	0.0018	0
+MITF	Moderate	Endometrial Carcinoma	547	0	0.0018	0
+MLH1	High	Endometrial Carcinoma	547	0.0219	0.0055	1
+MRE11A	Uncertain	Endometrial Carcinoma	547	0	0.0037	0
+MSH2	High	Endometrial Carcinoma	547	0.0238	0.0018	1
+MSH6	High	Endometrial Carcinoma	547	0.0439	0.0091	0.6
+MUTYH	Low	Endometrial Carcinoma	547	0	0.0146	0.143
+NBN	Moderate	Endometrial Carcinoma	547	0	0.0018	1
+NOTCH4	Uncertain	Endometrial Carcinoma	547	0	0.0018	1
+PALB2	High	Endometrial Carcinoma	547	0	0.0018	1
+PIK3C2G	Uncertain	Endometrial Carcinoma	547	0	0.0055	0
+PMS2	High	Endometrial Carcinoma	547	0.011	0.0018	1
+PRDM1	Uncertain	Endometrial Carcinoma	547	0.0018	0.0018	0
+RAD51B	Uncertain	Endometrial Carcinoma	547	0	0.0018	1
+RB1	High	Endometrial Carcinoma	547	0.042	0.0018	1
+RECQL4	Uncertain	Endometrial Carcinoma	547	0	0.011	0.333
+RPS6KB2	Uncertain	Endometrial Carcinoma	547	0	0.0055	0
+SDHAF2	High	Endometrial Carcinoma	547	0	0.0018	0
+STK11	High	Endometrial Carcinoma	547	0.0073	0.0018	1
+VHL	High,Uncertain	Endometrial Carcinoma	547	0	0.0018	0
+HIST1H3A	Uncertain	Esophagogastric Cancer	325	0	0.0031	1
+XRCC2	Uncertain	Esophagogastric Cancer	325	0.0062	0.0031	0
+APC	Low,High	Esophagogastric Cancer	429	0.0326	0.014	0.4
+ASXL1	Uncertain	Esophagogastric Cancer	429	0.0093	0.0023	0
+ATM	Moderate	Esophagogastric Cancer	429	0.0536	0.0163	0.667
+BAP1	High	Esophagogastric Cancer	429	0.007	0.0023	1
+BARD1	Uncertain	Esophagogastric Cancer	429	0.0023	0.0023	1
+BLM	Uncertain	Esophagogastric Cancer	429	0	0.0023	NA
+BRCA1	High	Esophagogastric Cancer	429	0.007	0.0093	0.75
+BRCA2	High	Esophagogastric Cancer	429	0.014	0.0163	0.8
+BRIP1	Moderate	Esophagogastric Cancer	429	0.021	0.0023	NA
+CDH1	High	Esophagogastric Cancer	429	0.0559	0.0117	0.75
+CHEK2	Moderate,Uncertain	Esophagogastric Cancer	429	0	0.014	0.2
+CREBBP	Uncertain	Esophagogastric Cancer	429	0.0186	0.0023	0
+DIS3	Uncertain	Esophagogastric Cancer	429	0	0.0023	0
+EPCAM	Uncertain	Esophagogastric Cancer	429	0	0.0023	0
+ERCC2	Uncertain	Esophagogastric Cancer	429	0	0.0023	NA
+ERCC3	Uncertain	Esophagogastric Cancer	429	0	0.0047	0
+ERCC5	Uncertain	Esophagogastric Cancer	429	0	0.0023	0
+FAM175A	Uncertain	Esophagogastric Cancer	429	0	0.0023	0
+FH	Uncertain,High	Esophagogastric Cancer	429	0	0.0023	NA
+HIST1H1C	Uncertain	Esophagogastric Cancer	429	0	0.0023	0
+IFNGR1	Uncertain	Esophagogastric Cancer	429	0	0.0023	0
+LATS1	Uncertain	Esophagogastric Cancer	429	0.0023	0.0023	NA
+MSH2	High	Esophagogastric Cancer	429	0.0047	0.0023	1
+MUTYH	Low	Esophagogastric Cancer	429	0	0.014	0.5
+NBN	Moderate	Esophagogastric Cancer	429	0	0.0023	NA
+NOTCH4	Uncertain	Esophagogastric Cancer	429	0	0.0023	0
+PIK3C2G	Uncertain	Esophagogastric Cancer	429	0	0.007	0
+PMS1	Uncertain	Esophagogastric Cancer	429	0	0.0023	0
+PTPRT	Uncertain	Esophagogastric Cancer	429	0.021	0.0023	0
+RAD50	Uncertain	Esophagogastric Cancer	429	0	0.0047	0
+RAD51B	Uncertain	Esophagogastric Cancer	429	0	0.0023	1
+RAD54L	Uncertain	Esophagogastric Cancer	429	0	0.0023	NA
+RECQL4	Uncertain	Esophagogastric Cancer	429	0	0.0047	0
+RPS6KB2	Uncertain	Esophagogastric Cancer	429	0	0.0023	0
+RUNX1	High	Esophagogastric Cancer	429	0.0047	0.0023	0
+SHQ1	Uncertain	Esophagogastric Cancer	429	0	0.0023	0
+STK11	High	Esophagogastric Cancer	429	0.021	0.0023	NA
+TP53	High	Esophagogastric Cancer	429	0.6667	0.0023	1
+VHL	High,Uncertain	Esophagogastric Cancer	429	0	0.0047	0
+APC	Low,High	Gastrointestinal Neuroendocrine Tumors	85	0.1412	0.0235	1
+BLM	Uncertain	Gastrointestinal Neuroendocrine Tumors	85	0	0.0235	0
+BRCA2	High	Gastrointestinal Neuroendocrine Tumors	85	0.0118	0.0235	0.5
+CHEK2	Moderate,Uncertain	Gastrointestinal Neuroendocrine Tumors	85	0	0.0118	0
+MITF	Moderate	Gastrointestinal Neuroendocrine Tumors	85	0	0.0118	0
+RPS6KB2	Uncertain	Gastrointestinal Neuroendocrine Tumors	85	0	0.0118	1
+DNAJB1	Uncertain	Gastrointestinal Stromal Tumor	190	0	0.0053	0
+HIST1H3D	Uncertain	Gastrointestinal Stromal Tumor	190	0	0.0053	0
+HOXB13	Moderate	Gastrointestinal Stromal Tumor	190	0	0.0053	0
+APC	Low,High	Gastrointestinal Stromal Tumor	211	0	0.0047	0
+BRCA2	High	Gastrointestinal Stromal Tumor	211	0	0.0142	0.333
+CHEK2	Moderate,Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	1
+ERCC2	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	0
+ERCC3	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	0
+FANCA	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	0
+FANCC	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	0
+HIST1H1C	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	0
+KMT2C	Uncertain	Gastrointestinal Stromal Tumor	211	0.0047	0.0047	0
+MAP3K1	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	0
+MDC1	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	1
+MUTYH	Low	Gastrointestinal Stromal Tumor	211	0	0.0142	0
+NF1	High	Gastrointestinal Stromal Tumor	211	0.0474	0.0332	1
+NKX3-1	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	0
+NSD1	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	0
+PIK3C2G	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	0
+PMS1	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	0
+RAD54L	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0047	0
+SDHA	High	Gastrointestinal Stromal Tumor	211	0.0047	0.0284	0.8
+SDHB	High	Gastrointestinal Stromal Tumor	211	0	0.0142	1
+SHQ1	Uncertain	Gastrointestinal Stromal Tumor	211	0	0.0142	0
+APC	Low,High	Germ Cell Tumor	367	0.0027	0.0109	0.333
+ARID2	Uncertain	Germ Cell Tumor	367	0.0027	0.0027	0
+ATM	Moderate	Germ Cell Tumor	367	0.0054	0.0109	0.25
+AXIN1	Uncertain	Germ Cell Tumor	367	0.0054	0.0027	0
+BARD1	Uncertain	Germ Cell Tumor	367	0	0.0027	1
+BRCA1	High	Germ Cell Tumor	367	0	0.0054	0
+BRCA2	High	Germ Cell Tumor	367	0	0.0027	0
+BRIP1	Moderate	Germ Cell Tumor	367	0.0027	0.0027	0
+CHEK2	Moderate,Uncertain	Germ Cell Tumor	367	0	0.0163	0.5
+ERCC3	Uncertain	Germ Cell Tumor	367	0	0.0027	0
+FAT1	Uncertain	Germ Cell Tumor	367	0.0082	0.0027	0
+FGFR2	Uncertain	Germ Cell Tumor	367	0.0027	0.0027	0
+FH	Uncertain,High	Germ Cell Tumor	367	0	0.0027	0
+MSH2	High	Germ Cell Tumor	367	0	0.0027	1
+MUTYH	Low	Germ Cell Tumor	367	0	0.0136	0.6
+NOTCH4	Uncertain	Germ Cell Tumor	367	0	0.0054	0
+PALB2	High	Germ Cell Tumor	367	0	0.0054	0.5
+PIK3C2G	Uncertain	Germ Cell Tumor	367	0	0.0027	0
+PMS1	Uncertain	Germ Cell Tumor	367	0	0.0027	0
+PMS2	High	Germ Cell Tumor	367	0	0.0027	0
+PTEN	High	Germ Cell Tumor	367	0.0327	0.0027	1
+PTPRT	Uncertain	Germ Cell Tumor	367	0	0.0027	NA
+RAD51B	Uncertain	Germ Cell Tumor	367	0	0.0027	1
+RAD54L	Uncertain	Germ Cell Tumor	367	0	0.0027	0
+RECQL4	Uncertain	Germ Cell Tumor	367	0	0.0054	0.5
+SDHA	High	Germ Cell Tumor	367	0	0.0027	0
+SETD2	Uncertain	Germ Cell Tumor	367	0.0027	0.0054	1
+SHQ1	Uncertain	Germ Cell Tumor	367	0	0.0054	0
+GPS2	Uncertain	Head and Neck Cancer	235	0	0.0043	1
+HIST1H3A	Uncertain	Head and Neck Cancer	235	0	0.0043	0
+APC	Low,High	Head and Neck Cancer	279	0.0036	0.0251	0
+BRCA1	High	Head and Neck Cancer	279	0.0072	0.0036	0
+BRCA2	High	Head and Neck Cancer	279	0.0036	0.0143	0.25
+BRIP1	Moderate	Head and Neck Cancer	279	0.0287	0.0036	NA
+CHEK2	Moderate,Uncertain	Head and Neck Cancer	279	0	0.0179	0.2
+DIS3	Uncertain	Head and Neck Cancer	279	0	0.0072	0
+ERCC3	Uncertain	Head and Neck Cancer	279	0	0.0036	0
+FAM175A	Uncertain	Head and Neck Cancer	279	0	0.0036	0
+FANCA	Uncertain	Head and Neck Cancer	279	0.0036	0.0036	1
+FANCC	Uncertain	Head and Neck Cancer	279	0	0.0036	0
+FH	Uncertain,High	Head and Neck Cancer	279	0	0.0036	0
+KMT2C	Uncertain	Head and Neck Cancer	279	0.0502	0.0036	NA
+MAP3K1	Uncertain	Head and Neck Cancer	279	0.0108	0.0036	0
+MDC1	Uncertain	Head and Neck Cancer	279	0	0.0036	1
+MITF	Moderate	Head and Neck Cancer	279	0	0.0108	0.667
+MUTYH	Low	Head and Neck Cancer	279	0	0.0108	0.5
+NBN	Moderate	Head and Neck Cancer	279	0	0.0072	0
+NOTCH4	Uncertain	Head and Neck Cancer	279	0	0.0036	0
+PMS2	High	Head and Neck Cancer	279	0.0036	0.0036	0
+PTPRS	Uncertain	Head and Neck Cancer	279	0.0036	0.0072	0
+RAD50	Uncertain	Head and Neck Cancer	279	0.0036	0.0036	0
+RAD54L	Uncertain	Head and Neck Cancer	279	0	0.0036	0
+RET	High	Head and Neck Cancer	279	0.0036	0.0036	0
+ROS1	Uncertain	Head and Neck Cancer	279	0	0.0036	NA
+RPS6KB2	Uncertain	Head and Neck Cancer	279	0	0.0036	1
+SHQ1	Uncertain	Head and Neck Cancer	279	0	0.0072	0
+TSC2	High	Head and Neck Cancer	279	0.0072	0.0036	0
+ERRFI1	Uncertain	Invasive Breast Carcinoma	2073	0.0014	5e-04	NA
+HIST3H3	Uncertain	Invasive Breast Carcinoma	2073	0	5e-04	0
+HOXB13	Moderate	Invasive Breast Carcinoma	2073	0	0.001	0
+XRCC2	Uncertain	Invasive Breast Carcinoma	2073	0	5e-04	1
+ALOX12B	Uncertain	Invasive Breast Carcinoma	2422	0	4e-04	0
+AMER1	Uncertain	Invasive Breast Carcinoma	2422	0	4e-04	0
+APC	Low,High	Invasive Breast Carcinoma	2422	0.0041	0.0111	0.192
+ARID1A	Uncertain	Invasive Breast Carcinoma	2422	0.0458	4e-04	NA
+ARID2	Uncertain	Invasive Breast Carcinoma	2422	0.0078	4e-04	0
+ARID5B	Uncertain	Invasive Breast Carcinoma	2422	8e-04	4e-04	0
+ASXL2	Uncertain	Invasive Breast Carcinoma	2422	0.0045	4e-04	0
+ATM	Moderate	Invasive Breast Carcinoma	2422	0.0343	0.012	0.808
+ATR	Uncertain	Invasive Breast Carcinoma	2422	0.0025	8e-04	0
+BAP1	High	Invasive Breast Carcinoma	2422	0.0037	4e-04	1
+BARD1	Uncertain	Invasive Breast Carcinoma	2422	0.0012	0.0012	1
+BBC3	Uncertain	Invasive Breast Carcinoma	2422	0	8e-04	0
+BLM	Uncertain	Invasive Breast Carcinoma	2422	0	0.0025	0.167
+BRCA1	High	Invasive Breast Carcinoma	2422	0.0091	0.0215	0.889
+BRCA2	High	Invasive Breast Carcinoma	2422	0.0103	0.0277	0.862
+BRIP1	Moderate	Invasive Breast Carcinoma	2422	0.0153	0.0021	0.25
+CASP8	Uncertain	Invasive Breast Carcinoma	2422	4e-04	4e-04	NA
+CBL	Uncertain	Invasive Breast Carcinoma	2422	0.0012	4e-04	NA
+CDC73	Uncertain	Invasive Breast Carcinoma	2422	0	4e-04	0
+CDH1	High	Invasive Breast Carcinoma	2422	0.1317	8e-04	0.5
+CHEK1	Uncertain	Invasive Breast Carcinoma	2422	0	4e-04	0
+CHEK2	Moderate,Uncertain	Invasive Breast Carcinoma	2422	0	0.0231	0.612
+CTCF	Uncertain	Invasive Breast Carcinoma	2422	0.0083	4e-04	1
+DIS3	Uncertain	Invasive Breast Carcinoma	2422	4e-04	0.0021	0.25
+DNMT3A	Uncertain	Invasive Breast Carcinoma	2422	0.0041	4e-04	0
+EPCAM	Uncertain	Invasive Breast Carcinoma	2422	0	4e-04	0
+EPHA3	Uncertain	Invasive Breast Carcinoma	2422	0	4e-04	0
+ERCC2	Uncertain	Invasive Breast Carcinoma	2422	4e-04	0.0033	0.143
+ERCC3	Uncertain	Invasive Breast Carcinoma	2422	8e-04	0.0041	0.111
+ERCC4	Uncertain	Invasive Breast Carcinoma	2422	0.0012	8e-04	0
+ERCC5	Uncertain	Invasive Breast Carcinoma	2422	0	4e-04	1
+FAM175A	Uncertain	Invasive Breast Carcinoma	2422	0	4e-04	0
+FANCA	Uncertain	Invasive Breast Carcinoma	2422	0.0012	0.0041	0.2
+FANCC	Uncertain	Invasive Breast Carcinoma	2422	4e-04	0.0041	0.222
+FAT1	Uncertain	Invasive Breast Carcinoma	2422	0.0058	0.0012	0
+FH	Uncertain,High	Invasive Breast Carcinoma	2422	0	0.0041	0
+FLCN	High	Invasive Breast Carcinoma	2422	0	4e-04	0
+H3F3C	Uncertain	Invasive Breast Carcinoma	2422	0	4e-04	NA
+IFNGR1	Uncertain	Invasive Breast Carcinoma	2422	0	4e-04	0
+JAK3	Uncertain	Invasive Breast Carcinoma	2422	0	8e-04	0
+LATS1	Uncertain	Invasive Breast Carcinoma	2422	0.0017	8e-04	0.5
+MAP3K1	Uncertain	Invasive Breast Carcinoma	2422	0.0731	4e-04	0
+MAP3K13	Uncertain	Invasive Breast Carcinoma	2422	0	4e-04	1
+MDC1	Uncertain	Invasive Breast Carcinoma	2422	0	4e-04	0
+MLH1	High	Invasive Breast Carcinoma	2422	0.0012	4e-04	0
+MRE11A	Uncertain	Invasive Breast Carcinoma	2422	0	0.0012	0
+MSH6	High	Invasive Breast Carcinoma	2422	0.0017	0.0017	0.25
+MUTYH	Low	Invasive Breast Carcinoma	2422	0	0.0153	0.176
+NBN	Moderate	Invasive Breast Carcinoma	2422	0	0.0012	0
+NCOR1	Uncertain	Invasive Breast Carcinoma	2422	0.0297	4e-04	1
+NF1	High	Invasive Breast Carcinoma	2422	0.0301	8e-04	0
+NOTCH3	Uncertain	Invasive Breast Carcinoma	2422	0	0.0017	0
+NOTCH4	Uncertain	Invasive Breast Carcinoma	2422	0	0.0017	0.25
+PALB2	High	Invasive Breast Carcinoma	2422	0	0.0041	0.778
+PARK2	Uncertain	Invasive Breast Carcinoma	2422	0	0.0021	0.5
+PIK3C2G	Uncertain	Invasive Breast Carcinoma	2422	0	0.0062	0.133
+PIK3R3	Uncertain	Invasive Breast Carcinoma	2422	0.0017	8e-04	0.5
+PMS1	Uncertain	Invasive Breast Carcinoma	2422	0	0.0021	0
+PMS2	High	Invasive Breast Carcinoma	2422	4e-04	0.0017	0
+PRDM1	Uncertain	Invasive Breast Carcinoma	2422	8e-04	4e-04	0
+PTEN	High	Invasive Breast Carcinoma	2422	0.0599	4e-04	1
+PTPRT	Uncertain	Invasive Breast Carcinoma	2422	0.0029	8e-04	0
+RAD50	Uncertain	Invasive Breast Carcinoma	2422	0	0.0012	0
+RAD51B	Uncertain	Invasive Breast Carcinoma	2422	0	8e-04	1
+RAD51C	Moderate	Invasive Breast Carcinoma	2422	0.0017	0.0012	1
+RAD51D	Moderate	Invasive Breast Carcinoma	2422	0	4e-04	0
+RAD54L	Uncertain	Invasive Breast Carcinoma	2422	0	0.0012	0.5
+RASA1	Uncertain	Invasive Breast Carcinoma	2422	0.0017	4e-04	0
+RECQL4	Uncertain	Invasive Breast Carcinoma	2422	0	0.005	0.182
+RPS6KB2	Uncertain	Invasive Breast Carcinoma	2422	0	0.0021	0
+SDHA	High	Invasive Breast Carcinoma	2422	0	4e-04	0
+SDHAF2	High	Invasive Breast Carcinoma	2422	0	4e-04	0
+SDHD	High	Invasive Breast Carcinoma	2422	0	4e-04	0
+SETD2	Uncertain	Invasive Breast Carcinoma	2422	0.0074	4e-04	1
+SHQ1	Uncertain	Invasive Breast Carcinoma	2422	4e-04	0.0017	0.25
+TP53	High	Invasive Breast Carcinoma	2422	0.391	0.0025	1
+TSC2	High	Invasive Breast Carcinoma	2422	0.0017	4e-04	NA
+TSHR	Uncertain	Invasive Breast Carcinoma	2422	0	8e-04	0.5
+VHL	High,Uncertain	Invasive Breast Carcinoma	2422	0.0012	4e-04	NA
+APC	Low,High	Lung Neuroendocrine Tumor	97	0.0206	0.0206	0
+ARID1B	Uncertain	Lung Neuroendocrine Tumor	97	0.0103	0.0103	0
+BRIP1	Moderate	Lung Neuroendocrine Tumor	97	0.0309	0.0103	0
+CHEK2	Moderate,Uncertain	Lung Neuroendocrine Tumor	97	0	0.0103	0
+ERCC3	Uncertain	Lung Neuroendocrine Tumor	97	0	0.0309	0.667
+FANCC	Uncertain	Lung Neuroendocrine Tumor	97	0	0.0103	0
+IFNGR1	Uncertain	Lung Neuroendocrine Tumor	97	0	0.0103	0
+KLF4	Uncertain	Lung Neuroendocrine Tumor	97	0	0.0103	0
+MEN1	High	Lung Neuroendocrine Tumor	97	0.1031	0.0206	1
+MUTYH	Low	Lung Neuroendocrine Tumor	97	0	0.0103	0
+PIK3C2G	Uncertain	Lung Neuroendocrine Tumor	97	0	0.0103	NA
+TSC1	High	Lung Neuroendocrine Tumor	97	0.0103	0.0103	0
+VHL	High,Uncertain	Lung Neuroendocrine Tumor	97	0.0103	0.0103	1
+TCF7L2	Uncertain	Mesothelioma	133	0.0075	0.0075	NA
+APC	Low,High	Mesothelioma	172	0	0.0291	0.4
+ATM	Moderate	Mesothelioma	172	0.0233	0.0058	0
+BAP1	High	Mesothelioma	172	0.3023	0.0349	1
+BARD1	Uncertain	Mesothelioma	172	0	0.0058	1
+BLM	Uncertain	Mesothelioma	172	0	0.0058	NA
+BRCA2	High	Mesothelioma	172	0	0.0291	0.75
+DIS3	Uncertain	Mesothelioma	172	0	0.0058	0
+ERCC5	Uncertain	Mesothelioma	172	0	0.0058	0
+FANCC	Uncertain	Mesothelioma	172	0	0.0116	0
+FH	Uncertain,High	Mesothelioma	172	0	0.0058	0
+MITF	Moderate	Mesothelioma	172	0	0.0058	0
+MSH6	High	Mesothelioma	172	0	0.0058	1
+MUTYH	Low	Mesothelioma	172	0	0.0116	0
+PARK2	Uncertain	Mesothelioma	172	0	0.0058	NA
+PIK3C2G	Uncertain	Mesothelioma	172	0	0.0058	0
+RECQL4	Uncertain	Mesothelioma	172	0	0.0058	NA
+SHQ1	Uncertain	Mesothelioma	172	0	0.0058	NA
+TET2	Uncertain	Mesothelioma	172	0	0.0058	0
+APC	Low,High	Nerve Sheath Tumor	33	0	0.0303	0
+BARD1	Uncertain	Nerve Sheath Tumor	33	0	0.0303	0
+MUTYH	Low	Nerve Sheath Tumor	33	0	0.0606	0
+NF1	High	Nerve Sheath Tumor	33	0.1818	0.2121	0.8
+PMS1	Uncertain	Nerve Sheath Tumor	33	0	0.0303	0
+APC	Low,High	Non Glioma CNS Cancers	71	0	0.0423	0
+CHEK2	Moderate,Uncertain	Non Glioma CNS Cancers	71	0	0.0141	NA
+MUTYH	Low	Non Glioma CNS Cancers	71	0	0.0282	0.5
+NOTCH4	Uncertain	Non Glioma CNS Cancers	71	0	0.0141	0
+RAD54L	Uncertain	Non Glioma CNS Cancers	71	0	0.0141	0
+RB1	High	Non Glioma CNS Cancers	71	0	0.0141	0
+RPS6KB2	Uncertain	Non Glioma CNS Cancers	71	0	0.0141	0
+TCF7L2	Uncertain	Non-Cholangio Hepatobiliary Cancer	198	0.0051	0.0051	0
+APC	Low,High	Non-Cholangio Hepatobiliary Cancer	236	0.0169	0.0085	1
+ATM	Moderate	Non-Cholangio Hepatobiliary Cancer	236	0.0678	0.0042	0
+BAP1	High	Non-Cholangio Hepatobiliary Cancer	236	0.0212	0.0042	0
+BRCA2	High	Non-Cholangio Hepatobiliary Cancer	236	0.0042	0.0127	0
+BRIP1	Moderate	Non-Cholangio Hepatobiliary Cancer	236	0.0212	0.0042	0
+CASP8	Uncertain	Non-Cholangio Hepatobiliary Cancer	236	0.0085	0.0042	0
+CHEK2	Moderate,Uncertain	Non-Cholangio Hepatobiliary Cancer	236	0	0.0127	0
+ERCC3	Uncertain	Non-Cholangio Hepatobiliary Cancer	236	0.0042	0.0085	0
+ERCC4	Uncertain	Non-Cholangio Hepatobiliary Cancer	236	0	0.0085	0
+FAT1	Uncertain	Non-Cholangio Hepatobiliary Cancer	236	0.0042	0.0042	0
+MEN1	High	Non-Cholangio Hepatobiliary Cancer	236	0.0085	0.0042	1
+MSH2	High	Non-Cholangio Hepatobiliary Cancer	236	0.0085	0.0042	1
+MUTYH	Low	Non-Cholangio Hepatobiliary Cancer	236	0	0.0127	0
+NBN	Moderate	Non-Cholangio Hepatobiliary Cancer	236	0	0.0042	1
+PIK3C2G	Uncertain	Non-Cholangio Hepatobiliary Cancer	236	0	0.0169	0
+RAD50	Uncertain	Non-Cholangio Hepatobiliary Cancer	236	0.0042	0.0042	1
+RAD51C	Moderate	Non-Cholangio Hepatobiliary Cancer	236	0	0.0042	0
+RECQL4	Uncertain	Non-Cholangio Hepatobiliary Cancer	236	0	0.0042	0
+RUNX1	High	Non-Cholangio Hepatobiliary Cancer	236	0	0.0042	0
+SDHA	High	Non-Cholangio Hepatobiliary Cancer	236	0	0.0042	NA
+XRCC2	Uncertain	Non-cutaneous Melanoma	175	0	0.0057	NA
+ALOX12B	Uncertain	Non-cutaneous Melanoma	197	0	0.0051	0
+APC	Low,High	Non-cutaneous Melanoma	197	0.0051	0.0102	0
+ATM	Moderate	Non-cutaneous Melanoma	197	0.0355	0.0102	1
+BAP1	High	Non-cutaneous Melanoma	197	0.0964	0.0102	0
+BRIP1	Moderate	Non-cutaneous Melanoma	197	0.0203	0.0051	0
+CDH1	High	Non-cutaneous Melanoma	197	0	0.0051	0
+CHEK2	Moderate,Uncertain	Non-cutaneous Melanoma	197	0	0.0254	0
+ERCC2	Uncertain	Non-cutaneous Melanoma	197	0	0.0051	0
+ERCC3	Uncertain	Non-cutaneous Melanoma	197	0	0.0051	0
+ERCC5	Uncertain	Non-cutaneous Melanoma	197	0	0.0051	0
+FANCC	Uncertain	Non-cutaneous Melanoma	197	0	0.0051	0
+JAK3	Uncertain	Non-cutaneous Melanoma	197	0	0.0051	0
+MITF	Moderate	Non-cutaneous Melanoma	197	0	0.0051	NA
+MUTYH	Low	Non-cutaneous Melanoma	197	0	0.0305	0.2
+NBN	Moderate	Non-cutaneous Melanoma	197	0	0.0051	0
+NOTCH1	Uncertain	Non-cutaneous Melanoma	197	0	0.0051	0
+NOTCH3	Uncertain	Non-cutaneous Melanoma	197	0	0.0051	0
+PALB2	High	Non-cutaneous Melanoma	197	0	0.0102	0
+PMS1	Uncertain	Non-cutaneous Melanoma	197	0	0.0051	0
+RAD50	Uncertain	Non-cutaneous Melanoma	197	0	0.0051	0
+RAD52	Uncertain	Non-cutaneous Melanoma	197	0	0.0051	0
+RAD54L	Uncertain	Non-cutaneous Melanoma	197	0	0.0051	NA
+RECQL4	Uncertain	Non-cutaneous Melanoma	197	0	0.0152	0
+HIST1H3H	Uncertain	Non-Small Cell Lung Cancer	2143	0	5e-04	0
+HOXB13	Moderate	Non-Small Cell Lung Cancer	2143	0	0.0014	0.333
+MGA	Uncertain	Non-Small Cell Lung Cancer	2143	0.0261	5e-04	0
+MST1	Uncertain	Non-Small Cell Lung Cancer	2143	0	9e-04	NA
+SH2B3	Uncertain	Non-Small Cell Lung Cancer	2143	0	5e-04	NA
+TCF7L2	Uncertain	Non-Small Cell Lung Cancer	2143	0	5e-04	0
+XRCC2	Uncertain	Non-Small Cell Lung Cancer	2143	0	0.0014	0.333
+ALOX12B	Uncertain	Non-Small Cell Lung Cancer	2463	0	4e-04	1
+APC	Low,High	Non-Small Cell Lung Cancer	2463	0.0211	0.0175	0.211
+ASXL1	Uncertain	Non-Small Cell Lung Cancer	2463	0.0041	4e-04	NA
+ATM	Moderate	Non-Small Cell Lung Cancer	2463	0.0715	0.0037	0.625
+ATR	Uncertain	Non-Small Cell Lung Cancer	2463	0.0069	0.0016	0.25
+BAP1	High	Non-Small Cell Lung Cancer	2463	0.0073	0.0016	1
+BARD1	Uncertain	Non-Small Cell Lung Cancer	2463	0.002	4e-04	1
+BLM	Uncertain	Non-Small Cell Lung Cancer	2463	0	0.0024	0
+BRCA1	High	Non-Small Cell Lung Cancer	2463	0.0057	0.0069	0.286
+BRCA2	High	Non-Small Cell Lung Cancer	2463	0.011	0.0106	0.5
+BRIP1	Moderate	Non-Small Cell Lung Cancer	2463	0.0248	8e-04	0.5
+CASP8	Uncertain	Non-Small Cell Lung Cancer	2463	0.0032	0.0012	0.5
+CBL	Uncertain	Non-Small Cell Lung Cancer	2463	0.0045	4e-04	0
+CHEK2	Moderate,Uncertain	Non-Small Cell Lung Cancer	2463	0.0012	0.0138	0.355
+DIS3	Uncertain	Non-Small Cell Lung Cancer	2463	0.0041	0.0012	0
+DNMT3A	Uncertain	Non-Small Cell Lung Cancer	2463	0.0065	4e-04	0
+EPCAM	Uncertain	Non-Small Cell Lung Cancer	2463	0	4e-04	0
+ERCC2	Uncertain	Non-Small Cell Lung Cancer	2463	0	0.0016	0.25
+ERCC3	Uncertain	Non-Small Cell Lung Cancer	2463	0.0016	0.0057	0.083
+FAM175A	Uncertain	Non-Small Cell Lung Cancer	2463	0	0.0016	0
+FANCA	Uncertain	Non-Small Cell Lung Cancer	2463	0.0028	0.0041	0.333
+FANCC	Uncertain	Non-Small Cell Lung Cancer	2463	4e-04	0.0037	0.375
+FAT1	Uncertain	Non-Small Cell Lung Cancer	2463	0.0207	0.0016	0
+FH	Uncertain,High	Non-Small Cell Lung Cancer	2463	0	0.0041	0.375
+FLCN	High	Non-Small Cell Lung Cancer	2463	0	8e-04	0
+HNF1A	Uncertain	Non-Small Cell Lung Cancer	2463	0.0016	4e-04	NA
+IFNGR1	Uncertain	Non-Small Cell Lung Cancer	2463	0	8e-04	0
+INPP4A	Uncertain	Non-Small Cell Lung Cancer	2463	0	4e-04	0
+JAK3	Uncertain	Non-Small Cell Lung Cancer	2463	0	8e-04	0
+KMT2A	Uncertain	Non-Small Cell Lung Cancer	2463	0.0016	4e-04	NA
+MAP3K13	Uncertain	Non-Small Cell Lung Cancer	2463	0	4e-04	0
+MDC1	Uncertain	Non-Small Cell Lung Cancer	2463	0	8e-04	0
+MITF	Moderate	Non-Small Cell Lung Cancer	2463	0	0.0037	0.5
+MRE11A	Uncertain	Non-Small Cell Lung Cancer	2463	0	0.0012	0
+MSH2	High	Non-Small Cell Lung Cancer	2463	0.0037	4e-04	NA
+MSH6	High	Non-Small Cell Lung Cancer	2463	0.0032	0.0012	0
+MUTYH	Low	Non-Small Cell Lung Cancer	2463	0	0.0122	0.148
+NBN	Moderate	Non-Small Cell Lung Cancer	2463	0	0.0024	0.2
+NCOR1	Uncertain	Non-Small Cell Lung Cancer	2463	0.0045	4e-04	0
+NOTCH3	Uncertain	Non-Small Cell Lung Cancer	2463	0	8e-04	0.5
+NOTCH4	Uncertain	Non-Small Cell Lung Cancer	2463	0	0.0012	0
+NSD1	Uncertain	Non-Small Cell Lung Cancer	2463	0	4e-04	0
+PALB2	High	Non-Small Cell Lung Cancer	2463	4e-04	0.0016	0
+PARK2	Uncertain	Non-Small Cell Lung Cancer	2463	0	0.0024	0.2
+PBRM1	Uncertain	Non-Small Cell Lung Cancer	2463	0.0162	4e-04	0
+PIK3C2G	Uncertain	Non-Small Cell Lung Cancer	2463	0	0.0077	0.278
+PIK3R1	Uncertain	Non-Small Cell Lung Cancer	2463	0.0077	4e-04	0
+PIK3R3	Uncertain	Non-Small Cell Lung Cancer	2463	0.0024	8e-04	0
+PMS1	Uncertain	Non-Small Cell Lung Cancer	2463	0	8e-04	0.5
+PMS2	High	Non-Small Cell Lung Cancer	2463	0.0037	8e-04	0
+PRDM1	Uncertain	Non-Small Cell Lung Cancer	2463	8e-04	0.0012	0.5
+PTEN	High	Non-Small Cell Lung Cancer	2463	0.0252	4e-04	NA
+PTPRS	Uncertain	Non-Small Cell Lung Cancer	2463	0	4e-04	0
+RAD50	Uncertain	Non-Small Cell Lung Cancer	2463	0.0037	0.0032	0.571
+RAD51B	Uncertain	Non-Small Cell Lung Cancer	2463	0	8e-04	0
+RAD51C	Moderate	Non-Small Cell Lung Cancer	2463	4e-04	8e-04	0
+RAD51D	Moderate	Non-Small Cell Lung Cancer	2463	8e-04	8e-04	0
+RAD52	Uncertain	Non-Small Cell Lung Cancer	2463	0	4e-04	0
+RAD54L	Uncertain	Non-Small Cell Lung Cancer	2463	0	0.0016	0
+RASA1	Uncertain	Non-Small Cell Lung Cancer	2463	0.0134	4e-04	1
+RECQL4	Uncertain	Non-Small Cell Lung Cancer	2463	0	0.0053	0.273
+RPS6KB2	Uncertain	Non-Small Cell Lung Cancer	2463	0	8e-04	0
+SDHA	High	Non-Small Cell Lung Cancer	2463	0	4e-04	1
+SDHAF2	High	Non-Small Cell Lung Cancer	2463	8e-04	4e-04	0
+SHQ1	Uncertain	Non-Small Cell Lung Cancer	2463	8e-04	0.0032	0
+SMARCA4	High	Non-Small Cell Lung Cancer	2463	0.0455	4e-04	0
+TET2	Uncertain	Non-Small Cell Lung Cancer	2463	0.0069	8e-04	0.5
+TP53	High	Non-Small Cell Lung Cancer	2463	0.5416	0.002	1
+TSC2	High	Non-Small Cell Lung Cancer	2463	0.0057	8e-04	0
+HIST1H3A	Uncertain	Other	444	0	0.0023	1
+NUP93	Uncertain	Other	444	0	0.0023	0
+APC	Low,High	Other	475	0.0211	0.0126	0.5
+ATM	Moderate	Other	475	0.0611	0.0042	0
+ATR	Uncertain	Other	475	0.0063	0.0021	0
+BRCA1	High	Other	475	0	0.0147	0.4
+BRCA2	High	Other	475	0.0147	0.0084	0.333
+CHEK2	Moderate,Uncertain	Other	475	0	0.0105	0.2
+DNMT3A	Uncertain	Other	475	0.0126	0.0021	0
+EPCAM	Uncertain	Other	475	0	0.0021	NA
+ERCC2	Uncertain	Other	475	0	0.0042	1
+ERCC5	Uncertain	Other	475	0	0.0042	0
+FANCA	Uncertain	Other	475	0	0.0042	0
+FANCC	Uncertain	Other	475	0	0.0063	0
+MAP3K13	Uncertain	Other	475	0	0.0021	0
+MDC1	Uncertain	Other	475	0	0.0021	0
+MITF	Moderate	Other	475	0	0.0063	0.5
+MLH1	High	Other	475	0.0063	0.0021	1
+MRE11A	Uncertain	Other	475	0	0.0021	0
+MSH2	High	Other	475	0	0.0042	0.5
+MUTYH	Low	Other	475	0	0.0126	0.5
+NOTCH4	Uncertain	Other	475	0	0.0042	0
+PALB2	High	Other	475	0	0.0021	NA
+PARK2	Uncertain	Other	475	0	0.0021	1
+PIK3C2G	Uncertain	Other	475	0	0.0021	0
+PMS1	Uncertain	Other	475	0	0.0021	0
+RAD50	Uncertain	Other	475	0	0.0021	NA
+RAD51B	Uncertain	Other	475	0	0.0021	0
+RAD54L	Uncertain	Other	475	0	0.0021	0
+RPS6KB2	Uncertain	Other	475	0	0.0021	0
+SDHB	High	Other	475	0	0.0105	1
+SDHC	High	Other	475	0	0.0021	0
+TET2	Uncertain	Other	475	0.0211	0.0042	NA
+TP53	High	Other	475	0.2632	0.0042	1
+VHL	High,Uncertain	Other	475	0.0168	0.0021	1
+MST1	Uncertain	Ovarian Cancer	300	0.0033	0.0033	0
+NUP93	Uncertain	Ovarian Cancer	300	0	0.0033	1
+APC	Low,High	Ovarian Cancer	384	0.0026	0.0312	0.222
+ATM	Moderate	Ovarian Cancer	384	0.0234	0.0078	0.333
+BAP1	High	Ovarian Cancer	384	0.0052	0.0026	1
+BLM	Uncertain	Ovarian Cancer	384	0	0.0052	0.5
+BRCA1	High	Ovarian Cancer	384	0.0312	0.0677	0.947
+BRCA2	High	Ovarian Cancer	384	0.0182	0.0365	0.769
+BRIP1	Moderate	Ovarian Cancer	384	0.0078	0.0026	1
+CHEK2	Moderate,Uncertain	Ovarian Cancer	384	0	0.0104	0.333
+DIS3	Uncertain	Ovarian Cancer	384	0	0.0026	0
+ERCC2	Uncertain	Ovarian Cancer	384	0	0.0026	0
+ERCC3	Uncertain	Ovarian Cancer	384	0	0.0052	0
+ERCC5	Uncertain	Ovarian Cancer	384	0	0.0026	0
+FAM175A	Uncertain	Ovarian Cancer	384	0	0.0026	NA
+FANCA	Uncertain	Ovarian Cancer	384	0	0.0026	NA
+FAT1	Uncertain	Ovarian Cancer	384	0.0052	0.0026	0
+FH	Uncertain,High	Ovarian Cancer	384	0	0.0026	0
+HNF1A	Uncertain	Ovarian Cancer	384	0.0026	0.0026	NA
+IKZF1	Uncertain	Ovarian Cancer	384	0	0.0026	NA
+JAK3	Uncertain	Ovarian Cancer	384	0	0.0026	0
+LATS1	Uncertain	Ovarian Cancer	384	0.0104	0.0026	1
+MITF	Moderate	Ovarian Cancer	384	0	0.0026	0
+MUTYH	Low	Ovarian Cancer	384	0	0.0078	0.5
+NBN	Moderate	Ovarian Cancer	384	0	0.0026	0
+NOTCH3	Uncertain	Ovarian Cancer	384	0	0.0026	0
+PIK3C2G	Uncertain	Ovarian Cancer	384	0	0.0078	0.333
+PMS1	Uncertain	Ovarian Cancer	384	0	0.0026	0
+PTPRS	Uncertain	Ovarian Cancer	384	0	0.0026	1
+RAD50	Uncertain	Ovarian Cancer	384	0.0026	0.0026	NA
+RAD51B	Uncertain	Ovarian Cancer	384	0	0.0052	0.5
+RAD51C	Moderate	Ovarian Cancer	384	0	0.0078	0.667
+RAD54L	Uncertain	Ovarian Cancer	384	0	0.0026	0
+RECQL4	Uncertain	Ovarian Cancer	384	0	0.0078	0
+HOXB13	Moderate	Pancreatic Adenocarcinoma	738	0	0.0068	0
+MGA	Uncertain	Pancreatic Adenocarcinoma	738	0.0068	0.0014	0
+MST1	Uncertain	Pancreatic Adenocarcinoma	738	0	0.0014	1
+NUP93	Uncertain	Pancreatic Adenocarcinoma	738	0	0.0014	0
+APC	Low,High	Pancreatic Adenocarcinoma	758	0.0092	0.029	0.105
+ATM	Moderate	Pancreatic Adenocarcinoma	758	0.0435	0.0119	1
+ATR	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0026	1
+AXIN2	Uncertain	Pancreatic Adenocarcinoma	758	0.0053	0.0013	0
+BARD1	Uncertain	Pancreatic Adenocarcinoma	758	0.0026	0.0013	1
+BLM	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0026	0.5
+BRCA1	High	Pancreatic Adenocarcinoma	758	0.0026	0.0224	0.643
+BRCA2	High	Pancreatic Adenocarcinoma	758	0.0237	0.0501	0.839
+CASP8	Uncertain	Pancreatic Adenocarcinoma	758	0.0066	0.0013	1
+CBL	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0013	0
+CDKN1A	Uncertain	Pancreatic Adenocarcinoma	758	0.0013	0.0013	0
+CHEK2	Moderate,Uncertain	Pancreatic Adenocarcinoma	758	0	0.0277	0.421
+ERCC2	Uncertain	Pancreatic Adenocarcinoma	758	0.0013	0.0013	NA
+ERCC3	Uncertain	Pancreatic Adenocarcinoma	758	0.0013	0.0092	0
+ERCC4	Uncertain	Pancreatic Adenocarcinoma	758	0.0013	0.0013	0
+FAM175A	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0013	1
+FANCA	Uncertain	Pancreatic Adenocarcinoma	758	0.0026	0.0013	NA
+FANCC	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0053	0.333
+FAT1	Uncertain	Pancreatic Adenocarcinoma	758	0.004	0.0013	NA
+FH	Uncertain,High	Pancreatic Adenocarcinoma	758	0	0.0026	0.5
+IFNGR1	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0013	1
+MDC1	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0026	1
+MITF	Moderate	Pancreatic Adenocarcinoma	758	0	0.004	0
+MLH1	High	Pancreatic Adenocarcinoma	758	0.0013	0.0013	1
+MRE11A	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0013	0
+MSH2	High	Pancreatic Adenocarcinoma	758	0	0.0026	0
+MSH6	High	Pancreatic Adenocarcinoma	758	0.004	0.0013	1
+MUTYH	Low	Pancreatic Adenocarcinoma	758	0	0.0132	0.25
+NBN	Moderate	Pancreatic Adenocarcinoma	758	0	0.004	0
+NF1	High	Pancreatic Adenocarcinoma	758	0.0066	0.0026	1
+NKX3-1	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0013	1
+NOTCH3	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0026	0
+PALB2	High	Pancreatic Adenocarcinoma	758	0	0.0026	0.5
+PIK3C2G	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0079	0.333
+PMS1	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0013	NA
+PMS2	High	Pancreatic Adenocarcinoma	758	0	0.0026	0.5
+PTPRS	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0013	0
+RAD50	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0026	0.5
+RAD51C	Moderate	Pancreatic Adenocarcinoma	758	0	0.0013	1
+RAD54L	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0013	1
+RECQL4	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0026	0
+RNF43	Uncertain	Pancreatic Adenocarcinoma	758	0.0383	0.0013	0
+RPS6KB2	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0013	1
+SPOP	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0013	0
+STK11	High	Pancreatic Adenocarcinoma	758	0.0092	0.0013	0
+TSHR	Uncertain	Pancreatic Adenocarcinoma	758	0	0.0026	0
+APC	Low,High	Pancreatic Neuroendocrine Tumor	112	0	0.0268	0
+ATM	Moderate	Pancreatic Neuroendocrine Tumor	112	0.0357	0.0089	1
+CHEK2	Moderate,Uncertain	Pancreatic Neuroendocrine Tumor	112	0	0.0446	0.6
+ERCC2	Uncertain	Pancreatic Neuroendocrine Tumor	112	0	0.0179	0
+FANCA	Uncertain	Pancreatic Neuroendocrine Tumor	112	0	0.0089	1
+FANCC	Uncertain	Pancreatic Neuroendocrine Tumor	112	0	0.0089	0
+FH	Uncertain,High	Pancreatic Neuroendocrine Tumor	112	0	0.0089	1
+MEN1	High	Pancreatic Neuroendocrine Tumor	112	0.3571	0.0089	1
+MUTYH	Low	Pancreatic Neuroendocrine Tumor	112	0	0.0268	1
+PIK3C2G	Uncertain	Pancreatic Neuroendocrine Tumor	112	0	0.0089	1
+RAD50	Uncertain	Pancreatic Neuroendocrine Tumor	112	0	0.0089	0
+RECQL4	Uncertain	Pancreatic Neuroendocrine Tumor	112	0	0.0089	0
+TSC2	High	Pancreatic Neuroendocrine Tumor	112	0.1161	0.0089	1
+TSHR	Uncertain	Pancreatic Neuroendocrine Tumor	112	0	0.0089	0
+VHL	High,Uncertain	Pancreatic Neuroendocrine Tumor	112	0.0446	0.0089	NA
+HIST3H3	Uncertain	Prostate Cancer	925	0	0.0011	0
+HOXB13	Moderate	Prostate Cancer	925	0	0.0043	0
+SH2B3	Uncertain	Prostate Cancer	925	0	0.0011	0
+XRCC2	Uncertain	Prostate Cancer	925	0	0.0011	0
+ZFHX3	Uncertain	Prostate Cancer	925	0	0.0011	0
+ALOX12B	Uncertain	Prostate Cancer	1042	0	0.001	0
+APC	Low,High	Prostate Cancer	1042	0.0537	0.0163	0.417
+ATM	Moderate	Prostate Cancer	1042	0.0365	0.0144	0.769
+BARD1	Uncertain	Prostate Cancer	1042	0.001	0.001	0
+BLM	Uncertain	Prostate Cancer	1042	0	0.0029	0
+BRCA1	High	Prostate Cancer	1042	0.0048	0.0038	0.667
+BRCA2	High	Prostate Cancer	1042	0.0278	0.048	0.783
+BRIP1	Moderate	Prostate Cancer	1042	0.0077	0.0038	0.667
+CASP8	Uncertain	Prostate Cancer	1042	0.001	0.0029	0.333
+CHEK1	Uncertain	Prostate Cancer	1042	0	0.0019	0
+CHEK2	Moderate,Uncertain	Prostate Cancer	1042	0	0.0269	0.238
+DICER1	High	Prostate Cancer	1042	0.001	0.001	0
+DIS3	Uncertain	Prostate Cancer	1042	0.001	0.0019	0
+DNMT3B	Uncertain	Prostate Cancer	1042	0	0.001	0
+ERCC2	Uncertain	Prostate Cancer	1042	0	0.0038	0
+ERCC3	Uncertain	Prostate Cancer	1042	0	0.0077	0
+ERCC4	Uncertain	Prostate Cancer	1042	0	0.001	NA
+ERCC5	Uncertain	Prostate Cancer	1042	0	0.001	1
+FANCA	Uncertain	Prostate Cancer	1042	0	0.0048	0.4
+FAT1	Uncertain	Prostate Cancer	1042	0.0029	0.001	0
+FH	Uncertain,High	Prostate Cancer	1042	0	0.0058	0.167
+FLCN	High	Prostate Cancer	1042	0	0.001	NA
+LATS1	Uncertain	Prostate Cancer	1042	0.0029	0.0019	0
+MITF	Moderate	Prostate Cancer	1042	0	0.0077	0.167
+MSH2	High	Prostate Cancer	1042	0.001	0.0038	0.75
+MSH6	High	Prostate Cancer	1042	0.0077	0.0019	0
+MUTYH	Low	Prostate Cancer	1042	0	0.0202	0
+NBN	Moderate	Prostate Cancer	1042	0	0.0019	0.5
+NOTCH4	Uncertain	Prostate Cancer	1042	0	0.001	NA
+PALB2	High	Prostate Cancer	1042	0	0.0048	0.8
+PARK2	Uncertain	Prostate Cancer	1042	0	0.001	0
+PAX5	Uncertain	Prostate Cancer	1042	0.001	0.001	0
+PDCD1	Uncertain	Prostate Cancer	1042	0	0.001	0
+PIK3C2G	Uncertain	Prostate Cancer	1042	0	0.0058	0
+PMS2	High	Prostate Cancer	1042	0.0029	0.0029	0.5
+PRDM1	Uncertain	Prostate Cancer	1042	0	0.001	0
+RAD52	Uncertain	Prostate Cancer	1042	0	0.001	0
+RAD54L	Uncertain	Prostate Cancer	1042	0	0.0029	0.333
+RASA1	Uncertain	Prostate Cancer	1042	0	0.001	1
+RECQL4	Uncertain	Prostate Cancer	1042	0	0.0019	0
+RFWD2	Uncertain	Prostate Cancer	1042	0	0.001	1
+RNF43	Uncertain	Prostate Cancer	1042	0.0115	0.001	0
+RPS6KB2	Uncertain	Prostate Cancer	1042	0	0.0029	0.667
+SETD2	Uncertain	Prostate Cancer	1042	0.0086	0.001	0
+SHQ1	Uncertain	Prostate Cancer	1042	0	0.0029	0
+SMARCA4	High	Prostate Cancer	1042	0.001	0.001	0
+TP53	High	Prostate Cancer	1042	0.2802	0.001	0
+TSHR	Uncertain	Prostate Cancer	1042	0	0.001	0
+VHL	High,Uncertain	Prostate Cancer	1042	0.001	0.001	1
+APC	Low,High	Renal Clear Cell Carcinoma	272	0.0037	0.0221	0.2
+ATM	Moderate	Renal Clear Cell Carcinoma	272	0.0368	0.0037	0
+BAP1	High	Renal Clear Cell Carcinoma	272	0.1507	0.0147	1
+BARD1	Uncertain	Renal Clear Cell Carcinoma	272	0.0037	0.0037	0
+CASP8	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0037	0
+CHEK2	Moderate,Uncertain	Renal Clear Cell Carcinoma	272	0	0.0331	0.444
+DIS3	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0037	0
+EPCAM	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0037	0
+ERCC2	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0074	0
+ERCC3	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0037	1
+FANCA	Uncertain	Renal Clear Cell Carcinoma	272	0.0037	0.0037	0
+FH	Uncertain,High	Renal Clear Cell Carcinoma	272	0	0.0037	0
+IFNGR1	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0037	0
+JAK3	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0037	0
+MITF	Moderate	Renal Clear Cell Carcinoma	272	0	0.0037	0
+MSH6	High	Renal Clear Cell Carcinoma	272	0.0037	0.0074	0
+MUTYH	Low	Renal Clear Cell Carcinoma	272	0	0.0221	0.4
+PIK3C2G	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0037	0
+PIK3R3	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0074	0
+RAD50	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0037	0
+RAD51C	Moderate	Renal Clear Cell Carcinoma	272	0.0037	0.0037	0
+RAD54L	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0037	0
+RECQL4	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0074	0
+SDHA	High	Renal Clear Cell Carcinoma	272	0	0.0037	0
+SHQ1	Uncertain	Renal Clear Cell Carcinoma	272	0	0.0037	0
+VHL	High,Uncertain	Renal Clear Cell Carcinoma	272	0.7426	0.011	1
+AMER1	Uncertain	Renal Non-Clear Cell Carcinoma	190	0	0.0053	0
+APC	Low,High	Renal Non-Clear Cell Carcinoma	190	0	0.0105	0
+BARD1	Uncertain	Renal Non-Clear Cell Carcinoma	190	0	0.0053	0
+BRCA1	High	Renal Non-Clear Cell Carcinoma	190	0	0.0158	0
+BRCA2	High	Renal Non-Clear Cell Carcinoma	190	0	0.0053	0
+CHEK2	Moderate,Uncertain	Renal Non-Clear Cell Carcinoma	190	0	0.0053	1
+DIS3	Uncertain	Renal Non-Clear Cell Carcinoma	190	0	0.0053	1
+FAM175A	Uncertain	Renal Non-Clear Cell Carcinoma	190	0	0.0053	NA
+FANCA	Uncertain	Renal Non-Clear Cell Carcinoma	190	0	0.0053	0
+FAT1	Uncertain	Renal Non-Clear Cell Carcinoma	190	0.0211	0.0053	0
+FH	Uncertain,High	Renal Non-Clear Cell Carcinoma	190	0	0.0368	1
+FLCN	High	Renal Non-Clear Cell Carcinoma	190	0	0.0105	1
+MET	High	Renal Non-Clear Cell Carcinoma	190	0.0316	0.0053	1
+MUTYH	Low	Renal Non-Clear Cell Carcinoma	190	0	0.0105	0
+PALB2	High	Renal Non-Clear Cell Carcinoma	190	0	0.0053	1
+PTPRD	Uncertain	Renal Non-Clear Cell Carcinoma	190	0	0.0053	1
+RPS6KB2	Uncertain	Renal Non-Clear Cell Carcinoma	190	0	0.0053	0
+SDHB	High	Renal Non-Clear Cell Carcinoma	190	0	0.0211	1
+SMARCB1	High	Renal Non-Clear Cell Carcinoma	190	0.0368	0.0053	1
+RB1	High	Retinoblastoma	12	0.6667	0.0833	1
+SETD2	Uncertain	Retinoblastoma	12	0	0.0833	0
+MAPK3	Uncertain	Salivary Carcinoma	111	0	0.009	0
+XRCC2	Uncertain	Salivary Carcinoma	111	0	0.009	0
+APC	Low,High	Salivary Carcinoma	149	0.0134	0.0067	NA
+BLM	Uncertain	Salivary Carcinoma	149	0	0.0134	0
+BMPR1A	High	Salivary Carcinoma	149	0	0.0067	0
+BRCA1	High	Salivary Carcinoma	149	0	0.0134	1
+CHEK2	Moderate,Uncertain	Salivary Carcinoma	149	0	0.0067	NA
+EPCAM	Uncertain	Salivary Carcinoma	149	0	0.0067	NA
+FAM175A	Uncertain	Salivary Carcinoma	149	0	0.0067	0
+FANCC	Uncertain	Salivary Carcinoma	149	0	0.0067	0
+FLCN	High	Salivary Carcinoma	149	0	0.0067	1
+HNF1A	Uncertain	Salivary Carcinoma	149	0	0.0067	0
+MITF	Moderate	Salivary Carcinoma	149	0	0.0067	0
+MUTYH	Low	Salivary Carcinoma	149	0	0.0134	0.5
+PDCD1	Uncertain	Salivary Carcinoma	149	0	0.0067	0
+TET2	Uncertain	Salivary Carcinoma	149	0.0067	0.0067	0
+CHEK2	Moderate,Uncertain	Sex Cord Stromal Tumor	27	0	0.1111	0.333
+DICER1	High	Sex Cord Stromal Tumor	27	0.0741	0.037	1
+PIK3C2G	Uncertain	Sex Cord Stromal Tumor	27	0	0.037	1
+RAD51B	Uncertain	Sex Cord Stromal Tumor	27	0	0.037	1
+SUFU	High	Sex Cord Stromal Tumor	27	0	0.037	1
+HIST1H3A	Uncertain	Skin Cancer, Non-Melanoma	149	0	0.0067	1
+XRCC2	Uncertain	Skin Cancer, Non-Melanoma	149	0	0.0067	0
+APC	Low,High	Skin Cancer, Non-Melanoma	196	0.0204	0.0459	0.25
+ATM	Moderate	Skin Cancer, Non-Melanoma	196	0.1582	0.0051	0
+BRCA1	High	Skin Cancer, Non-Melanoma	196	0.0102	0.0051	NA
+BRCA2	High	Skin Cancer, Non-Melanoma	196	0.0306	0.0153	0.667
+BRIP1	Moderate	Skin Cancer, Non-Melanoma	196	0.051	0.0051	0
+CHEK2	Moderate,Uncertain	Skin Cancer, Non-Melanoma	196	0	0.0102	0.5
+CUL3	Uncertain	Skin Cancer, Non-Melanoma	196	0	0.0051	0
+DIS3	Uncertain	Skin Cancer, Non-Melanoma	196	0	0.0051	0
+FANCC	Uncertain	Skin Cancer, Non-Melanoma	196	0	0.0051	0
+FH	Uncertain,High	Skin Cancer, Non-Melanoma	196	0	0.0102	0.5
+MITF	Moderate	Skin Cancer, Non-Melanoma	196	0	0.0102	1
+MUTYH	Low	Skin Cancer, Non-Melanoma	196	0	0.0051	0
+NOTCH4	Uncertain	Skin Cancer, Non-Melanoma	196	0	0.0051	0
+PARK2	Uncertain	Skin Cancer, Non-Melanoma	196	0	0.0051	0
+PMS1	Uncertain	Skin Cancer, Non-Melanoma	196	0	0.0051	0
+RAD51C	Moderate	Skin Cancer, Non-Melanoma	196	0	0.0051	0
+RAD54L	Uncertain	Skin Cancer, Non-Melanoma	196	0	0.0051	NA
+RECQL4	Uncertain	Skin Cancer, Non-Melanoma	196	0	0.0051	1
+APC	Low,High	Small Bowel Cancer	59	0.2542	0.0678	0.667
+ATM	Moderate	Small Bowel Cancer	59	0.1864	0.0339	1
+CHEK2	Moderate,Uncertain	Small Bowel Cancer	59	0	0.0169	0
+ERCC2	Uncertain	Small Bowel Cancer	59	0	0.0169	0
+MDC1	Uncertain	Small Bowel Cancer	59	0	0.0169	NA
+MLH1	High	Small Bowel Cancer	59	0.0169	0.0169	0
+MSH2	High	Small Bowel Cancer	59	0	0.0169	1
+MSH6	High	Small Bowel Cancer	59	0.0339	0.0169	0
+MUTYH	Low	Small Bowel Cancer	59	0	0.0339	NA
+TET2	Uncertain	Small Bowel Cancer	59	0.0339	0.0169	0
+ALOX12B	Uncertain	Small Cell Lung Cancer	132	0	0.0076	1
+APC	Low,High	Small Cell Lung Cancer	132	0.0303	0.0227	1
+BRCA1	High	Small Cell Lung Cancer	132	0.0152	0.0076	NA
+BRCA2	High	Small Cell Lung Cancer	132	0.0076	0.0076	0
+CHEK2	Moderate,Uncertain	Small Cell Lung Cancer	132	0	0.0227	0
+ERCC5	Uncertain	Small Cell Lung Cancer	132	0	0.0076	0
+FANCC	Uncertain	Small Cell Lung Cancer	132	0	0.0076	0
+INPP4A	Uncertain	Small Cell Lung Cancer	132	0	0.0076	NA
+MITF	Moderate	Small Cell Lung Cancer	132	0	0.0076	1
+MUTYH	Low	Small Cell Lung Cancer	132	0	0.0152	0
+NBN	Moderate	Small Cell Lung Cancer	132	0	0.0076	0
+NCOR1	Uncertain	Small Cell Lung Cancer	132	0.0076	0.0076	1
+PMS1	Uncertain	Small Cell Lung Cancer	132	0	0.0076	0
+RAD54L	Uncertain	Small Cell Lung Cancer	132	0	0.0076	0
+RECQL4	Uncertain	Small Cell Lung Cancer	132	0	0.0076	0
+RPS6KB2	Uncertain	Small Cell Lung Cancer	132	0	0.0076	0
+HOXB13	Moderate	Soft Tissue Sarcoma	552	0	0.0036	0
+MST1	Uncertain	Soft Tissue Sarcoma	552	0	0.0036	0
+APC	Low,High	Soft Tissue Sarcoma	666	0.0015	0.021	0.2
+ASXL1	Uncertain	Soft Tissue Sarcoma	666	0.0015	0.0015	0
+ATM	Moderate	Soft Tissue Sarcoma	666	0.0255	0.0015	1
+BARD1	Uncertain	Soft Tissue Sarcoma	666	0	0.003	1
+BRCA1	High	Soft Tissue Sarcoma	666	0.003	0.003	0
+BRCA2	High	Soft Tissue Sarcoma	666	0.0015	0.006	0.667
+BRIP1	Moderate	Soft Tissue Sarcoma	666	0.0075	0.0015	0
+CBL	Uncertain	Soft Tissue Sarcoma	666	0	0.0015	0
+CDH1	High	Soft Tissue Sarcoma	666	0	0.0015	0
+CHEK2	Moderate,Uncertain	Soft Tissue Sarcoma	666	0.0015	0.015	0.111
+DICER1	High	Soft Tissue Sarcoma	666	0.009	0.0015	NA
+DIS3	Uncertain	Soft Tissue Sarcoma	666	0.0015	0.0015	0
+ERCC3	Uncertain	Soft Tissue Sarcoma	666	0.0015	0.0075	0
+ERCC4	Uncertain	Soft Tissue Sarcoma	666	0	0.0015	0
+FANCA	Uncertain	Soft Tissue Sarcoma	666	0	0.003	0
+FANCC	Uncertain	Soft Tissue Sarcoma	666	0.003	0.003	0
+FH	Uncertain,High	Soft Tissue Sarcoma	666	0	0.0045	0
+FLCN	High	Soft Tissue Sarcoma	666	0	0.0015	0
+JAK3	Uncertain	Soft Tissue Sarcoma	666	0	0.0015	0
+KMT2D	Uncertain	Soft Tissue Sarcoma	666	0.012	0.0015	0
+MITF	Moderate	Soft Tissue Sarcoma	666	0	0.006	0
+MSH2	High	Soft Tissue Sarcoma	666	0.0015	0.0045	1
+MUTYH	Low	Soft Tissue Sarcoma	666	0	0.0165	0.125
+NBN	Moderate	Soft Tissue Sarcoma	666	0	0.0015	1
+NF1	High	Soft Tissue Sarcoma	666	0.033	0.0015	NA
+NOTCH3	Uncertain	Soft Tissue Sarcoma	666	0	0.0015	0
+NOTCH4	Uncertain	Soft Tissue Sarcoma	666	0	0.0015	0
+PARK2	Uncertain	Soft Tissue Sarcoma	666	0	0.003	0
+PIK3C2G	Uncertain	Soft Tissue Sarcoma	666	0	0.0045	0.333
+PMS1	Uncertain	Soft Tissue Sarcoma	666	0	0.003	0
+PTCH1	High	Soft Tissue Sarcoma	666	0.0015	0.0015	1
+PTPRS	Uncertain	Soft Tissue Sarcoma	666	0	0.0015	NA
+RAD50	Uncertain	Soft Tissue Sarcoma	666	0	0.006	0
+RAD51C	Moderate	Soft Tissue Sarcoma	666	0	0.0015	0
+RAD54L	Uncertain	Soft Tissue Sarcoma	666	0	0.0045	0.333
+RASA1	Uncertain	Soft Tissue Sarcoma	666	0.0015	0.0015	NA
+RB1	High	Soft Tissue Sarcoma	666	0.039	0.0045	1
+RECQL4	Uncertain	Soft Tissue Sarcoma	666	0	0.003	0
+SDHA	High	Soft Tissue Sarcoma	666	0	0.0015	0
+SDHB	High	Soft Tissue Sarcoma	666	0	0.0015	0
+SETD2	Uncertain	Soft Tissue Sarcoma	666	0.006	0.0015	0
+TNFRSF14	Uncertain	Soft Tissue Sarcoma	666	0	0.0015	0
+TP53	High	Soft Tissue Sarcoma	666	0.1997	0.0075	1
+VHL	High,Uncertain	Soft Tissue Sarcoma	666	0.0015	0.0015	0
+CHEK2	Moderate,Uncertain	Thymic Tumor	44	0	0.0227	0
+MUTYH	Low	Thymic Tumor	44	0	0.0227	0
+NF1	High	Thymic Tumor	44	0	0.0227	0
+RECQL4	Uncertain	Thymic Tumor	44	0	0.0227	0
+TET1	Uncertain	Thymic Tumor	44	0	0.0227	1
+HOXB13	Moderate	Thyroid Cancer	223	0	0.0045	0
+MST1	Uncertain	Thyroid Cancer	223	0	0.0045	0
+ALOX12B	Uncertain	Thyroid Cancer	306	0	0.0033	1
+APC	Low,High	Thyroid Cancer	306	0.0098	0.0261	0
+BAP1	High	Thyroid Cancer	306	0	0.0033	0
+BRCA1	High	Thyroid Cancer	306	0.0065	0.0033	0
+BRCA2	High	Thyroid Cancer	306	0.0033	0.0033	0
+BRIP1	Moderate	Thyroid Cancer	306	0	0.0033	0
+CHEK2	Moderate,Uncertain	Thyroid Cancer	306	0	0.0229	0.8
+DIS3	Uncertain	Thyroid Cancer	306	0.0065	0.0033	0
+ERCC5	Uncertain	Thyroid Cancer	306	0	0.0033	1
+FANCA	Uncertain	Thyroid Cancer	306	0	0.0065	0
+FANCC	Uncertain	Thyroid Cancer	306	0	0.0033	0
+FH	Uncertain,High	Thyroid Cancer	306	0	0.0065	0
+INPP4A	Uncertain	Thyroid Cancer	306	0	0.0033	0
+JAK3	Uncertain	Thyroid Cancer	306	0	0.0033	NA
+MLH1	High	Thyroid Cancer	306	0.0033	0.0033	1
+MRE11A	Uncertain	Thyroid Cancer	306	0	0.0065	0.5
+MSH6	High	Thyroid Cancer	306	0.0065	0.0033	1
+MUTYH	Low	Thyroid Cancer	306	0	0.0098	0.5
+NBN	Moderate	Thyroid Cancer	306	0	0.0033	0
+NKX3-1	Uncertain	Thyroid Cancer	306	0	0.0033	0
+PALB2	High	Thyroid Cancer	306	0	0.0033	0
+PIK3C2G	Uncertain	Thyroid Cancer	306	0	0.0065	0.5
+PMS1	Uncertain	Thyroid Cancer	306	0	0.0033	0
+RAD50	Uncertain	Thyroid Cancer	306	0	0.0065	0
+RAD52	Uncertain	Thyroid Cancer	306	0	0.0065	0
+RET	High	Thyroid Cancer	306	0.0621	0.0098	0.5
+SDHA	High	Thyroid Cancer	306	0	0.0065	0.5
+SHQ1	Uncertain	Thyroid Cancer	306	0	0.0033	NA
+HIST1H3H	Uncertain	Unknown	35	0	0.0286	NA
+APC	Low,High	Unknown	39	0	0.0256	NA
+BRCA1	High	Unknown	39	0	0.0256	0
+BRCA2	High	Unknown	39	0	0.0256	NA
+ERCC2	Uncertain	Unknown	39	0	0.0256	NA
+ERCC3	Uncertain	Unknown	39	0	0.0256	NA
+ERCC4	Uncertain	Unknown	39	0	0.0256	NA
+PMS1	Uncertain	Unknown	39	0	0.0256	NA
+HOXB13	Moderate	Uterine Sarcoma	81	0	0.0123	0
+APC	Low,High	Uterine Sarcoma	127	0	0.0236	0
+ATM	Moderate	Uterine Sarcoma	127	0.0157	0.0079	0
+BCL2L11	Uncertain	Uterine Sarcoma	127	0	0.0079	0
+CHEK2	Moderate,Uncertain	Uterine Sarcoma	127	0	0.0157	0
+FH	Uncertain,High	Uterine Sarcoma	127	0	0.0079	1
+NBN	Moderate	Uterine Sarcoma	127	0	0.0079	0
+NOTCH3	Uncertain	Uterine Sarcoma	127	0	0.0079	0
+RAD50	Uncertain	Uterine Sarcoma	127	0	0.0079	0
+SETD2	Uncertain	Uterine Sarcoma	127	0	0.0079	0
+TGFBR2	Uncertain	Uterine Sarcoma	127	0	0.0079	0
+TP53	High	Uterine Sarcoma	127	0.3622	0.0157	0

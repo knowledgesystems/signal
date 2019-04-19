@@ -8,12 +8,12 @@ class About extends React.Component<{}>
         return (
             <React.Fragment>
                 <p>
-                    This resource is maintained and regularly expanded by the Kravis Center for Molecular Oncology at
-                    Memorial Sloan Kettering Cancer Center. It provides information about germline pathogenic variants
-                    in cancer genes arising in cancer patients for whom clinical sequencing was performed to guide
-                    their clinical care. The penetrance, tumor-specific zygosity, and affected lineage is provided
-                    based on computational inferences and clinical annotation. The initial data release includes
-                    17,152 tumor samples and all analyses are described in:
+                    The INSIGHT resource was developed in a collaboration between the Berger and Taylor labs
+                    along with key institutional partners at Memorial Sloan Kettering with the goal of establishing
+                    a resource of integrated germline and somatic alterations identified by clinical sequencing of
+                    active cancer patients. Provided here are pathogenic germline variants and their tumor-specific
+                    zygosity changes by gene, lineage, and cancer type in 17,152 prospectively sequenced cancer patients.
+                    All analyses are described in:
                 </p>
 
                 <ul>

@@ -1,11 +1,5 @@
-import csvToJson from "csvtojson";
-import {Converter} from "csvtojson/v2/Converter";
 import path from "path";
-
-function readCounts(filePath: string): Converter
-{
-    return csvToJson({delimiter: "\t"}).fromFile(filePath);
-}
+import {readAsJson} from "../util/IOUtils";
 
 class MutationRepository
 {
@@ -23,13 +17,13 @@ class MutationRepository
         const germlineQCPassMutationCountByGenePath = path.join(__dirname, "../resources/data/gene_QCpass_by_tumortype_merge.txt");
 
         const promises = [
-            readCounts(somaticMutationCountByGenePath).then(
+            readAsJson(somaticMutationCountByGenePath).then(
                 json => this.somaticMutationCountByGene = json),
-            readCounts(germlineMutationCountByGenePath).then(
+            readAsJson(germlineMutationCountByGenePath).then(
                 json => this.germlineMutationCountByGene = json),
-            readCounts(biallelicGermlineMutationByGenePath).then(
+            readAsJson(biallelicGermlineMutationByGenePath).then(
                 json => this.biallelicGermlineMutationCountByGene = json),
-            readCounts(germlineQCPassMutationCountByGenePath).then(
+            readAsJson(germlineQCPassMutationCountByGenePath).then(
                 json => this.germlineQCPassMutationCountByGene = json)
         ];
 

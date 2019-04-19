@@ -17,6 +17,11 @@ export const HEADER_COMPONENT: {[id: string] : JSX.Element} = {
         />
     ),
     [ColumnId.GERMLINE]: <ColumnHeader headerContent="Pathogenic Germline"/>,
-    [ColumnId.PERCENT_BIALLELIC]: <ColumnHeader headerContent="% Biallelic"/>,
+    [ColumnId.PERCENT_BIALLELIC]: (
+        <ColumnHeader
+            headerContent={<span>% Biallelic <i className="fa fa-info-circle" /></span>}
+            overlay={<span>Percent of pathogenic germline carriers biallelic in the corresponding tumor</span>}
+        />
+    ),
     [ColumnId.MUTATION_FREQUENCIES]: <ColumnHeader headerContent="Mutation Frequencies (%)"/>,
 };

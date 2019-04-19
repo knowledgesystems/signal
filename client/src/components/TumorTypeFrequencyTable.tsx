@@ -5,7 +5,7 @@ import ReactTable from "react-table";
 
 import {ITumorTypeFrequencySummary} from "../../../server/src/model/GeneFrequencySummary";
 import {DataStatus} from "../store/DataStatus";
-import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelpers";
+import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelper";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
 import FrequencyCell from "./FrequencyCell";
 

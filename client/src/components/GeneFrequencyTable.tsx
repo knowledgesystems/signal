@@ -3,7 +3,7 @@ import ReactTable from "react-table";
 
 import {IGeneFrequencySummary} from "../../../server/src/model/GeneFrequencySummary";
 import {DataStatus} from "../store/DataStatus";
-import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelpers";
+import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelper";
 import {fetchTumorTypeFrequenciesByGene} from "../util/FrequencyDataUtils";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
 import FrequencyCell from "./FrequencyCell";

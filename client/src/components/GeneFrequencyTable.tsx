@@ -3,7 +3,8 @@ import ReactTable from "react-table";
 
 import {IAggregatedMutationFrequencyByGene} from "../../../server/src/model/MutationFrequency";
 import {DataStatus} from "../store/DataStatus";
-import {fetchMutationsByGene} from "../store/DataUtils";
+import {fetchMutationsByGeneAndCategories} from "../store/DataUtils";
+import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
 import FrequencyCell from "./FrequencyCell";
 import TumorTypeFrequencyTable from "./TumorTypeFrequencyTable";
 
@@ -17,7 +18,7 @@ interface IFrequencyTableProps
 }
 
 // TODO duplicate server side code, remove after resolving import from server issues
-enum MutationCategory {
+export enum MutationCategory {
     DEFAULT = "NA",
     SOMATIC = "somaticByGene",
     GERMLINE = "germlineByGene",
@@ -27,42 +28,30 @@ enum MutationCategory {
 }
 
 
-function renderPercentage(frequency: number|null, hugoSymbol: string, category: MutationCategory, pathogenic?: boolean)
+function renderPercentage(cellProps: any)
 {
-    function overlay() {
-        return (
-            <TumorTypeFrequencyTable
-                dataPromise={fetchMutationsByGene(hugoSymbol, category, pathogenic)}
-            />
-        );
-    }
-
     return (
-        <FrequencyCell
-            frequency={frequency || 0}
-            overlay={frequency ? overlay : undefined}
-        />
+        <FrequencyCell frequency={cellProps.value || 0} />
     );
 }
 
-function renderSomatic(cellProps: any) {
-    return renderPercentage(cellProps.value,
-        cellProps.original.hugoSymbol,
-        MutationCategory.SOMATIC);
-}
+function renderSubComponent(row: any) {
+    return (
 
-function renderGermline(cellProps: any) {
-    return renderPercentage(cellProps.value,
-        cellProps.original.hugoSymbol,
-        MutationCategory.GERMLINE,
-        true);
-}
+            <div className="p-4">
+                <TumorTypeFrequencyTable
+                    hugoSymbol={row.original.hugoSymbol}
+                    dataPromise={
+                        fetchMutationsByGeneAndCategories(row.original.hugoSymbol, [
+                            {category: MutationCategory.SOMATIC},
+                            {category: MutationCategory.GERMLINE, pathogenic: true},
+                            {category: MutationCategory.BIALLELIC_QC_OVERRIDDEN_GERMLINE, pathogenic: true}
+                        ])
+                    }
+                />
+            </div>
 
-function renderBiallelic(cellProps: any) {
-    return renderPercentage(cellProps.value,
-        cellProps.original.hugoSymbol,
-        MutationCategory.BIALLELIC_QC_OVERRIDDEN_GERMLINE,
-        true);
+    );
 }
 
 export function somaticAccessor(aggregatedFrequency: IAggregatedMutationFrequencyByGene) {
@@ -103,29 +92,34 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                             defaultSortDesc: false
                         },
                         {
-                            Header: "Mutation Frequencies",
+                            Header: HEADER_COMPONENT[ColumnId.MUTATION_FREQUENCIES],
                             columns: [
                                 {
-                                    id: "somatic",
-                                    Cell: renderSomatic,
-                                    Header: "Somatic",
+                                    id: ColumnId.SOMATIC,
+                                    Cell: renderPercentage,
+                                    Header: HEADER_COMPONENT[ColumnId.SOMATIC],
                                     accessor: somaticAccessor
                                 },
                                 {
-                                    id: "germline",
-                                    Cell: renderGermline,
-                                    Header: <span className="text-wrap">Pathogenic Germline</span>,
+                                    id: ColumnId.GERMLINE,
+                                    Cell: renderPercentage,
+                                    Header: HEADER_COMPONENT[ColumnId.GERMLINE],
                                     accessor: germlineAccessor
                                 },
                                 {
-                                    id: "biallelic",
-                                    Cell: renderBiallelic,
-                                    Header: <span className="text-wrap">Biallelic Pathogenic Germline</span>,
+                                    id: ColumnId.BIALLELIC,
+                                    Cell: renderPercentage,
+                                    Header: HEADER_COMPONENT[ColumnId.BIALLELIC],
                                     accessor: biallelicAccessor
                                 },
                             ]
+                        },
+                        {
+                            expander: true,
+                            Expander: <i className="fa fa-plus-circle" />
                         }
                     ]}
+                    SubComponent={renderSubComponent}
                     defaultPageSize={10}
                     defaultSorted={[{
                         id: "germline",

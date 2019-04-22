@@ -1,3 +1,6 @@
+import autobind from "autobind-decorator";
+import {action, observable} from "mobx";
+import {observer} from "mobx-react";
 import * as React from "react";
 import ReactTable from "react-table";
 
@@ -49,10 +52,14 @@ function renderSubComponent(row: any) {
     );
 }
 
+@observer
 class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
 {
-    public render() {
+    @observable
+    private expanded: {[index: number] : boolean} = {};
 
+    public render()
+    {
         return (
             <div className="insight-frequency-table">
                 <ReactTable
@@ -92,9 +99,11 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                         },
                         {
                             expander: true,
-                            Expander: <i className="fa fa-plus-circle" />
+                            Expander: this.renderExpander
                         }
                     ]}
+                    onExpandedChange={this.onExpandedChange}
+                    expanded={this.expanded}
                     SubComponent={renderSubComponent}
                     defaultPageSize={10}
                     defaultSorted={[{
@@ -108,6 +117,18 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                 />
             </div>
         );
+    }
+
+    @autobind
+    private renderExpander(props: {isExpanded: boolean}) {
+        return props.isExpanded ?
+            <i className="fa fa-minus-circle" /> :
+            <i className="fa fa-plus-circle" />;
+    }
+
+    @action.bound
+    private onExpandedChange(expanded: {[index: number] : boolean}) {
+        this.expanded = expanded;
     }
 }
 

@@ -10,9 +10,9 @@ class CircledLetter extends React.Component<ICircledLetterProps>
 {
     public render() {
         return (
-            <span className="fa-stack" style={{fontSize: "0.7rem"}}>
+            <span className="fa-stack" style={{fontSize: "0.5rem"}}>
                 <i className="fa fa-circle fa-stack-2x" style={{color: this.props.color}}/>
-                <strong className="fa-stack-1x fa-inverse">{this.props.letter}</strong>
+                <strong className="fa-stack-1x fa-inverse" style={{fontSize: "0.6rem"}}>{this.props.letter}</strong>
             </span>
         )
     }

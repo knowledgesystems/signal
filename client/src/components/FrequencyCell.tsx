@@ -44,7 +44,7 @@ class FrequencyCell extends React.Component<IFrequencyCellProps>
             displayValue = `< ${1 / Math.pow(10, fractionDigits)}`;
         }
 
-        return <span>{displayValue}</span>;
+        return <span className="pull-right mr-1">{displayValue}</span>;
     }
 }
 

@@ -9,11 +9,27 @@ export interface IPenetranceProps
 }
 
 const STYLE_MAP = {
-    Uncertain: {displayValue: "U", color: "#C1C1C1"},
-    Low: {displayValue: "L", color: "#FFD700"},
-    Moderate: {displayValue: "M", color: "#FFAA22"},
-    High: {displayValue: "H", color: "#FF0000"},
+    Uncertain: {displayValue: "U", color: "#BDBCBC", priority: 1},
+    Low: {displayValue: "L", color: "#C7E3BF", priority: 2},
+    Moderate: {displayValue: "M", color: "#80CCBB", priority: 3},
+    High: {displayValue: "H", color: "#41AB5D", priority: 4},
 };
+
+export function comparePenetrance(a: string, b: string)
+{
+    const aPriority = STYLE_MAP[a] ? STYLE_MAP[a].priority : 0;
+    const bPriority = STYLE_MAP[b] ? STYLE_MAP[b].priority : 0;
+
+    if (aPriority < bPriority) {
+        return 1;
+    }
+    else if (aPriority > bPriority) {
+        return -1;
+    }
+    else {
+        return 0;
+    }
+}
 
 class Penetrance extends React.Component<IPenetranceProps>
 {

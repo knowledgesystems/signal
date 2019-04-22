@@ -1,5 +1,5 @@
 import * as React from "react";
-import Penetrance from "./Penetrance";
+import Penetrance, {comparePenetrance} from "./Penetrance";
 
 interface IGeneProps
 {
@@ -19,7 +19,9 @@ class Gene extends React.Component<IGeneProps>
                     {this.props.hugoSymbol}
                 </span>
                 <span className={this.props.penetranceClassName || "pull-right mr-3"}>
-                    {this.props.penetrance.map(p => <Penetrance key={p} value={p} />)}
+                    {this.props.penetrance
+                        .sort(comparePenetrance)
+                        .map(p => <Penetrance key={p} value={p} />)}
                 </span>
             </React.Fragment>
         );

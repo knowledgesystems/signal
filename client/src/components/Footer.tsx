@@ -43,7 +43,7 @@ class Footer extends React.Component<{}>
                 <Link to="/about">
                     About
                 </Link>
-                <a href="mailto:info@germopath.org" target="_top">
+                <a href="mailto:info@msk-insight.org" target="_top">
                     Contact Us
                 </a>
             </div>

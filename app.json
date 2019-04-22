@@ -12,7 +12,7 @@
   },
   "formation": {
   },
-  "name": "germopath",
+  "name": "msk-insight",
   "scripts": {
   },
   "stack": "heroku-18"

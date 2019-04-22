@@ -1,0 +1,23 @@
+{
+  "name": "msk-insight",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "8.12.0"
+  },
+  "scripts": {
+    "build": "yarn run build-client && yarn run build-server && yarn run copy-reactapp",
+    "copy-reactapp": "node copy-reactapp.js",
+    "build-client": "yarn --cwd client install && yarn --cwd client run build",
+    "build-server": "yarn --cwd server install && yarn --cwd server run build",
+    "start": "node server/dist/server.js",
+    "concurrent": "concurrently \"yarn run start-server\" \"yarn run start-client\"",
+    "start-server": "node start-server.js",
+    "start-client": "node start-client.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^3.6.1",
+    "shelljs": "^0.8.3"
+  }
+}

@@ -52,7 +52,7 @@ class Footer extends React.Component<{}>
 
     public render() {
         return (
-            <footer className="mskcc-footer bg-mskcc-footer fixed-bottom d-none d-md-block">
+            <footer className="mskcc-footer bg-mskcc-footer d-none d-md-block">
                 <Container>
                     <Row className="text-center">
                         <Col>

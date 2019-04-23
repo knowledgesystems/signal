@@ -1,6 +1,6 @@
 export interface IGeneFrequencySummary {
     hugoSymbol: string;
-    penetrance: string;
+    penetrance: string[];
     sampleCount: number;
     frequencies: IFrequencySummary[];
 }

@@ -8,7 +8,7 @@ export function transformFrequencySummaryByGene(frequencySummaryByGene: any[]): 
 {
     return frequencySummaryByGene.map(summary => ({
         hugoSymbol: summary.Hugo_Symbol,
-        penetrance: summary.penetrance,
+        penetrance: summary.penetrance.split(","),
         sampleCount: Number(summary.num_samples),
         frequencies: extractFrequencies(summary)
     }));
@@ -19,7 +19,7 @@ export function transformTumorTypeFrequenciesByGene(tumorTypeFrequenciesByGene: 
     return tumorTypeFrequenciesByGene.map(summary => ({
         tumorType: summary.Proposed_level,
         hugoSymbol: summary.Hugo_Symbol,
-        penetrance: summary.penetrance,
+        penetrance: summary.penetrance.split(","),
         sampleCount: Number(summary.num_samples),
         frequencies: extractFrequencies(summary)
     }));

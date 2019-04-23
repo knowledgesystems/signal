@@ -37,7 +37,7 @@ function renderHugoSymbol(cellProps: any)
     return (
         <Gene
             hugoSymbol={cellProps.value}
-            penetrance={cellProps.original.penetrance.split(",")}
+            penetrance={cellProps.original.penetrance}
         />
     );
 }
@@ -47,7 +47,7 @@ function renderSubComponent(row: any) {
         <div className="p-4">
             <TumorTypeFrequencyDecomposition
                 hugoSymbol={row.original.hugoSymbol}
-                penetrance={row.original.penetrance.split(",")}
+                penetrance={row.original.penetrance}
                 dataPromise={fetchTumorTypeFrequenciesByGene(row.original.hugoSymbol)}
             />
         </div>

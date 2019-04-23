@@ -1,8 +1,9 @@
 import autobind from "autobind-decorator";
+import _ from "lodash";
 import {action, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
-import ReactTable from "react-table";
+import ReactTable, {Filter} from "react-table";
 
 import {IGeneFrequencySummary} from "../../../server/src/model/GeneFrequencySummary";
 import {DataStatus} from "../store/DataStatus";
@@ -10,7 +11,7 @@ import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/Colu
 import {fetchTumorTypeFrequenciesByGene} from "../util/FrequencyDataUtils";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
 import FrequencyCell from "./FrequencyCell";
-import TumorTypeFrequencyTable from "./TumorTypeFrequencyTable";
+import TumorTypeFrequencyDecomposition from "./TumorTypeFrequencyDecomposition";
 
 import "react-table/react-table.css";
 import "./FrequencyTable.css";
@@ -20,6 +21,7 @@ interface IFrequencyTableProps
 {
     data: IGeneFrequencySummary[];
     status: DataStatus;
+    filtered?: Filter[];
 }
 
 
@@ -43,13 +45,18 @@ function renderHugoSymbol(cellProps: any)
 function renderSubComponent(row: any) {
     return (
         <div className="p-4">
-            <TumorTypeFrequencyTable
+            <TumorTypeFrequencyDecomposition
                 hugoSymbol={row.original.hugoSymbol}
                 penetrance={row.original.penetrance.split(",")}
                 dataPromise={fetchTumorTypeFrequenciesByGene(row.original.hugoSymbol)}
             />
         </div>
     );
+}
+
+function filterGene(filter: Filter, row: any, column: any)
+{
+    return row[ColumnId.HUGO_SYMBOL].toLowerCase().includes(filter.value.toLowerCase());
 }
 
 @observer
@@ -68,10 +75,11 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                     loadingText={<i className="fa fa-spinner fa-pulse fa-2x" />}
                     columns={[
                         {
-                            id: "hugoSymbol",
+                            id: ColumnId.HUGO_SYMBOL,
+                            filterMethod: filterGene,
                             Cell: renderHugoSymbol,
                             Header: "Gene",
-                            accessor: "hugoSymbol",
+                            accessor: ColumnId.HUGO_SYMBOL,
                             defaultSortDesc: false
                         },
                         {
@@ -103,6 +111,9 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                         }
                     ]}
                     onExpandedChange={this.onExpandedChange}
+                    onPageChange={this.resetExpander}
+                    onSortedChange={this.resetExpander}
+                    filtered={this.props.filtered}
                     expanded={this.expanded}
                     SubComponent={renderSubComponent}
                     defaultPageSize={10}
@@ -119,6 +130,14 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
         );
     }
 
+    public componentWillReceiveProps(nextProps: Readonly<IFrequencyTableProps>)
+    {
+        // reset expander if the filters change
+        if (!_.isEqual(nextProps.filtered, this.props.filtered)) {
+            this.resetExpander();
+        }
+    }
+
     @autobind
     private renderExpander(props: {isExpanded: boolean}) {
         return props.isExpanded ?
@@ -129,6 +148,11 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
     @action.bound
     private onExpandedChange(expanded: {[index: number] : boolean}) {
         this.expanded = expanded;
+    }
+
+    @action.bound
+    private resetExpander() {
+        this.expanded = {};
     }
 }
 

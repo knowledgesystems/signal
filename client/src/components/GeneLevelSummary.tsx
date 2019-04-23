@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import {action} from "mobx";
+import {action, computed} from "mobx";
 import {observer} from "mobx-react";
 import * as React from 'react';
 import {
@@ -7,6 +7,7 @@ import {
 } from 'react-bootstrap';
 
 import GeneFrequencyStore from "../store/GeneFrequencyStore";
+import {ColumnId} from "./ColumnHeaderHelper";
 import GeneFrequencyTable from "./GeneFrequencyTable";
 import SearchBox from "./SearchBox";
 
@@ -14,6 +15,17 @@ import SearchBox from "./SearchBox";
 class GeneLevelSummary extends React.Component<{}>
 {
     private store: GeneFrequencyStore = new GeneFrequencyStore();
+
+    @computed
+    private get filteredColumns()
+    {
+        return this.store.filterText && this.store.filterText.length > 0 ? [
+            {
+                id: ColumnId.HUGO_SYMBOL,
+                value: this.store.filterText
+            }
+        ] : [];
+    }
 
     public render() {
         return (
@@ -26,8 +38,9 @@ class GeneLevelSummary extends React.Component<{}>
                 <Row className="py-4">
                     <Col className="m-auto">
                         <GeneFrequencyTable
-                            data={this.store.filteredGeneFrequencySummaryData}
+                            data={this.store.mutationFrequencyData}
                             status={this.store.geneFrequencyDataStatus}
+                            filtered={this.filteredColumns}
                         />
                     </Col>
                 </Row>

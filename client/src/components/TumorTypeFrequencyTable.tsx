@@ -1,10 +1,9 @@
-import {action, observable} from "mobx";
+import {computed} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 import ReactTable from "react-table";
 
 import {ITumorTypeFrequencySummary} from "../../../server/src/model/GeneFrequencySummary";
-import {DataStatus} from "../store/DataStatus";
 import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelper";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
 import FrequencyCell from "./FrequencyCell";
@@ -15,7 +14,7 @@ import "./FrequencyTable.css";
 
 interface ITumorTypeFrequencyTableProps
 {
-    dataPromise: Promise<ITumorTypeFrequencySummary[]>;
+    data: ITumorTypeFrequencySummary[];
     penetrance: string[];
     hugoSymbol: string;
 }
@@ -42,21 +41,25 @@ function renderTumorType(cellProps: any)
 @observer
 class TumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTableProps>
 {
-    @observable
-    private data: ITumorTypeFrequencySummary[] = [];
-
-    @observable
-    private status: DataStatus = 'pending';
+    @computed
+    private get defaultPageSize() {
+        if (this.props.data.length > 10) {
+            return 10;
+        }
+        else if (this.props.data.length === 0) {
+            return 1;
+        }
+        else {
+            return this.props.data.length;
+        }
+    }
 
     public render()
     {
         return (
             <div className="insight-frequency-table">
                 <ReactTable
-                    onFetchData={this.onFetchData}
-                    data={this.data}
-                    loading={this.status === 'pending'}
-                    loadingText={<i className="fa fa-spinner fa-pulse fa-2x" />}
+                    data={this.props.data}
                     columns={[
                         {
                             Header: (
@@ -116,23 +119,13 @@ class TumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTablePr
                         desc: true
                     }]}
                     defaultSortDesc={true}
-                    defaultPageSize={10}
+                    defaultPageSize={this.defaultPageSize}
                     className="-striped -highlight"
                     previousText="<"
                     nextText=">"
                 />
             </div>
         );
-    }
-
-    @action.bound
-    private onFetchData() {
-        this.props.dataPromise
-            .then(frequencies => {
-                this.data = frequencies;
-                this.status = 'complete';
-            })
-            .catch(err => this.status = 'error');
     }
 }
 

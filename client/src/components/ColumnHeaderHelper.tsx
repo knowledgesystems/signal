@@ -3,6 +3,7 @@ import * as React from "react";
 import ColumnHeader from "./ColumnHeader";
 
 export enum ColumnId {
+    HUGO_SYMBOL = "hugoSymbol",
     SOMATIC = "somatic",
     GERMLINE = "germline",
     PERCENT_BIALLELIC = "percentBialleic",

@@ -1,4 +1,4 @@
-import {action, computed, observable} from "mobx";
+import {action, observable} from "mobx";
 
 import {IGeneFrequencySummary} from "../../../server/src/model/GeneFrequencySummary";
 import {fetchFrequencySummaryByGene} from "../util/FrequencyDataUtils";
@@ -12,23 +12,10 @@ class GeneFrequencyStore
     public geneFrequencySummaryDataPromise: Promise<IGeneFrequencySummary[]>;
 
     @observable
-    protected mutationFrequencyData: IGeneFrequencySummary[] = [];
+    public mutationFrequencyData: IGeneFrequencySummary[] = [];
 
     @observable
-    private filterText: string|undefined;
-
-    @computed
-    public get filteredGeneFrequencySummaryData(): IGeneFrequencySummary[]
-    {
-        let data: IGeneFrequencySummary[] = this.mutationFrequencyData;
-
-        if (this.filterText !== undefined) {
-            data = this.mutationFrequencyData.filter(
-                m => m.hugoSymbol.toLocaleLowerCase().includes(this.filterText!.toLowerCase()));
-        }
-
-        return data;
-    }
+    public filterText: string|undefined;
 
     constructor() {
         this.geneFrequencySummaryDataPromise = fetchFrequencySummaryByGene();

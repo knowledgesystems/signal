@@ -32,7 +32,7 @@ class About extends React.Component<{}>
                 <p>
                     Members of the Berger and Taylor labs along with members of Computational Sciences in
                     the Kravis Center for Molecular Oncology, Clinical Bioinformatics in Diagnostic Molecular Pathology,
-                    and the Neihaus Center for Inherited Cancer Genomics.
+                    and the Niehaus Center for Inherited Cancer Genomics.
                 </p>
             </React.Fragment>
         );

@@ -8,12 +8,11 @@ import {IGeneFrequencySummary} from "../../../server/src/model/GeneFrequencySumm
 import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelper";
 import {fetchTumorTypeFrequenciesByGene} from "../util/FrequencyDataUtils";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
-import {renderPercentage} from "./ColumnRenderHelper";
+import {renderPenetrance, renderPercentage} from "./ColumnRenderHelper";
 import Gene from "./Gene";
 import GeneFrequencyTableComponent from "./GeneFrequencyTableComponent";
 import GeneTumorTypeFrequencyDecomposition from "./GeneTumorTypeFrequencyDecomposition";
 import { comparePenetrance } from './Penetrance';
-import PenetranceList from "./PenetranceList";
 
 import "react-table/react-table.css";
 import "./FrequencyTable.css";
@@ -32,16 +31,7 @@ function renderHugoSymbol(cellProps: any)
     );
 }
 
-function renderPenetrance(cellProps: any)
-{
-    return (
-        <PenetranceList
-            penetrance={cellProps.original.penetrance}
-        />
-    );
-}
-
-function sortPenetrance(a: string[], b: string[])
+export function sortPenetrance(a: string[], b: string[])
 {
     const aSorted = a.sort(comparePenetrance);
     const bSorted = b.sort(comparePenetrance);
@@ -74,9 +64,15 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
 
     @computed
     private get filteredData() {
-        return this.searchText ? this.props.data.filter(
-            s => s.hugoSymbol.toLowerCase().includes(this.searchText!.trim().toLowerCase())):
-            this.props.data;
+        const refinedSearchText = this.searchText ?
+            this.searchText!.trim().toLowerCase(): undefined;
+
+        return refinedSearchText ? this.props.data.filter(
+            s => s.hugoSymbol.toLowerCase().includes(refinedSearchText) ||
+                s.penetrance
+                    .map(p => p.toLowerCase())
+                    .find(p => p.includes(refinedSearchText))
+        ): this.props.data;
     }
 
     @computed
@@ -149,7 +145,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                     initialSortColumn={ColumnId.PENETRANCE}
                     initialSortDirection={ColumnSortDirection.DESC}
                     showColumnVisibility={false}
-                    searchPlaceholder="Search Genes"
+                    searchPlaceholder="Search"
                 />
             </div>
         );

@@ -1,5 +1,5 @@
 import autobind from "autobind-decorator";
-import {computed, observable} from "mobx";
+import {action, computed, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 import {ColumnSortDirection} from "react-mutation-mapper";
@@ -59,6 +59,8 @@ function renderSubComponent(row: any) {
 @observer
 class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
 {
+    private tableComponentRef: GeneFrequencyTableComponent;
+
     @observable
     private searchText: string | undefined;
 
@@ -94,6 +96,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
         return (
             <div className="insight-frequency-table">
                 <GeneFrequencyTableComponent
+                    ref={this.handleTableRef}
                     data={this.filteredData}
                     onSearch={this.handleSearch}
                     info={this.info}
@@ -158,9 +161,15 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
             <i className="fa fa-plus-circle" />;
     }
 
-    @autobind
+    @action.bound
     private handleSearch(searchText: string) {
         this.searchText = searchText;
+        this.tableComponentRef.collapseSubComponent();
+    }
+
+    @autobind
+    private handleTableRef(ref: GeneFrequencyTableComponent) {
+        this.tableComponentRef = ref;
     }
 }
 

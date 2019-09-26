@@ -1,41 +1,39 @@
 import autobind from "autobind-decorator";
-import {Express} from "express";
+import {Express, NextFunction} from "express";
 import {Request, Response} from "express-serve-static-core";
 
-import MutationService from "../service/MutationService";
+import GenomeNexusService from "../service/GenomeNexusService";
 
 class MutationController
 {
-    private mutationService: MutationService;
+    private genomeNexusService: GenomeNexusService;
 
     constructor(app: Express,
-                mutationService: MutationService = new MutationService())
+                genomeNexusService: GenomeNexusService = new GenomeNexusService())
     {
         // configure endpoints
-        app.get("/api/mutation/count/byGene", this.fetchMutationCountsByGeneGET);
-        app.get("/api/mutation/frequency/byGene", this.fetchMutationFrequenciesByGeneGET);
+        app.get("/api/mutation", this.fetchMutationsGET);
 
         // init services
-        this.mutationService = mutationService;
+        this.genomeNexusService = genomeNexusService;
     }
 
     @autobind
-    private fetchMutationCountsByGeneGET(req: Request, res: Response) {
+    private fetchMutationsGET(req: Request, res: Response, next: NextFunction) {
         const hugoSymbol = req.query.hugoSymbol;
-        const category = req.query.category;
-        const pathogenic = req.query.pathogenic === "true";
 
-        if (hugoSymbol || category || pathogenic) {
-            res.send(this.mutationService.getMutationsByGene(hugoSymbol, category, pathogenic));
+        if (hugoSymbol) {
+            this.genomeNexusService.getInsightMutationsByHugoSymbol(hugoSymbol)
+                .then(response => {
+                    res.send(response.data);
+                })
+                .catch(err => {
+                    next(err);
+                })
         }
         else {
-            res.send(this.mutationService.getAllMutationsByGene());
+            res.send([]);
         }
-    }
-
-    @autobind
-    private fetchMutationFrequenciesByGeneGET(req: Request, res: Response) {
-        res.send(this.mutationService.getMutationFrequenciesByGene());
     }
 }
 

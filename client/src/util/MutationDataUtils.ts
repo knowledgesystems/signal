@@ -1,110 +1,287 @@
-import _ from 'lodash';
+import _ from "lodash";
+import {CancerTypeFilter} from "react-mutation-mapper";
 
-import {ICountByCancerType, IMutation, MutationCategory} from "../../../server/src/model/Mutation";
-import {IAggregatedMutationFrequencyByGene} from "../../../server/src/model/MutationFrequency";
+import {
+    ICountByTumorType,
+    IExtendedMutation,
+    IMutation,
+    ITumorTypeDecomposition
+} from "../../../server/src/model/Mutation";
+import {
+    applyMutationStatusFilter,
+    containsCancerType,
+    matchesMutationStatus,
+    MutationStatusFilter,
+    MutationStatusFilterValue
+} from "./FilterUtils";
 
 
-interface ICountsByCancerTypeWithCategory {
-    [cancerType: string]: Array<{
-        category: MutationCategory;
-        tumorTypeCount: number;
-        variantCount: number;
-    }>
+export function isGermlineMutation(mutation: IMutation) {
+    return mutation.mutationStatus.toLowerCase() === "germline";
 }
 
-export function fetchMutationsByGeneAndCategory(hugoSymbol: string,
-                                                category?: MutationCategory,
-                                                pathogenic?: boolean): Promise<IMutation[]>
+export function isSomaticMutation(mutation: IMutation) {
+    return mutation.mutationStatus.toLowerCase() === "somatic";
+}
+
+export function isPathogenicMutation(mutation: IMutation) {
+    return mutation.pathogenic === "1";
+}
+
+export function findAllUniqueCancerTypes(mutations: Array<Partial<IMutation>>)
+{
+    return _.uniq(_.flatten(mutations.map(m => (m.countsByTumorType || []).map(c => c.tumorType))));
+}
+
+export function fetchMutationsByGene(hugoSymbol: string): Promise<IMutation[]>
 {
     return new Promise<IMutation[]>((resolve, reject) => {
-        fetch(`/api/mutation/count/byGene?hugoSymbol=${hugoSymbol}&category=${category}&pathogenic=${pathogenic}`)
+        fetch(`/api/mutation?hugoSymbol=${hugoSymbol}`)
             .then(response => resolve(response.json()))
             .catch(err => reject(err));
     });
 }
 
-export function fetchMutationsByGeneAndCategories(hugoSymbol: string,
-                                                  query: Array<{category?: MutationCategory, pathogenic?: boolean}>): Promise<IMutation[]>
+export function fetchExtendedMutationsByGene(hugoSymbol: string): Promise<IExtendedMutation[]>
 {
-    return new Promise<IMutation[]>((resolve, reject) => {
-        const promises: Array<Promise<IMutation[]>> = query.map(
-            q => fetchMutationsByGeneAndCategory(hugoSymbol, q.category, q.pathogenic));
-
-        Promise.all(promises)
-            .then(values => resolve(_.flatten(values)))
+    return new Promise<IExtendedMutation[]>((resolve, reject) => {
+        fetchMutationsByGene(hugoSymbol)
+            .then(mutations => resolve(extendMutations(mutations)))
             .catch(err => reject(err));
     });
 }
 
-export function fetchMutationFrequencyByGene(): Promise<IAggregatedMutationFrequencyByGene[]> {
-    return new Promise<IAggregatedMutationFrequencyByGene[]>((resolve, reject) => {
-        fetch("/api/mutation/frequency/byGene")
-            .then(response => resolve(response.json()))
-            .catch(err => reject(err));
-    });
-}
-
-export function extractTumorTypeFrequencyData(mutations: IMutation[])
+/**
+ * Extends given mutations with frequency and biallelic count information.
+ */
+export function extendMutations(mutations: IMutation[]): IExtendedMutation[]
 {
-    return mutations.map(m => tumorTypeCountMapToList(m.countByCancerType));
+    // filter out biallelic mutations, since their count is already included in germline mutations
+    // we only use biallelic mutations to add frequency values and additional count fields
+    return mutations.map(mutation => {
+        const isSomatic = isSomaticMutation(mutation);
+        const isGermline = isGermlineMutation(mutation);
+        const isPathogenic = isPathogenicMutation(mutation);
+
+        const pathogenicGermlineFrequency = (isGermline && isPathogenic) ?
+            calculateOverallFrequency(mutation.countsByTumorType) : 0;
+        const biallelicGermlineFrequency = (isGermline && mutation.biallelicCountsByTumorType) ?
+            calculateOverallFrequency(mutation.biallelicCountsByTumorType) : 0;
+
+        const tumorTypeDecomposition: ITumorTypeDecomposition[] = generateTumorTypeDecomposition(mutation.countsByTumorType,
+            mutation.biallelicCountsByTumorType,
+            mutation.qcPassCountsByTumorType);
+
+        return {
+            ...mutation,
+            tumorTypeDecomposition,
+            somaticFrequency: isSomatic ? calculateOverallFrequency(mutation.countsByTumorType) : 0,
+            germlineFrequency: isGermline ? calculateOverallFrequency(mutation.countsByTumorType) : 0,
+            pathogenicGermlineFrequency,
+            biallelicGermlineFrequency,
+            biallelicPathogenicGermlineFrequency: isPathogenic ? biallelicGermlineFrequency : 0,
+            ratioBiallelicPathogenic: isPathogenic && mutation.biallelicCountsByTumorType && mutation.qcPassCountsByTumorType ?
+                calculateTotalVariantRatio(mutation.biallelicCountsByTumorType, mutation.qcPassCountsByTumorType) : 0
+        };
+    })
 }
 
-// TODO move complicated logic to server side?
+function generateTumorTypeDecomposition(countsByTumorType: ICountByTumorType[],
+                                        biallelicCountsByTumorType?: ICountByTumorType[],
+                                        qcPassCountsByTumorType?: ICountByTumorType[])
+{
+    let biallelicTumorMap: {[tumorType: string] : ICountByTumorType};
+    let qcPassTumorMap: {[tumorType: string] : ICountByTumorType};
 
-export function tumorTypeCountMapToList(countMap: ICountByCancerType) {
-    return _.toPairs(countMap).map(pair => ({
-        cancerType: pair[0],
-        tumorTypeCount: pair[1].tumorTypeCount,
-        variantCount: pair[1].variantCount
+    if (biallelicCountsByTumorType && qcPassCountsByTumorType) {
+        biallelicTumorMap = _.keyBy(biallelicCountsByTumorType, "tumorType");
+        qcPassTumorMap = _.keyBy(qcPassCountsByTumorType, "tumorType");
+    }
+
+    return countsByTumorType.map(counts => ({
+        ...counts,
+        frequency: counts.variantCount / counts.tumorTypeCount,
+        biallelicRatio: biallelicTumorMap && qcPassTumorMap ?
+            calcBiallelicRatio(biallelicTumorMap[counts.tumorType], qcPassTumorMap[counts.tumorType]): 0,
+        biallelicVariantCount: biallelicTumorMap && biallelicTumorMap[counts.tumorType] ?
+            biallelicTumorMap[counts.tumorType].variantCount: 0
     }));
 }
 
-export function extractAggregatedTumorTypeFrequencyData(mutations: IMutation[])
+export function calcBiallelicRatio(biallelicCountByTumorType?: ICountByTumorType,
+                                   qcPassCountByTumorType?: ICountByTumorType)
 {
-    const groupedByCategory = _.groupBy(mutations, "category");
-    const countsGroupedByCategory: ICountsByCancerTypeWithCategory = {};
+    const ratio = (biallelicCountByTumorType ? biallelicCountByTumorType.variantCount : 0) /
+        (qcPassCountByTumorType ? qcPassCountByTumorType.variantCount : 0);
 
-    _.keys(groupedByCategory).forEach(category => {
-        const mergedCounts: ICountByCancerType = mergeMutationCounts(groupedByCategory[category]);
-
-        _.keys(mergedCounts).forEach(cancerType => {
-            countsGroupedByCategory[cancerType] = countsGroupedByCategory[cancerType] || [];
-            countsGroupedByCategory[cancerType].push({
-                category: category as MutationCategory,
-                tumorTypeCount: mergedCounts[cancerType].tumorTypeCount,
-                variantCount: mergedCounts[cancerType].variantCount
-            });
-        });
-    });
-
-    return _.toPairs(countsGroupedByCategory).map(pair => ({
-        cancerType: pair[0],
-        counts: pair[1]
-    }));
+    return ratio || 0;
 }
 
-// TODO #DUPLICATE server side code#: remove after resolving import issues: "Relative imports outside of src/ are not supported."
-
-export function getCountOrDefault(countByCancerType: ICountByCancerType,
-                                  cancerType: string): {variantCount: number, tumorTypeCount: number}
+export function calculateTotalFrequency(mutations: IExtendedMutation[],
+                                        mutationStatusFilter: MutationStatusFilter,
+                                        cancerTypeFilter?: CancerTypeFilter)
 {
-    countByCancerType[cancerType] = countByCancerType[cancerType] || {variantCount: 0, tumorTypeCount: 0};
-    return countByCancerType[cancerType];
+    let frequency = 0;
+    const filtered = mutations.filter(mutation => applyMutationStatusFilter(mutationStatusFilter, mutation));
+
+    if (filtered.length > 0) {
+        const variantCount = totalFilteredVariants(filtered, cancerTypeFilter);
+        const sampleCount = totalFilteredSamples(filtered, cancerTypeFilter);
+
+        frequency = variantCount / sampleCount;
+    }
+
+    return frequency;
 }
 
-export function mergeMutationCounts(mutations: IMutation[]): ICountByCancerType
+export function calculateTotalBiallelicRatio(mutations: IExtendedMutation[],
+                                             pathogenicGermlineFilter: MutationStatusFilter,
+                                             biallelicPathogenicGermlineFilter: MutationStatusFilter,
+                                             cancerTypeFilter?: CancerTypeFilter)
 {
-    const countByCancerType: ICountByCancerType = {};
+    let ratio;
 
-    mutations.map(mutation => mutation.countByCancerType).forEach(count => {
-        _.keys(count).forEach(cancerType => {
-            const mergedCount = getCountOrDefault(countByCancerType, cancerType);
-            mergedCount.tumorTypeCount = count[cancerType].tumorTypeCount;
-            mergedCount.variantCount += count[cancerType].variantCount;
-        });
-    });
+    const pathogenicGermlineMutations = mutations.filter(
+        mutation => applyMutationStatusFilter(pathogenicGermlineFilter, mutation));
+    const biallelicPathogenicGermlineMutations = mutations.filter(
+        mutation => applyMutationStatusFilter(biallelicPathogenicGermlineFilter, mutation));
 
-    return countByCancerType;
+    if (pathogenicGermlineMutations.length > 0 && biallelicPathogenicGermlineMutations.length > 0) {
+        const combinedBiallelicCounts = combinedBiallelicCountsByTumorType(
+            biallelicPathogenicGermlineMutations, cancerTypeFilter);
+        const combinedQcPassCounts = combinedQcPassCountsByTumorType(
+            pathogenicGermlineMutations, cancerTypeFilter);
+
+        ratio = totalVariants(combinedBiallelicCounts) / totalVariants(combinedQcPassCounts);
+    }
+
+    return ratio || 0;
 }
 
-// TODO #end DUPLICATE#
+function combinedBiallelicCountsByTumorType(mutations: IExtendedMutation[], cancerTypeFilter?: CancerTypeFilter)
+{
+    return combinedCounts(mutations,
+        (mutation: IExtendedMutation) => mutation.biallelicCountsByTumorType,
+        cancerTypeFilter);
+}
+
+function combinedQcPassCountsByTumorType(mutations: IExtendedMutation[], cancerTypeFilter?: CancerTypeFilter)
+{
+    return combinedCounts(mutations,
+        (mutation: IExtendedMutation) => mutation.qcPassCountsByTumorType,
+        cancerTypeFilter);
+}
+
+function combinedTumorTypeDecompositions(mutations: IExtendedMutation[], cancerTypeFilter?: CancerTypeFilter)
+{
+    return combinedCounts(mutations,
+        (mutation: IExtendedMutation) => mutation.tumorTypeDecomposition,
+        cancerTypeFilter);
+}
+
+function combinedCounts(mutations: IExtendedMutation[],
+                        getCounts: (mutation: IExtendedMutation) => ICountByTumorType[] | undefined,
+                        cancerTypeFilter?: CancerTypeFilter)
+{
+    return _.flatten(mutations.map(mutation =>
+        filterCountsByTumorType(getCounts(mutation), cancerTypeFilter)));
+}
+
+function filterCountsByTumorType(counts?: ICountByTumorType[], cancerTypeFilter?: CancerTypeFilter)
+{
+    return counts ? counts.filter(c => containsCancerType(cancerTypeFilter, c.tumorType)) : [];
+}
+
+function totalVariants(counts: ICountByTumorType[]) {
+    return counts.map(c => c.variantCount).reduce((acc, curr) => acc + curr, 0) || 0;
+}
+
+function totalSamples(counts: ICountByTumorType[]) {
+    return counts.map(c => c.tumorTypeCount).reduce((acc, curr) => acc + curr, 0) || 0;
+}
+
+export function totalFilteredVariants(mutations: IExtendedMutation[], cancerTypeFilter?: CancerTypeFilter) {
+    return totalVariants(
+        combinedTumorTypeDecompositions(mutations, cancerTypeFilter)
+    );
+}
+
+export function totalFilteredSamples(mutations: IExtendedMutation[], cancerTypeFilter?: CancerTypeFilter) {
+    return mutations.length > 0 ? totalSamples(
+        filterCountsByTumorType(mutations[0].tumorTypeDecomposition, cancerTypeFilter)
+    ): 0;
+}
+
+export function calculateOverallFrequency(counts: ICountByTumorType[]) {
+    return totalVariants(counts) / totalSamples(counts);
+}
+
+export function calculateTotalVariantRatio(counts1: ICountByTumorType[], counts2: ICountByTumorType[])
+{
+    return totalVariants(counts1) / totalVariants(counts2);
+}
+
+export function calculateMutationRate(mutation: IExtendedMutation,
+                                      cancerTypeFilter?: CancerTypeFilter,
+                                      mutationStatusFilter?: MutationStatusFilter)
+{
+    let frequency = 0;
+
+    // if the only active germline filter is biallelic pathogenic germline,
+    // then we need to use biallelic counts instead of overall tumor type count
+    if (isGermlineMutation(mutation) &&
+        containsOnlyBiallelicGermlineFilterValue(mutationStatusFilter))
+    {
+        const filteredBiallelicTumorTypeCount = mutation.biallelicCountsByTumorType.filter(
+            t => containsCancerType(cancerTypeFilter, t.tumorType)
+        );
+
+        frequency = calculateOverallFrequency(filteredBiallelicTumorTypeCount);
+    }
+    else
+    {
+        const filteredTumorTypeDecomposition = mutation.tumorTypeDecomposition.filter(
+            t => containsCancerType(cancerTypeFilter, t.tumorType) &&
+                matchesMutationStatus(mutationStatusFilter, mutation, t)
+        );
+
+        frequency = calculateOverallFrequency(filteredTumorTypeDecomposition);
+    }
+
+    return 100 * frequency;
+}
+
+export function getVariantCount(mutation: IExtendedMutation,
+                                tumorTypeDecomposition: ITumorTypeDecomposition,
+                                cancerTypeFilter?: CancerTypeFilter,
+                                mutationStatusFilter?: MutationStatusFilter)
+{
+    let count = 0;
+
+    if (containsCancerType(cancerTypeFilter, tumorTypeDecomposition.tumorType) &&
+        matchesMutationStatus(mutationStatusFilter, mutation, tumorTypeDecomposition))
+    {
+        // if the only active germline filter is biallelic pathogenic germline,
+        // then we need to use biallelic variant count instead of variant count
+        if (isGermlineMutation(mutation) &&
+            containsOnlyBiallelicGermlineFilterValue(mutationStatusFilter))
+        {
+            count = tumorTypeDecomposition.biallelicVariantCount;
+        }
+        else {
+            count = tumorTypeDecomposition.variantCount;
+        }
+    }
+
+    return count;
+}
+
+function containsOnlyBiallelicGermlineFilterValue(mutationStatusFilter?: MutationStatusFilter)
+{
+    return (
+        mutationStatusFilter &&
+        _.every(mutationStatusFilter.values,
+                v => v === MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE ||
+                    v === MutationStatusFilterValue.SOMATIC)
+    );
+}

@@ -165,6 +165,7 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                         Header: HEADER_COMPONENT[ColumnId.PENETRANCE],
                         sortMethod: sortPenetrance
                     },
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.MUTATION_TYPE],
                     {
                         id: ColumnId.MUTATION_PERCENT,
                         name: "%",
@@ -179,8 +180,15 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                         accessor: "ratioBiallelicPathogenic",
                         Header: HEADER_COMPONENT[ColumnId.PERCENT_BIALLELIC]
                     },
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.ANNOTATION],
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.GNOMAD],
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.CLINVAR],
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.CHROMOSOME],
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.START_POSITION],
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.END_POSITION],
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.REFERENCE_ALLELE],
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.VARIANT_ALLELE],
                     {
-                        id: 'expander',
                         expander: true,
                         Expander: this.renderExpander,
                         togglable: false,

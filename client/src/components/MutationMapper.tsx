@@ -156,6 +156,11 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                                     [MutationStatusFilterValue.BENIGN_GERMLINE.toLowerCase()]:
                                         MutationStatusFilterValue.BENIGN_GERMLINE,
                                 }}
+                                styleMap={{
+                                    [MutationStatusFilterValue.PATHOGENIC_GERMLINE.toLowerCase()]: {
+                                        background: "#FFA963"
+                                    }
+                                }}
                             />
                     },
                     {

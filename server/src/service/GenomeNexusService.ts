@@ -3,7 +3,7 @@ import axios from "axios";
 // import {IMutation} from "../model/Mutation";
 
 // TODO make the url configurable?
-const GENOME_NEXUS_URL = "https://www.genomenexus.org/beta";
+const GENOME_NEXUS_URL = "https://www.genomenexus.org";
 
 class GenomeNexusService
 {

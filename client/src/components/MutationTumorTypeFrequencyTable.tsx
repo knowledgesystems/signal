@@ -1,6 +1,7 @@
 import {computed} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
+import {defaultSortMethod} from "react-mutation-mapper";
 import ReactTable from "react-table";
 
 import {ITumorTypeDecomposition} from "../../../server/src/model/Mutation";
@@ -84,6 +85,7 @@ class MutationTumorTypeFrequencyTable extends React.Component<ITumorTypeFrequenc
                                 Cell: renderPercentage,
                                 Header: "%",
                                 accessor: "frequency",
+                                sortMethod: defaultSortMethod,
                                 maxWidth: 100
                             },
                             {
@@ -91,6 +93,7 @@ class MutationTumorTypeFrequencyTable extends React.Component<ITumorTypeFrequenc
                                 Cell: renderPercentage,
                                 Header: "% Biallelic",
                                 accessor: "biallelicRatio",
+                                sortMethod: defaultSortMethod,
                                 maxWidth: 100
                             }
                         ]

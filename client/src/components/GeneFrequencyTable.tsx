@@ -2,7 +2,7 @@ import autobind from "autobind-decorator";
 import {action, computed, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
-import {ColumnSortDirection} from "react-mutation-mapper";
+import {ColumnSortDirection, defaultSortMethod} from "react-mutation-mapper";
 
 import {IGeneFrequencySummary} from "../../../server/src/model/GeneFrequencySummary";
 import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelper";
@@ -125,19 +125,22 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                             id: ColumnId.GERMLINE,
                             Cell: renderPercentage,
                             Header: HEADER_COMPONENT[ColumnId.GERMLINE],
-                            accessor: germlineAccessor
+                            accessor: germlineAccessor,
+                            sortMethod: defaultSortMethod
                         },
                         {
                             id: ColumnId.PERCENT_BIALLELIC,
                             Cell: renderPercentage,
                             Header: HEADER_COMPONENT[ColumnId.PERCENT_BIALLELIC],
-                            accessor: biallelicAccessor
+                            accessor: biallelicAccessor,
+                            sortMethod: defaultSortMethod
                         },
                         {
                             id: ColumnId.SOMATIC_DRIVER,
                             Cell: renderPercentage,
                             Header: HEADER_COMPONENT[ColumnId.SOMATIC_DRIVER],
-                            accessor: somaticAccessor
+                            accessor: somaticAccessor,
+                            sortMethod: defaultSortMethod
                         },
                         {
                             expander: true,

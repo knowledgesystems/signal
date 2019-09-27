@@ -1,6 +1,7 @@
 import {computed} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
+import {defaultSortMethod} from "react-mutation-mapper";
 import ReactTable from "react-table";
 
 import {ITumorTypeFrequencySummary} from "../../../server/src/model/GeneFrequencySummary";
@@ -79,6 +80,7 @@ class GeneTumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTab
                             Cell: renderPercentage,
                             Header: HEADER_COMPONENT[ColumnId.GERMLINE],
                             accessor: germlineAccessor,
+                            sortMethod: defaultSortMethod,
                             maxWidth: 120
                         },
                         {
@@ -86,6 +88,7 @@ class GeneTumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTab
                             Cell: renderPercentage,
                             Header: HEADER_COMPONENT[ColumnId.PERCENT_BIALLELIC],
                             accessor: biallelicAccessor,
+                            sortMethod: defaultSortMethod,
                             maxWidth: 120
                         },
                         {
@@ -93,6 +96,7 @@ class GeneTumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTab
                             Cell: renderPercentage,
                             Header: HEADER_COMPONENT[ColumnId.SOMATIC_DRIVER],
                             accessor: somaticAccessor,
+                            sortMethod: defaultSortMethod,
                             maxWidth: 120
                         }
                     ]}

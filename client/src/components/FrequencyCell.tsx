@@ -5,7 +5,7 @@ import * as React from "react";
 import 'rc-tooltip/assets/bootstrap_white.css';
 
 interface IFrequencyCellProps {
-    frequency: number;
+    frequency: number | null;
     overlay?: () => JSX.Element;
 }
 
@@ -35,12 +35,12 @@ class FrequencyCell extends React.Component<IFrequencyCellProps>
     private mainContent(): JSX.Element
     {
         const fractionDigits = 1;
-        const fixed = (this.props.frequency * 100).toFixed(fractionDigits);
+        const fixed = this.props.frequency === null ? "-" : (this.props.frequency * 100).toFixed(fractionDigits);
 
         let displayValue = fixed;
 
         // if the actual value is not zero but the display value is like 0.00, then show instead < 0.01
-        if (this.props.frequency !== 0 && Number(fixed) === 0) {
+        if (this.props.frequency !== null && this.props.frequency !== 0 && Number(fixed) === 0) {
             displayValue = `< ${1 / Math.pow(10, fractionDigits)}`;
         }
 

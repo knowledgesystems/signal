@@ -32,7 +32,7 @@ export function applyCancerTypeFilter(filter: CancerTypeFilter, mutation: IMutat
 
 export function applyMutationStatusFilter(filter: MutationStatusFilter,
                                           mutation: IExtendedMutation,
-                                          biallelicFrequency: number = mutation.biallelicPathogenicGermlineFrequency)
+                                          biallelicFrequency: number|null = mutation.biallelicPathogenicGermlineFrequency)
 {
     return filter.values.map(v => {
         let match = false;
@@ -59,7 +59,7 @@ export function applyMutationStatusFilter(filter: MutationStatusFilter,
                 match = isPathogenicGermline;
             }
             else if (v === MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE) {
-                match = isPathogenicGermline && biallelicFrequency > 0;
+                match = isPathogenicGermline && biallelicFrequency !== null && biallelicFrequency > 0;
             }
         }
 

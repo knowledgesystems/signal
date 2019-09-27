@@ -1,57 +1,44 @@
-import autobind from 'autobind-decorator';
-import {action, computed} from "mobx";
+import {computed} from "mobx";
 import {observer} from "mobx-react";
 import * as React from 'react';
 import {
-    Col, Container, Row
+    Col, Row
 } from 'react-bootstrap';
 
 import GeneFrequencyStore from "../store/GeneFrequencyStore";
-import {ColumnId} from "./ColumnHeaderHelper";
 import GeneFrequencyTable from "./GeneFrequencyTable";
-import SearchBox from "./SearchBox";
+
+interface IGeneLevelSummaryProps {
+    frequencyStore?: GeneFrequencyStore
+}
 
 @observer
-class GeneLevelSummary extends React.Component<{}>
+class GeneLevelSummary extends React.Component<IGeneLevelSummaryProps>
 {
-    private store: GeneFrequencyStore = new GeneFrequencyStore();
-
     @computed
-    private get filteredColumns()
-    {
-        return this.store.filterText && this.store.filterText.length > 0 ? [
-            {
-                id: ColumnId.HUGO_SYMBOL,
-                value: this.store.filterText
-            }
-        ] : [];
+    private get frequencyStore() {
+        return this.props.frequencyStore || new GeneFrequencyStore();
+    }
+
+    private get loadingIndicator() {
+        return <i className="fa fa-spinner fa-pulse fa-2x" />;
+
     }
 
     public render() {
         return (
-            <Container className="text-center">
-                <Row>
-                    <Col lg="8" className="m-auto">
-                        <SearchBox onChange={this.onSearch} />
-                    </Col>
-                </Row>
+            <div className="text-center">
                 <Row className="py-4">
                     <Col className="m-auto">
-                        <GeneFrequencyTable
-                            data={this.store.mutationFrequencyData}
-                            status={this.store.geneFrequencyDataStatus}
-                            filtered={this.filteredColumns}
-                        />
+                        {this.frequencyStore.geneFrequencyDataStatus === "pending" ? this.loadingIndicator :
+                            <GeneFrequencyTable
+                                data={this.frequencyStore.mutationFrequencyData}
+                            />
+                        }
                     </Col>
                 </Row>
-            </Container>
+            </div>
         );
-    }
-
-    @autobind
-    @action
-    private onSearch(input: string) {
-        this.store.filterFrequenciesByGene(input);
     }
 }
 

@@ -1,21 +1,40 @@
+export interface ICountByTumorType
+{
+    tumorType: string;
+    tumorTypeCount: number;
+    variantCount: number;
+}
+
+export interface ITumorTypeDecomposition extends ICountByTumorType
+{
+    frequency: number;
+    biallelicRatio: number;
+    biallelicVariantCount: number;
+}
+
 export interface IMutation
 {
-    hugoSymbol: string;
-    isPathogenic: boolean|undefined;
+    chromosome: string;
+    countsByTumorType: ICountByTumorType[];
+    biallelicCountsByTumorType: ICountByTumorType[];
+    qcPassCountsByTumorType: ICountByTumorType[];
+    endPosition: number;
+    hugoGeneSymbol: string;
+    mutationStatus: string;
+    pathogenic: string;
     penetrance: string;
-    category: MutationCategory;
-    countByCancerType: ICountByCancerType;
+    referenceAllele: string;
+    startPosition: number;
+    variantAllele: string;
 }
 
-export interface ICountByCancerType {
-    [cancerType: string] : {variantCount: number, tumorTypeCount: number}
-}
-
-export enum MutationCategory {
-    DEFAULT = "NA",
-    SOMATIC = "somaticByGene",
-    GERMLINE = "germlineByGene",
-    BIALLELIC_GERMLINE = "biallelicGermlineByGene",
-    QC_GERMLINE = "qcGermlineByGene",
-    BIALLELIC_QC_OVERRIDDEN_GERMLINE = "biallelicQCOverriddenGermlineByGene"
+export interface IExtendedMutation extends IMutation
+{
+    tumorTypeDecomposition: ITumorTypeDecomposition[];
+    somaticFrequency: number;
+    germlineFrequency: number;
+    pathogenicGermlineFrequency: number;
+    biallelicGermlineFrequency: number;
+    biallelicPathogenicGermlineFrequency: number;
+    ratioBiallelicPathogenic: number;
 }

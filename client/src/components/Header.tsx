@@ -37,11 +37,6 @@ class Header extends React.Component<{}>
                         <MskccLogo imageHeight={50} className="d-none d-lg-block ml-auto" />
                     </Container>
                 </Navbar>
-                <Navbar bg="mskcc-subheader" expand="lg" className="navbar-dark sub-navbar">
-                    <Container fluid={true}>
-                        A resource for the integration of somatic with germline heritability in tumorigenesis
-                    </Container>
-                </Navbar>
             </header>
         );
     }

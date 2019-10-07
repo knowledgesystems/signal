@@ -20,7 +20,7 @@ export const MUTATION_RATE_HELPER = {
     },
     [MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE]: {
         title: "Biallelic Pathogenic Germline",
-        description: "Percent of pathogenic germline carriers biallelic in the corresponding tumor"
+        description: "Percent of pathogenic germline carriers biallelic in the corresponding tumor sample"
     }
 };
 

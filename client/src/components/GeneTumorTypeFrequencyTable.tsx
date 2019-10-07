@@ -68,6 +68,13 @@ class GeneTumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTab
                             minWidth: 250
                         },
                         {
+                            id: ColumnId.SAMPLE_COUNT,
+                            Cell: renderCount,
+                            Header: HEADER_COMPONENT[ColumnId.SAMPLE_COUNT],
+                            accessor: ColumnId.SAMPLE_COUNT,
+                            maxWidth: 80
+                        },
+                        {
                             id: ColumnId.GERMLINE,
                             Cell: renderPercentage,
                             Header: HEADER_COMPONENT[ColumnId.GERMLINE],
@@ -87,13 +94,6 @@ class GeneTumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTab
                             Header: HEADER_COMPONENT[ColumnId.SOMATIC_DRIVER],
                             accessor: somaticAccessor,
                             maxWidth: 120
-                        },
-                        {
-                            id: ColumnId.SAMPLE_COUNT,
-                            Cell: renderCount,
-                            Header: HEADER_COMPONENT[ColumnId.SAMPLE_COUNT],
-                            accessor: ColumnId.SAMPLE_COUNT,
-                            maxWidth: 80
                         }
                     ]}
                     defaultSorted={[{

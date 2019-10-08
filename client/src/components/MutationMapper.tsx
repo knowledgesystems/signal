@@ -179,6 +179,12 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                         Header: HEADER_COMPONENT[ColumnId.MUTATION_PERCENT]
                     },
                     {
+                        expander: true,
+                        Expander: this.renderExpander,
+                        togglable: false,
+                        width: 25
+                    },
+                    {
                         id: ColumnId.PERCENT_BIALLELIC,
                         name: "% Biallelic",
                         Cell: renderPercentage,
@@ -192,13 +198,7 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.START_POSITION],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.END_POSITION],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.REFERENCE_ALLELE],
-                    MUTATION_COLUMNS_DEFINITION[MutationColumn.VARIANT_ALLELE],
-                    {
-                        expander: true,
-                        Expander: this.renderExpander,
-                        togglable: false,
-                        width: 25
-                    }
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.VARIANT_ALLELE]
                 ]}
                 customMutationTableProps={{
                     SubComponent: this.renderSubComponent

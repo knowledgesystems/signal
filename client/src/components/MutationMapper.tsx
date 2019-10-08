@@ -10,6 +10,7 @@ import {
     MUTATION_COLUMNS_DEFINITION,
     MutationColumn,
     MutationStatus,
+    numberOfLeadingDecimalZeros,
     ProteinChange,
     TrackName
 } from "react-mutation-mapper";
@@ -247,8 +248,11 @@ class MutationMapper extends React.Component<IMutationMapperProps>
     @autobind
     private lollipopTooltipCountInfo(count: number, mutations?: IExtendedMutation[]): JSX.Element
     {
+        const decimalZeros = numberOfLeadingDecimalZeros(count);
+        const fractionDigits = decimalZeros < 0 ? 1: decimalZeros + 2;
+
         return mutations && mutations.length > 0 && this.needToShowPercent(mutations[0]) ?
-            <strong>{formatPercentValue(count, 4)}% mutation rate</strong>:
+            <strong>{formatPercentValue(count, fractionDigits)}% mutation rate</strong>:
             <strong>{count} mutation{`${count !== 1 ? "s" : ""}`}</strong>;
     }
 

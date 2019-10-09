@@ -7,7 +7,7 @@ interface IAxisScaleSwitchProps {
     checked: boolean;
 }
 
-function getIcon(icon: JSX.Element)
+function getIcon(icon: JSX.Element, style?: React.CSSProperties)
 {
     return (
         <div
@@ -16,9 +16,8 @@ function getIcon(icon: JSX.Element)
                 justifyContent: "center",
                 alignItems: "center",
                 height: "100%",
-                paddingRight: 2,
-                color: "#FFF",
-                fontSize: "85%"
+                fontSize: "85%",
+                ...style
             }}
         >
             {icon}
@@ -32,16 +31,30 @@ export class AxisScaleSwitch extends React.Component<IAxisScaleSwitchProps, {}>
     public render()
     {
         return (
-            <SwitchBox
-                checked={this.props.checked}
-                onChange={this.props.onChange}
-                checkedIcon={getIcon(<strong>%</strong>)}
-                uncheckedIcon={getIcon(<strong>#</strong>)}
-                boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                handleDiameter={20}
-                height={16}
-                width={48}
-            />
+            <React.Fragment>
+                {
+                    getIcon(<span>#</span>, {
+                        paddingRight: 5,
+                        fontWeight: this.props.checked ? "normal": "bold"
+                    })
+                }
+                <SwitchBox
+                    checked={this.props.checked}
+                    onChange={this.props.onChange}
+                    checkedIcon={<span/>}
+                    uncheckedIcon={<span/>}
+                    boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                    handleDiameter={20}
+                    height={12}
+                    width={48}
+                />
+                {
+                    getIcon(<span>%</span>, {
+                        paddingLeft: 5,
+                        fontWeight: this.props.checked ? "bold": "normal"
+                    })
+                }
+            </React.Fragment>
         );
     }
 }

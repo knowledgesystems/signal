@@ -5,7 +5,7 @@ import * as React from "react";
 import {
     CancerTypeFilter,
     ColumnSortDirection,
-    DataFilterType,
+    DataFilterType, defaultSortMethod,
     formatPercentValue,
     MUTATION_COLUMNS_DEFINITION,
     MutationColumn,
@@ -177,7 +177,8 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                         name: "%",
                         Cell: renderPercentage,
                         accessor: mutationPercentAccessor,
-                        Header: HEADER_COMPONENT[ColumnId.MUTATION_PERCENT]
+                        Header: HEADER_COMPONENT[ColumnId.MUTATION_PERCENT],
+                        sortMethod: defaultSortMethod
                     },
                     {
                         expander: true,
@@ -190,7 +191,8 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                         name: "% Biallelic",
                         Cell: renderPercentage,
                         accessor: "ratioBiallelicPathogenic",
-                        Header: HEADER_COMPONENT[ColumnId.PERCENT_BIALLELIC]
+                        Header: HEADER_COMPONENT[ColumnId.PERCENT_BIALLELIC],
+                        sortMethod: defaultSortMethod
                     },
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.ANNOTATION],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.GNOMAD],

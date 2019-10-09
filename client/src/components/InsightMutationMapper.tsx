@@ -245,10 +245,10 @@ export class InsightMutationMapper extends ReactMutationMapper<IInsightMutationM
             sortedFilteredData, pathogenicGermlineFilter, biallelicPathogenicGermlineFilter, this.cancerTypeFilter);
 
         return {
-            [MutationStatusFilterValue.SOMATIC]: somaticFrequency * 100,
-            [MutationStatusFilterValue.BENIGN_GERMLINE]: benignGermlineFrequency * 100,
-            [MutationStatusFilterValue.PATHOGENIC_GERMLINE]: pathogenicGermlineFrequency * 100,
-            [MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE]: biallelicRatio * 100,
+            [MutationStatusFilterValue.SOMATIC]: (somaticFrequency || 0) * 100,
+            [MutationStatusFilterValue.BENIGN_GERMLINE]: (benignGermlineFrequency || 0) * 100,
+            [MutationStatusFilterValue.PATHOGENIC_GERMLINE]: (pathogenicGermlineFrequency || 0) * 100,
+            [MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE]: (biallelicRatio || 0) * 100,
         };
     }
 

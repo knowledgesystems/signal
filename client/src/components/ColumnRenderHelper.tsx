@@ -6,7 +6,7 @@ import PenetranceList from "./PenetranceList";
 export function renderPercentage(cellProps: any)
 {
     return (
-        <FrequencyCell frequency={cellProps.value || 0} />
+        <FrequencyCell frequency={cellProps.value} />
     );
 }
 

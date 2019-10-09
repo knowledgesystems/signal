@@ -64,9 +64,9 @@ export function extendMutations(mutations: IMutation[]): IExtendedMutation[]
         const isPathogenic = isPathogenicMutation(mutation);
 
         const pathogenicGermlineFrequency = (isGermline && isPathogenic) ?
-            calculateOverallFrequency(mutation.countsByTumorType) : 0;
+            calculateOverallFrequency(mutation.countsByTumorType): null;
         const biallelicGermlineFrequency = (isGermline && mutation.biallelicCountsByTumorType) ?
-            calculateOverallFrequency(mutation.biallelicCountsByTumorType) : 0;
+            calculateOverallFrequency(mutation.biallelicCountsByTumorType): null;
 
         const tumorTypeDecomposition: ITumorTypeDecomposition[] = generateTumorTypeDecomposition(mutation.countsByTumorType,
             mutation.biallelicCountsByTumorType,
@@ -75,13 +75,13 @@ export function extendMutations(mutations: IMutation[]): IExtendedMutation[]
         return {
             ...mutation,
             tumorTypeDecomposition,
-            somaticFrequency: isSomatic ? calculateOverallFrequency(mutation.countsByTumorType) : 0,
-            germlineFrequency: isGermline ? calculateOverallFrequency(mutation.countsByTumorType) : 0,
+            somaticFrequency: isSomatic ? calculateOverallFrequency(mutation.countsByTumorType): null,
+            germlineFrequency: isGermline ? calculateOverallFrequency(mutation.countsByTumorType): null,
             pathogenicGermlineFrequency,
             biallelicGermlineFrequency,
-            biallelicPathogenicGermlineFrequency: isPathogenic ? biallelicGermlineFrequency : 0,
+            biallelicPathogenicGermlineFrequency: isPathogenic ? biallelicGermlineFrequency: null,
             ratioBiallelicPathogenic: isPathogenic && mutation.biallelicCountsByTumorType && mutation.qcPassCountsByTumorType ?
-                calculateTotalVariantRatio(mutation.biallelicCountsByTumorType, mutation.qcPassCountsByTumorType) : 0
+                calculateTotalVariantRatio(mutation.biallelicCountsByTumorType, mutation.qcPassCountsByTumorType): null
         };
     })
 }
@@ -102,7 +102,7 @@ function generateTumorTypeDecomposition(countsByTumorType: ICountByTumorType[],
         ...counts,
         frequency: counts.variantCount / counts.tumorTypeCount,
         biallelicRatio: biallelicTumorMap && qcPassTumorMap ?
-            calcBiallelicRatio(biallelicTumorMap[counts.tumorType], qcPassTumorMap[counts.tumorType]): 0,
+            calcBiallelicRatio(biallelicTumorMap[counts.tumorType], qcPassTumorMap[counts.tumorType]): null,
         biallelicVariantCount: biallelicTumorMap && biallelicTumorMap[counts.tumorType] ?
             biallelicTumorMap[counts.tumorType].variantCount: 0
     }));
@@ -114,14 +114,14 @@ export function calcBiallelicRatio(biallelicCountByTumorType?: ICountByTumorType
     const ratio = (biallelicCountByTumorType ? biallelicCountByTumorType.variantCount : 0) /
         (qcPassCountByTumorType ? qcPassCountByTumorType.variantCount : 0);
 
-    return ratio || 0;
+    return _.isNaN(ratio) ? null: ratio;
 }
 
 export function calculateTotalFrequency(mutations: IExtendedMutation[],
                                         mutationStatusFilter: MutationStatusFilter,
                                         cancerTypeFilter?: CancerTypeFilter)
 {
-    let frequency = 0;
+    let frequency = null;
     const filtered = mutations.filter(mutation => applyMutationStatusFilter(mutationStatusFilter, mutation));
 
     if (filtered.length > 0) {
@@ -139,7 +139,7 @@ export function calculateTotalBiallelicRatio(mutations: IExtendedMutation[],
                                              biallelicPathogenicGermlineFilter: MutationStatusFilter,
                                              cancerTypeFilter?: CancerTypeFilter)
 {
-    let ratio;
+    let ratio = null;
 
     const pathogenicGermlineMutations = mutations.filter(
         mutation => applyMutationStatusFilter(pathogenicGermlineFilter, mutation));
@@ -155,7 +155,7 @@ export function calculateTotalBiallelicRatio(mutations: IExtendedMutation[],
         ratio = totalVariants(combinedBiallelicCounts) / totalVariants(combinedQcPassCounts);
     }
 
-    return ratio || 0;
+    return ratio;
 }
 
 function combinedBiallelicCountsByTumorType(mutations: IExtendedMutation[], cancerTypeFilter?: CancerTypeFilter)

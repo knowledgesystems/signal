@@ -7,8 +7,8 @@ export interface ICountByTumorType
 
 export interface ITumorTypeDecomposition extends ICountByTumorType
 {
-    frequency: number;
-    biallelicRatio: number;
+    frequency: number | null;
+    biallelicRatio: number | null;
     biallelicVariantCount: number;
 }
 
@@ -31,10 +31,10 @@ export interface IMutation
 export interface IExtendedMutation extends IMutation
 {
     tumorTypeDecomposition: ITumorTypeDecomposition[];
-    somaticFrequency: number;
-    germlineFrequency: number;
-    pathogenicGermlineFrequency: number;
-    biallelicGermlineFrequency: number;
-    biallelicPathogenicGermlineFrequency: number;
-    ratioBiallelicPathogenic: number;
+    somaticFrequency: number | null;
+    germlineFrequency: number | null;
+    pathogenicGermlineFrequency: number | null;
+    biallelicGermlineFrequency: number | null;
+    biallelicPathogenicGermlineFrequency: number | null;
+    ratioBiallelicPathogenic: number | null;
 }

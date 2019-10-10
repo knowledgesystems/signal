@@ -9,18 +9,22 @@ interface IHomeProps {
 
 class Home extends React.Component<IHomeProps>
 {
+    private get blurb() {
+        return (
+            <div style={{paddingLeft:8, maxWidth: 1500}}>
+                The INSIGHT (<u>In</u>tegration of <u>S</u>omat<u>i</u>c with <u>G</u>ermline <u>H</u>eritability in <u>T</u>umorigenesis)
+                resource integrates germline and somatic alterations identified by clinical sequencing of
+                active cancer patients. Provided here are pathogenic germline variants and their tumor-specific
+                zygosity changes by gene, lineage, and cancer type in 17,152 prospectively sequenced cancer patients.
+            </div>
+        );
+    }
+
     public render()
     {
         return (
             <div>
-                <div style={{paddingLeft:8, maxWidth: 1500}}>The
-                INSIGHT (<b>in</b>tegration of <b>s</b>omat<b>i</b>c with <b>g</b>ermline <b>h</b>eritability
-                in <b>t</b>umorigenesis) resource integrates germline and
-                somatic alterations identified by clinical sequencing of
-                active cancer patients. Provided here are pathogenic germline
-                variants and their tumor-specific zygosity changes by gene,
-                lineage, and cancer type in 17,152 prospectively sequenced
-                cancer patients.</div>
+                {this.blurb}
                 <GeneLevelSummary frequencyStore={this.props.frequencyStore} />
             </div>
         );

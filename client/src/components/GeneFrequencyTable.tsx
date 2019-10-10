@@ -36,7 +36,7 @@ export function sortPenetrance(a: string[], b: string[])
     const aSorted = a.sort(comparePenetrance);
     const bSorted = b.sort(comparePenetrance);
     for (let i = 0; i < Math.min(aSorted.length, bSorted.length); i++) {
-        const comparison = -comparePenetrance(aSorted[i], bSorted[i]) 
+        const comparison = -comparePenetrance(aSorted[i], bSorted[i]);
         if (comparison !== 0) {
             return comparison;
         }
@@ -70,10 +70,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
             this.searchText!.trim().toLowerCase(): undefined;
 
         return refinedSearchText ? this.props.data.filter(
-            s => s.hugoSymbol.toLowerCase().includes(refinedSearchText) ||
-                s.penetrance
-                    .map(p => p.toLowerCase())
-                    .find(p => p.includes(refinedSearchText))
+            s => s.hugoSymbol.toLowerCase().includes(refinedSearchText)
         ): this.props.data;
     }
 
@@ -101,11 +98,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                     onSearch={this.handleSearch}
                     info={this.info}
                     reactTableProps={{
-                        SubComponent: renderSubComponent,
-                        defaultSorted: [
-                            {id: ColumnId.PENETRANCE, desc: true}, 
-                            {id: ColumnId.GERMLINE, desc: true}
-                        ]
+                        SubComponent: renderSubComponent
                     }}
                     columns={[
                         {
@@ -148,10 +141,10 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                         }
                     ]}
                     initialItemsPerPage={10}
-                    initialSortColumn={ColumnId.PENETRANCE}
+                    initialSortColumn={ColumnId.GERMLINE}
                     initialSortDirection={ColumnSortDirection.DESC}
                     showColumnVisibility={false}
-                    searchPlaceholder="Search"
+                    searchPlaceholder="Search Gene"
                 />
             </div>
         );

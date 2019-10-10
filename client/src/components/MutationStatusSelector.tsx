@@ -12,7 +12,7 @@ export const MUTATION_RATE_HELPER = {
     },
     [MutationStatusFilterValue.BENIGN_GERMLINE]: {
         title: "Rare Benign/VUS Germline",
-        description: "Percent of samples with a benign germline mutation"
+        description: "Percent of samples with a rare benign/VUS germline mutation"
     },
     [MutationStatusFilterValue.PATHOGENIC_GERMLINE]: {
         title: "Pathogenic Germline",

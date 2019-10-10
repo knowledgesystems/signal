@@ -18,7 +18,7 @@ class About extends React.Component<{}>
 
                 <ul>
                     <li>
-                        Srinivasan P, Bandlamudi C, et al. “The role of germline pathogenicity in tumogenesis” In preparation
+                        Srinivasan P, Bandlamudi C, et al. “The context-specific role of germline pathogenicity in tumorigenesis” submitted.
                     </li>
                 </ul>
 

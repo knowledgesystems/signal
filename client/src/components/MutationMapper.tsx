@@ -21,6 +21,7 @@ import {
     applyCancerTypeFilter,
     applyMutationStatusFilter,
     containsCancerType,
+    getDefaultMutationStatusFilterValues,
     MUTATION_COUNT_FILTER_TYPE,
     MUTATION_STATUS_FILTER_ID,
     MUTATION_STATUS_FILTER_TYPE,
@@ -226,11 +227,7 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                     {
                         id: MUTATION_STATUS_FILTER_ID,
                         type: MUTATION_STATUS_FILTER_TYPE,
-                        values: [
-                            MutationStatusFilterValue.SOMATIC,
-                            MutationStatusFilterValue.PATHOGENIC_GERMLINE,
-                            MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE
-                        ]
+                        values: getDefaultMutationStatusFilterValues()
                     }
                 ]}
                 filterAppliersOverride={this.customFilterAppliers}

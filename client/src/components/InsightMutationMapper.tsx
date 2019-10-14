@@ -3,6 +3,7 @@ import {action, computed, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from 'react';
 import {
+    applyDataFilters,
     DataFilterType,
     FilterResetPanel,
     MutationMapper as ReactMutationMapper,
@@ -266,7 +267,13 @@ export class InsightMutationMapper extends ReactMutationMapper<IInsightMutationM
             values: [MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE]
         };
 
-        const sortedFilteredData = this.store.dataStore.sortedFilteredData;
+        const filtersWithoutMutationStatusFilter =
+            this.store.dataStore.dataFilters.filter(f => f.id !== MUTATION_STATUS_FILTER_ID);
+
+        // apply filters excluding the mutation status filter
+        // this prevents ratio of unchecked mutation status values from being calculated as zero
+        const sortedFilteredData = applyDataFilters(
+            this.store.dataStore.allData, filtersWithoutMutationStatusFilter, this.store.dataStore.applyFilter);
 
         const somaticFrequency = calculateTotalFrequency(
             sortedFilteredData, somaticFilter, this.cancerTypeFilter);

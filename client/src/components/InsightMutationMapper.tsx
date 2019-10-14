@@ -1,3 +1,4 @@
+import _ from "lodash";
 import {action, computed, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from 'react';
@@ -15,6 +16,7 @@ import {
     findCancerTypeFilter,
     findMutationStatusFilter,
     findMutationTypeFilter,
+    getDefaultMutationStatusFilterValues,
     MUTATION_STATUS_FILTER_ID,
     MUTATION_STATUS_FILTER_TYPE,
     MutationStatusFilterValue,
@@ -27,7 +29,7 @@ import {
     totalFilteredSamples
 } from "../util/MutationDataUtils";
 import CancerTypeSelector from "./CancerTypeSelector";
-import MutationStatusSelector from "./MutationStatusSelector";
+import MutationStatusSelector, {onMutationStatusFilterOptionSelect} from "./MutationStatusSelector";
 
 import {AxisScaleSwitch} from "./AxisScaleSwitch";
 import "./InsightMutationMapper.css";
@@ -51,6 +53,9 @@ export class InsightMutationMapper extends ReactMutationMapper<IInsightMutationM
     @observable
     public showPercent = true;
 
+    // last selected mutation status values (needed to determine checked/unchecked options after a user interaction)
+    private lastSelectedMutationStatusValues: string[] = getDefaultMutationStatusFilterValues();
+
     @computed
     public get cancerTypes() {
         return findAllUniqueCancerTypes(this.props.data || []).sort();
@@ -69,6 +74,34 @@ export class InsightMutationMapper extends ReactMutationMapper<IInsightMutationM
     @computed
     public get mutationStatusFilter() {
         return findMutationStatusFilter(this.store.dataStore.dataFilters);
+    }
+
+    @computed
+    public get selectedMutationStatusValues() {
+        // default values in case no filter
+        let values = [
+            {value: MutationStatusFilterValue.SOMATIC},
+            {value: MutationStatusFilterValue.BENIGN_GERMLINE},
+            {value: MutationStatusFilterValue.PATHOGENIC_GERMLINE}
+        ];
+
+        // no filter, return defaults
+        if (!this.mutationStatusFilter) {
+            return values;
+        }
+        else  {
+            values = this.mutationStatusFilter.values.map(value => ({value}));
+
+            // need to show PATHOGENIC_GERMLINE as selected when BIALLELIC_PATHOGENIC_GERMLINE is in the filter
+            if (this.mutationStatusFilter.values.includes(MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE)) {
+                values.push({value: MutationStatusFilterValue.PATHOGENIC_GERMLINE});
+            }
+        }
+
+        // update last selection
+        this.lastSelectedMutationStatusValues = values.map(v => v.value);
+
+        return values;
     }
 
     @computed
@@ -135,7 +168,7 @@ export class InsightMutationMapper extends ReactMutationMapper<IInsightMutationM
                 </div>
                 <div style={FILTER_UI_STYLE}>
                     <MutationStatusSelector
-                        filter={this.mutationStatusFilter}
+                        selectedValues={this.selectedMutationStatusValues}
                         onSelect={this.onMutationStatusSelect}
                         rates={this.mutationRatesByMutationStatus}
                     />
@@ -265,7 +298,14 @@ export class InsightMutationMapper extends ReactMutationMapper<IInsightMutationM
     @action.bound
     protected onMutationStatusSelect(selectedMutationStatusIds: string[], allValuesSelected: boolean)
     {
-        onFilterOptionSelect(selectedMutationStatusIds,
+        const checkedMutationStatusValues = _.difference(
+            selectedMutationStatusIds, this.lastSelectedMutationStatusValues);
+        const uncheckedMutationStatusValues = _.difference(
+            this.lastSelectedMutationStatusValues, selectedMutationStatusIds);
+
+        onMutationStatusFilterOptionSelect(selectedMutationStatusIds,
+            checkedMutationStatusValues,
+            uncheckedMutationStatusValues,
             allValuesSelected,
             this.store.dataStore,
             MUTATION_STATUS_FILTER_TYPE,

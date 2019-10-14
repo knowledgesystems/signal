@@ -93,3 +93,10 @@ export function findMutationTypeFilter(dataFilters: DataFilter[])
 {
     return dataFilters.find(f => f.id === PROTEIN_IMPACT_TYPE_FILTER_ID);
 }
+
+export function getDefaultMutationStatusFilterValues() {
+    return [
+        MutationStatusFilterValue.SOMATIC,
+        MutationStatusFilterValue.PATHOGENIC_GERMLINE
+    ];
+}

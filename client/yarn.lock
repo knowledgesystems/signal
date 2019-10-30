@@ -139,6 +139,11 @@
   resolved "https://registry.yarnpkg.com/@restart/hooks/-/hooks-0.3.1.tgz#bcc0ee82500bb2ac5849c3c3384d520a196cb7a0"
   integrity sha512-kjGGlli8iTe5TFDw6qHZJ5QK1naITMveIO+o8yQJJqwX8VIkiQzLddK98Lduga2krJMzWlNqDR/4isGLiyBlUA==
 
+"@types/classnames@^2.2.9":
+  version "2.2.9"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.9.tgz#d868b6febb02666330410fe7f58f3c4b8258be7b"
+  integrity sha512-MNl+rT5UmZeilaPxAVs6YaPC2m6aA8rofviZbhbxpPpl61uKodfdQVsBtgJGTqGizEf02oW3tsVe7FYB8kK14A==
+
 "@types/cookiejar@*":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@types/cookiejar/-/cookiejar-2.1.1.tgz#90b68446364baf9efd8e8349bb36bd3852b75b80"
@@ -7908,13 +7913,6 @@ react-select@^3.0.4:
     raf "^3.4.0"
     react-input-autosize "^2.2.1"
     react-transition-group "^2.2.1"
-
-react-switch@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/react-switch/-/react-switch-5.0.1.tgz#449277f4c3aed5286fffd0f50d5cbc2a23330406"
-  integrity sha512-Pa5kvqRfX85QUCK1Jv0rxyeElbC3aNpCP5hV0LoJpU/Y6kydf0t4kRriQ6ZYA4kxWwAYk/cH51T4/sPzV9mCgQ==
-  dependencies:
-    prop-types "^15.6.2"
 
 react-table@^6.10.0:
   version "6.10.0"

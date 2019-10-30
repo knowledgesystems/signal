@@ -32,14 +32,14 @@ import {
 import CancerTypeSelector from "./CancerTypeSelector";
 import MutationStatusSelector, {onMutationStatusFilterOptionSelect} from "./MutationStatusSelector";
 
-import {AxisScaleSwitch} from "./AxisScaleSwitch";
+import {AxisScale, AxisScaleSwitch} from "./AxisScaleSwitch";
 import "./InsightMutationMapper.css";
 
 export interface IInsightMutationMapperProps extends MutationMapperProps
 {
     onInit?: (mutationMapper: InsightMutationMapper) => void;
     percentChecked?: boolean;
-    onScaleToggle?: (checked: boolean) => void;
+    onScaleToggle?: (showPercent: boolean) => void;
 }
 
 const FILTER_UI_STYLE = {
@@ -206,7 +206,7 @@ export class InsightMutationMapper extends ReactMutationMapper<IInsightMutationM
             <div className="small" style={{display: "flex", alignItems: "center"}}>
                 <span style={{marginLeft: 10, marginRight: 10}}>Y-Axis: </span>
                 <AxisScaleSwitch
-                    checked={this.showPercent}
+                    selectedScale={this.showPercent ? AxisScale.PERCENT: AxisScale.COUNT}
                     onChange={this.onScaleToggle}
                 />
             </div>
@@ -330,15 +330,15 @@ export class InsightMutationMapper extends ReactMutationMapper<IInsightMutationM
     }
 
     @action.bound
-    private onScaleToggle(checked: boolean)
+    private onScaleToggle(selectedScale: AxisScale)
     {
         this.lollipopPlotControlsConfig.yMaxInput = undefined;
         this.lollipopPlotControlsConfig.bottomYMaxInput = undefined;
 
-        this.showPercent = checked;
+        this.showPercent = selectedScale === AxisScale.PERCENT;
 
         if (this.props.onScaleToggle) {
-            this.props.onScaleToggle(checked);
+            this.props.onScaleToggle(this.showPercent);
         }
     }
 }

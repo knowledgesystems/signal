@@ -1,60 +1,76 @@
+import classNames from "classnames";
+import {action, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
-import SwitchBox from "react-switch";
+import {ButtonGroup} from "react-bootstrap";
 
 interface IAxisScaleSwitchProps {
-    onChange: (checked: boolean) => void;
-    checked: boolean;
+    onChange: (selectedScale: AxisScale) => void;
+    selectedScale: AxisScale;
 }
 
-function getIcon(icon: JSX.Element, style?: React.CSSProperties)
-{
-    return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-                fontSize: "85%",
-                ...style
-            }}
-        >
-            {icon}
-        </div>
-    );
+export enum AxisScale {
+    PERCENT = "%",
+    COUNT = "#"
 }
 
 @observer
 export class AxisScaleSwitch extends React.Component<IAxisScaleSwitchProps, {}>
 {
+    public static defaultProps: Partial<IAxisScaleSwitchProps> = {
+        selectedScale: AxisScale.COUNT
+    };
+
+    @observable
+    private selectedScale: AxisScale;
+
+    constructor(props: IAxisScaleSwitchProps) {
+        super(props);
+        this.selectedScale = props.selectedScale;
+    }
+
+    public toggleButton(scale: AxisScale,
+                        onClick: () => void)
+    {
+        return (
+            <button
+                className={classNames({
+                    "btn-secondary": this.props.selectedScale === scale,
+                    "btn-outline-secondary": this.props.selectedScale !== scale,
+                }, "btn", "btn-sm", "btn-axis-switch")}
+                style={{
+                    lineHeight: 1,
+                    cursor: this.props.selectedScale === scale ? "default" : "pointer",
+                    fontWeight: this.props.selectedScale === scale ? "bolder" : "normal",
+                }}
+                onClick={onClick}
+            >
+                {scale}
+            </button>
+        );
+    }
+
     public render()
     {
         return (
             <React.Fragment>
-                {
-                    getIcon(<span>#</span>, {
-                        paddingRight: 5,
-                        fontWeight: this.props.checked ? "normal": "bold"
-                    })
-                }
-                <SwitchBox
-                    checked={this.props.checked}
-                    onChange={this.props.onChange}
-                    checkedIcon={<span/>}
-                    uncheckedIcon={<span/>}
-                    boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                    handleDiameter={20}
-                    height={12}
-                    width={48}
-                />
-                {
-                    getIcon(<span>%</span>, {
-                        paddingLeft: 5,
-                        fontWeight: this.props.checked ? "bold": "normal"
-                    })
-                }
+                <ButtonGroup aria-label="">
+                    {this.toggleButton(AxisScale.PERCENT, this.handlePercentClick)}
+                    {this.toggleButton(AxisScale.COUNT, this.handleCountClick)}
+                </ButtonGroup>
             </React.Fragment>
         );
+    }
+
+    @action.bound
+    private handlePercentClick() {
+        this.selectedScale = AxisScale.PERCENT;
+        this.props.onChange(this.selectedScale);
+    }
+
+    @action.bound
+    private handleCountClick() {
+        this.selectedScale = AxisScale.COUNT;
+        this.props.onChange(this.selectedScale);
     }
 }

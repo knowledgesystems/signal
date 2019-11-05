@@ -28,7 +28,7 @@ class GeneLevelSummary extends React.Component<IGeneLevelSummaryProps>
     public render() {
         return (
             <div className="text-center">
-                <Row className="py-4">
+                <Row>
                     <Col className="m-auto">
                         {this.frequencyStore.geneFrequencyDataStatus === "pending" ? this.loadingIndicator :
                             <GeneFrequencyTable

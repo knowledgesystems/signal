@@ -39,7 +39,6 @@ class Main extends React.Component<{}>
                         style={{
                             paddingTop: 20,
                             paddingBottom: 100,
-                            fontSize: "1.25rem",
                             color: "#2c3e50"
                         }}
                     >

@@ -25,6 +25,7 @@ class Home extends React.Component<IHomeProps>
         return (
             <div>
                 {this.blurb}
+                <hr />
                 <GeneLevelSummary frequencyStore={this.props.frequencyStore} />
             </div>
         );

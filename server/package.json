@@ -27,7 +27,7 @@
     "compression": "^1.7.4",
     "csvtojson": "^2.0.8",
     "express": "^4.16.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "path": "^0.12.7"
   },
   "devDependencies": {

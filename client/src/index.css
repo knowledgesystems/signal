@@ -18,6 +18,13 @@ body {
   font-size: 85%;
 }
 
+.btn-axis-switch:focus,
+.btn-axis-switch:active,
+.btn-axis-switch:active:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .badge {
   font-size: 85%;
   border-radius: 8px;

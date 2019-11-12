@@ -5,6 +5,7 @@ import * as React from 'react';
 import {
     DataFilter,
     DataStore,
+    MUTATION_STATUS_BADGE_STYLE_OVERRIDE,
     MutationStatusBadgeSelector,
     MutationStatusBadgeSelectorProps
 } from "react-mutation-mapper";
@@ -68,22 +69,26 @@ export function getMutationStatusFilterOptions()
         {
             value: MutationStatusFilterValue.SOMATIC,
             label: getFilterOptionLabel(MUTATION_RATE_HELPER[MutationStatusFilterValue.SOMATIC]),
-            badgeStyleOverride: {color: "#000", backgroundColor: "#FFF"}
+            badgeStyleOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE,
+            badgeStyleSelectedOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE
         },
         {
             value: MutationStatusFilterValue.BENIGN_GERMLINE,
             label: getFilterOptionLabel(MUTATION_RATE_HELPER[MutationStatusFilterValue.BENIGN_GERMLINE]),
-            badgeStyleOverride: {color: "#000", backgroundColor: "#FFF"}
+            badgeStyleOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE,
+            badgeStyleSelectedOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE
         },
         {
             value: MutationStatusFilterValue.PATHOGENIC_GERMLINE,
             label: getFilterOptionLabel(MUTATION_RATE_HELPER[MutationStatusFilterValue.PATHOGENIC_GERMLINE]),
-            badgeStyleOverride: {color: "#000", backgroundColor: "#FFF"}
+            badgeStyleOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE,
+            badgeStyleSelectedOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE
         },
         {
             value: MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE,
             label: getFilterOptionLabel(MUTATION_RATE_HELPER[MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE]),
-            badgeStyleOverride: {color: "#000", backgroundColor: "#FFF"}
+            badgeStyleOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE,
+            badgeStyleSelectedOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE
         },
     ];
 }

@@ -4,12 +4,13 @@
 node_modules
 
 # testing
-/client/coverage
+packages/msk-insight-client/coverage
 
 # production
-/server/dist
-/server/resources/data
-/client/build
+packages/msk-insight-commons/dist
+packages/msk-insight-server/dist
+packages/msk-insight-server/resources/data
+packages/msk-insight-client/build
 
 # intellij idea
 *.iml

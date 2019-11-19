@@ -1,0 +1,119 @@
+import {computed} from "mobx";
+import {observer} from "mobx-react";
+import {ITumorTypeFrequencySummary} from "msk-insight-commons";
+import * as React from "react";
+import {defaultSortMethod} from "react-mutation-mapper";
+import ReactTable from "react-table";
+
+import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelper";
+import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
+import FrequencyCell from "./FrequencyCell";
+
+import "react-table/react-table.css";
+import "./FrequencyTable.css";
+
+interface ITumorTypeFrequencyTableProps
+{
+    data: ITumorTypeFrequencySummary[];
+    penetrance: string[];
+    hugoSymbol: string;
+}
+
+function renderPercentage(cellProps: any)
+{
+    return (
+        <FrequencyCell
+            frequency={cellProps.value}
+        />
+    );
+}
+
+function renderCount(cellProps: any)
+{
+    return <span className="pull-right mr-1">{cellProps.value}</span>;
+}
+
+function renderTumorType(cellProps: any)
+{
+    return <span className="pull-left ml-2">{cellProps.value}</span>;
+}
+
+@observer
+class GeneTumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTableProps>
+{
+    @computed
+    private get defaultPageSize() {
+        if (this.props.data.length > 10) {
+            return 10;
+        }
+        else if (this.props.data.length === 0) {
+            return 1;
+        }
+        else {
+            return this.props.data.length;
+        }
+    }
+
+    public render()
+    {
+        return (
+            <div className="insight-frequency-table">
+                <ReactTable
+                    data={this.props.data}
+                    columns={[
+                        {
+                            id: ColumnId.TUMOR_TYPE,
+                            Cell: renderTumorType,
+                            Header: HEADER_COMPONENT[ColumnId.TUMOR_TYPE],
+                            accessor: ColumnId.TUMOR_TYPE,
+                            minWidth: 250
+                        },
+                        {
+                            id: ColumnId.SAMPLE_COUNT,
+                            Cell: renderCount,
+                            Header: HEADER_COMPONENT[ColumnId.SAMPLE_COUNT],
+                            accessor: ColumnId.SAMPLE_COUNT,
+                            maxWidth: 80
+                        },
+                        {
+                            id: ColumnId.GERMLINE,
+                            Cell: renderPercentage,
+                            Header: HEADER_COMPONENT[ColumnId.GERMLINE],
+                            accessor: germlineAccessor,
+                            sortMethod: defaultSortMethod,
+                            maxWidth: 120
+                        },
+                        {
+                            id: ColumnId.PERCENT_BIALLELIC,
+                            Cell: renderPercentage,
+                            Header: HEADER_COMPONENT[ColumnId.PERCENT_BIALLELIC],
+                            accessor: biallelicAccessor,
+                            sortMethod: defaultSortMethod,
+                            maxWidth: 120
+                        },
+                        {
+                            id: ColumnId.SOMATIC_DRIVER,
+                            Cell: renderPercentage,
+                            Header: HEADER_COMPONENT[ColumnId.SOMATIC_DRIVER],
+                            accessor: somaticAccessor,
+                            sortMethod: defaultSortMethod,
+                            maxWidth: 120
+                        }
+                    ]}
+                    defaultSorted={[{
+                        id: ColumnId.GERMLINE,
+                        desc: true
+                    }]}
+                    defaultSortDesc={true}
+                    defaultPageSize={this.defaultPageSize}
+                    className="-striped -highlight"
+                    minRows={0}
+                    previousText="<"
+                    nextText=">"
+                />
+            </div>
+        );
+    }
+}
+
+export default GeneTumorTypeFrequencyTable;

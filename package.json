@@ -6,18 +6,13 @@
     "node": "8.12.0"
   },
   "scripts": {
-    "build": "yarn run build-client && yarn run build-server && yarn run copy-reactapp",
+    "build": "lerna clean -y && lerna bootstrap && lerna run build && yarn run copy-reactapp",
     "copy-reactapp": "node copy-reactapp.js",
-    "build-client": "yarn --cwd client install && yarn --cwd client run build",
-    "build-server": "yarn --cwd server install && yarn --cwd server run build",
-    "start": "node server/dist/server.js",
-    "concurrent": "concurrently \"yarn run start-server\" \"yarn run start-client\"",
-    "start-server": "node start-server.js",
-    "start-client": "node start-client.js"
+    "start": "node packages/msk-insight-server/dist/server.js",
+    "start:dev": "lerna run start --parallel"
   },
-  "dependencies": {},
   "devDependencies": {
-    "concurrently": "^3.6.1",
+    "lerna": "^3.18.4",
     "shelljs": "^0.8.3"
   }
 }

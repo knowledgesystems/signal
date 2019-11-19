@@ -1,3 +1,3 @@
 const shell = require("shelljs");
 
-shell.cp("-R", "client/build/", "server/dist/reactapp/");
+shell.cp("-R", "packages/msk-insight-client/build/", "packages/msk-insight-server/dist/reactapp/");

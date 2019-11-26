@@ -2,11 +2,12 @@
   "name": "msk-insight",
   "version": "0.1.0",
   "private": true,
+  "workspaces": ["packages/*"],
   "engines": {
     "node": "8.12.0"
   },
   "scripts": {
-    "build": "lerna clean -y && lerna bootstrap && lerna run build && yarn run copy-reactapp",
+    "build": "lerna clean -y && yarn install && lerna run build && yarn run copy-reactapp",
     "copy-reactapp": "node copy-reactapp.js",
     "start": "node packages/msk-insight-server/dist/server.js",
     "start:dev": "lerna run start --parallel"

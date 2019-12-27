@@ -7,7 +7,7 @@
       "url": "https://github.com/heroku/heroku-buildpack-nodejs#v134"
     }
   ],
-  "description": "Somatic Germline Website",
+  "description": "SignalDB Website",
   "env": {
   },
   "formation": {

@@ -33,11 +33,11 @@ import CancerTypeSelector from "./CancerTypeSelector";
 import MutationStatusSelector, {onMutationStatusFilterOptionSelect} from "./MutationStatusSelector";
 
 import {AxisScale, AxisScaleSwitch} from "./AxisScaleSwitch";
-import "./InsightMutationMapper.css";
+import "./SignalMutationMapper.css";
 
-export interface IInsightMutationMapperProps extends MutationMapperProps
+export interface ISignalMutationMapperProps extends MutationMapperProps
 {
-    onInit?: (mutationMapper: InsightMutationMapper) => void;
+    onInit?: (mutationMapper: SignalMutationMapper) => void;
     percentChecked?: boolean;
     onScaleToggle?: (showPercent: boolean) => void;
 }
@@ -49,7 +49,7 @@ const FILTER_UI_STYLE = {
 };
 
 @observer
-export class InsightMutationMapper extends ReactMutationMapper<IInsightMutationMapperProps>
+export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMapperProps>
 {
     @observable
     public showPercent = true;
@@ -145,7 +145,7 @@ export class InsightMutationMapper extends ReactMutationMapper<IInsightMutationM
         return this.showPercent ? "%" : "";
     }
 
-    constructor(props: IInsightMutationMapperProps)
+    constructor(props: ISignalMutationMapperProps)
     {
         super(props);
 
@@ -160,7 +160,7 @@ export class InsightMutationMapper extends ReactMutationMapper<IInsightMutationM
     protected get mutationFilterPanel(): JSX.Element | null
     {
         return (
-            <div className="insight-mutation-filter-panel">
+            <div className="signal-mutation-filter-panel">
                 <div style={FILTER_UI_STYLE}>
                     <strong>
                         {this.totalFilteredSamples}
@@ -343,4 +343,4 @@ export class InsightMutationMapper extends ReactMutationMapper<IInsightMutationM
     }
 }
 
-export default InsightMutationMapper;
+export default SignalMutationMapper;

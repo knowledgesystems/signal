@@ -79,7 +79,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
     public render()
     {
         return (
-            <div className="insight-frequency-table">
+            <div className="signal-frequency-table">
                 <GeneFrequencyTableComponent
                     ref={this.handleTableRef}
                     data={this.filteredData}

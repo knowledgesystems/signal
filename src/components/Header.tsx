@@ -23,7 +23,7 @@ class Header extends React.Component<{}>
                     <Container fluid={true}>
                         <Navbar.Brand>
                             <Link to="/" className="brand-title-link">
-                                <i className="fa fa-arrow-up" style={{color: "#FF9900"}} /> INSIGHT
+                                <i className="fa fa-arrow-up" style={{color: "#FF9900"}} /> SIGNAL
                             </Link>
                         </Navbar.Brand>
                         <Navbar.Toggle />

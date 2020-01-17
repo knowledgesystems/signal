@@ -18,10 +18,10 @@ interface IGeneProps
 class Gene extends React.Component<IGeneProps>
 {
     @observable
-    private insightMutations: IExtendedMutation[] = [];
+    private signalMutations: IExtendedMutation[] = [];
 
     @observable
-    private insightStatus: DataStatus = 'pending';
+    private signalStatus: DataStatus = 'pending';
 
     @computed
     private get hugoSymbol() {
@@ -34,7 +34,7 @@ class Gene extends React.Component<IGeneProps>
     }
 
     private get loader() {
-        return loaderWithText("Fetching INSIGHT(ful) alterations...");
+        return loaderWithText("Fetching alterations...");
     }
 
     public render()
@@ -47,11 +47,11 @@ class Gene extends React.Component<IGeneProps>
                 }}
             >
                 {
-                    this.insightStatus === 'pending' || this.geneStore.ensemblGeneDataStatus === "pending" ?
+                    this.signalStatus === 'pending' || this.geneStore.ensemblGeneDataStatus === "pending" ?
                         this.loader :
                         <MutationMapper
                             hugoSymbol={this.hugoSymbol}
-                            data={this.insightMutations}
+                            data={this.signalMutations}
                             ensemblGene={this.geneStore.ensemblGeneData}
                         />
                 }
@@ -63,20 +63,20 @@ class Gene extends React.Component<IGeneProps>
     public componentDidMount()
     {
         fetchExtendedMutationsByGene(this.hugoSymbol)
-            .then(this.handleInsightDataLoad)
-            .catch(this.handleInsightDataError);
+            .then(this.handleSignalDataLoad)
+            .catch(this.handleSignalDataError);
     }
 
     @action.bound
-    private handleInsightDataLoad(mutations: IExtendedMutation[])
+    private handleSignalDataLoad(mutations: IExtendedMutation[])
     {
-        this.insightStatus = 'complete';
-        this.insightMutations = mutations;
+        this.signalStatus = 'complete';
+        this.signalMutations = mutations;
     }
 
     @action.bound
-    private handleInsightDataError(reason: any) {
-        this.insightStatus = 'error';
+    private handleSignalDataError(reason: any) {
+        this.signalStatus = 'error';
     }
 }
 

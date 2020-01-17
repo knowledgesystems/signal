@@ -4,11 +4,11 @@ import {
 
 import {IExtendedMutation, IMutation, ITumorTypeDecomposition} from "../model/Mutation";
 
-export const CANCER_TYPE_FILTER_ID = "_insightCancerTypeFilter_";
-export const MUTATION_STATUS_FILTER_ID = "_insightMutationStatusFilter_";
-export const PROTEIN_IMPACT_TYPE_FILTER_ID = "_insightProteinImpactTypeFilter_";
-export const MUTATION_STATUS_FILTER_TYPE = "insightMutationStatus";
-export const MUTATION_COUNT_FILTER_TYPE = "insightMutationCount";
+export const CANCER_TYPE_FILTER_ID = "_signalCancerTypeFilter_";
+export const MUTATION_STATUS_FILTER_ID = "_signalMutationStatusFilter_";
+export const PROTEIN_IMPACT_TYPE_FILTER_ID = "_signalProteinImpactTypeFilter_";
+export const MUTATION_STATUS_FILTER_TYPE = "signalMutationStatus";
+export const MUTATION_COUNT_FILTER_TYPE = "signalMutationCount";
 
 export enum MutationStatusFilterValue {
     SOMATIC = "Somatic",

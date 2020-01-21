@@ -57,7 +57,7 @@ class GeneTumorTypeFrequencyTable extends React.Component<ITumorTypeFrequencyTab
     public render()
     {
         return (
-            <div className="insight-frequency-table">
+            <div className="signal-frequency-table">
                 <ReactTable
                     data={this.props.data}
                     columns={[

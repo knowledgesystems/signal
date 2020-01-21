@@ -1,16 +1,16 @@
-.insight-frequency-table {
+.signal-frequency-table {
     font-size: 1rem;
     min-width: 300px;
 }
 
-.insight-frequency-table .rt-tbody {
+.signal-frequency-table .rt-tbody {
     line-height: 1rem;
 }
 
-.insight-frequency-table .-pagination {
+.signal-frequency-table .-pagination {
     font-size: 0.8rem;
 }
 
-.insight-frequency-table .-pagination .-center {
+.signal-frequency-table .-pagination .-center {
     flex-grow: 5;
 }

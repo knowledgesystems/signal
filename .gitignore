@@ -4,11 +4,11 @@
 node_modules
 
 # testing
-/client/coverage
+/coverage
 
 # production
-/server/dist
-/client/build
+/dist
+/build
 
 # intellij idea
 *.iml

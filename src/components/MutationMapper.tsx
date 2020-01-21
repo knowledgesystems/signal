@@ -40,8 +40,8 @@ import {loaderWithText} from "../util/StatusHelper";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
 import {renderPenetrance, renderPercentage} from "./ColumnRenderHelper";
 import {sortPenetrance} from "./GeneFrequencyTable";
-import InsightMutationMapper from "./InsightMutationMapper";
 import MutationTumorTypeFrequencyDecomposition from "./MutationTumorTypeFrequencyDecomposition";
+import SignalMutationMapper from "./SignalMutationMapper";
 
 const API_CACHE_LIMIT = 450; // TODO parametrize this on the server side?
 const ISOFORM_OVERRIDE_SOURCE = "mskcc";
@@ -91,7 +91,7 @@ function penetranceAccessor(mutation: IExtendedMutation)
 @observer
 class MutationMapper extends React.Component<IMutationMapperProps>
 {
-    private insightMutationMapper: InsightMutationMapper | undefined;
+    private signalMutationMapper: SignalMutationMapper | undefined;
 
     @computed
     get entrezGeneId()
@@ -103,19 +103,19 @@ class MutationMapper extends React.Component<IMutationMapperProps>
     @computed
     get showGermlinePercent()
     {
-        return this.insightMutationMapper ? this.insightMutationMapper.showPercent : true;
+        return this.signalMutationMapper ? this.signalMutationMapper.showPercent : true;
     }
 
     @computed
     get showSomaticPercent()
     {
-        return this.insightMutationMapper ? this.insightMutationMapper.showPercent : true;
+        return this.signalMutationMapper ? this.signalMutationMapper.showPercent : true;
     }
 
     public render()
     {
         return (
-            <InsightMutationMapper
+            <SignalMutationMapper
                 apiCacheLimit={API_CACHE_LIMIT}
                 onInit={this.onMutationMapperInit}
                 hugoSymbol={this.props.hugoSymbol}
@@ -258,8 +258,8 @@ class MutationMapper extends React.Component<IMutationMapperProps>
     @autobind
     private getMutationCount(mutation: IExtendedMutation)
     {
-        const cancerTypeFilter = this.insightMutationMapper ? this.insightMutationMapper.cancerTypeFilter : undefined;
-        const mutationStatusFilter = this.insightMutationMapper ? this.insightMutationMapper.mutationStatusFilter : undefined;
+        const cancerTypeFilter = this.signalMutationMapper ? this.signalMutationMapper.cancerTypeFilter : undefined;
+        const mutationStatusFilter = this.signalMutationMapper ? this.signalMutationMapper.mutationStatusFilter : undefined;
 
         // take the current cancer type and mutation status filter into account
         return mutation.tumorTypeDecomposition
@@ -270,8 +270,8 @@ class MutationMapper extends React.Component<IMutationMapperProps>
     @autobind
     private getMutationRate(mutation: IExtendedMutation)
     {
-        const cancerTypeFilter = this.insightMutationMapper ? this.insightMutationMapper.cancerTypeFilter : undefined;
-        const mutationStatusFilter = this.insightMutationMapper ? this.insightMutationMapper.mutationStatusFilter : undefined;
+        const cancerTypeFilter = this.signalMutationMapper ? this.signalMutationMapper.cancerTypeFilter : undefined;
+        const mutationStatusFilter = this.signalMutationMapper ? this.signalMutationMapper.mutationStatusFilter : undefined;
 
         return calculateMutationRate(mutation, cancerTypeFilter, mutationStatusFilter);
     }
@@ -329,8 +329,8 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                             row.original.tumorTypeDecomposition.filter(
                                 (c: ITumorTypeDecomposition) =>
                                     containsCancerType(
-                                        this.insightMutationMapper ?
-                                            this.insightMutationMapper.cancerTypeFilter : undefined,
+                                        this.signalMutationMapper ?
+                                            this.signalMutationMapper.cancerTypeFilter : undefined,
                                         c.tumorType)
                             )
                         )
@@ -348,9 +348,9 @@ class MutationMapper extends React.Component<IMutationMapperProps>
     }
 
     @autobind
-    private onMutationMapperInit(mutationMapper: InsightMutationMapper)
+    private onMutationMapperInit(mutationMapper: SignalMutationMapper)
     {
-        this.insightMutationMapper = mutationMapper;
+        this.signalMutationMapper = mutationMapper;
     }
 }
 

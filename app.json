@@ -12,7 +12,7 @@
   },
   "formation": {
   },
-  "name": "msk-insight",
+  "name": "signal-db",
   "scripts": {
   },
   "stack": "heroku-18"

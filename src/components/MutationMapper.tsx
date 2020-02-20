@@ -43,8 +43,10 @@ import {sortPenetrance} from "./GeneFrequencyTable";
 import MutationTumorTypeFrequencyDecomposition from "./MutationTumorTypeFrequencyDecomposition";
 import SignalMutationMapper from "./SignalMutationMapper";
 
-const API_CACHE_LIMIT = 450; // TODO parametrize this on the server side?
+// TODO make these externally configurable?
+const API_CACHE_LIMIT = 450;
 const ISOFORM_OVERRIDE_SOURCE = "mskcc";
+const ONCOKB_API_URL = "https://www.cbioportal.org/proxy/oncokb";
 
 interface IMutationMapperProps
 {
@@ -129,6 +131,7 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                 showOnlyAnnotatedTranscriptsInDropdown={true}
                 filterMutationsBySelectedTranscript={true}
                 mainLoadingIndicator={this.loader}
+                oncoKbUrl={ONCOKB_API_URL}
                 tracks={[TrackName.CancerHotspots, TrackName.OncoKB, TrackName.PTM]}
                 getMutationCount={this.getLollipopCountValue}
                 mutationTableColumns={[

@@ -7,6 +7,7 @@ import {
 
 import GeneFrequencyStore from "../store/GeneFrequencyStore";
 import GeneFrequencyTable from "./GeneFrequencyTable";
+import LandscapePlot from "./LandscapePlot";
 
 interface IGeneLevelSummaryProps {
     frequencyStore?: GeneFrequencyStore
@@ -22,22 +23,35 @@ class GeneLevelSummary extends React.Component<IGeneLevelSummaryProps>
 
     private get loadingIndicator() {
         return <i className="fa fa-spinner fa-pulse fa-2x" />;
-
     }
 
     public render() {
         return (
             <div className="text-center">
-                <Row>
-                    <Col className="m-auto">
-                        {this.isLoading() ? this.loadingIndicator :
-                            <GeneFrequencyTable
-                                geneFrequencySummaryData={this.frequencyStore.geneFrequencySummaryData}
-                                tumorTypeFrequencySummaryMap={this.frequencyStore.tumorTypeFrequencyDataGroupedByGene}
-                            />
-                        }
-                    </Col>
-                </Row>
+                {this.isLoading() ? (
+                    <Row>
+                        <Col className="m-auto">
+                            {this.loadingIndicator}
+                        </Col>
+                    </Row>
+                ) : (
+                    <>
+                        <Row>
+                            <Col className="m-auto">
+                                <GeneFrequencyTable
+                                    geneFrequencySummaryData={this.frequencyStore.geneFrequencySummaryData}
+                                    tumorTypeFrequencySummaryMap={this.frequencyStore.tumorTypeFrequencyDataGroupedByGene}
+                                />
+                            </Col>
+                        </Row>
+                        <hr />
+                        <Row>
+                            <Col className="m-auto">
+                                <LandscapePlot frequencyStore={this.frequencyStore} />
+                            </Col>
+                        </Row>
+                    </>
+                )}
             </div>
         );
     }

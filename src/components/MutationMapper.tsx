@@ -1,16 +1,19 @@
 import autobind from "autobind-decorator";
+import {
+    formatPercentValue,
+    numberOfLeadingDecimalZeros
+} from 'cbioportal-utils';
 import {computed} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 import {
     CancerTypeFilter,
     ColumnSortDirection,
-    DataFilterType, defaultSortMethod,
-    formatPercentValue,
+    DataFilterType,
+    defaultSortMethod,
     MUTATION_COLUMNS_DEFINITION,
     MutationColumn,
     MutationStatus,
-    numberOfLeadingDecimalZeros,
     ProteinChange,
     TrackName
 } from "react-mutation-mapper";
@@ -201,6 +204,7 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.ANNOTATION],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.GNOMAD],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.CLINVAR],
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.DBSNP],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.CHROMOSOME],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.START_POSITION],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.END_POSITION],

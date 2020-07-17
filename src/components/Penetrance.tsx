@@ -8,7 +8,7 @@ export interface IPenetranceProps
     value: string;
 }
 
-const STYLE_MAP = {
+export const STYLE_MAP = {
     Uncertain: {displayValue: "U", color: "#BDBCBC", priority: 1},
     Low: {displayValue: "L", color: "#C7E3BF", priority: 2},
     Moderate: {displayValue: "M", color: "#80CCBB", priority: 3},

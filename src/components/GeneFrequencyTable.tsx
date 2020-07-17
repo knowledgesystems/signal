@@ -1,4 +1,5 @@
 import autobind from "autobind-decorator";
+import {DefaultTooltip} from "cbioportal-frontend-commons";
 import {action, computed, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
@@ -139,24 +140,49 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
     }
 
     @autobind
-    private renderExpander(props: {isExpanded: boolean}) {
-        return props.isExpanded ?
-            <i className="fa fa-minus-circle" /> :
-            <i className="fa fa-plus-circle" />;
+    private renderExpander(props: {
+        isExpanded: boolean;
+        original: IGeneFrequencySummary;
+    }) {
+        let component: JSX.Element;
+
+        if (this.props.tumorTypeFrequencySummaryMap[props.original.hugoSymbol]) {
+            component = props.isExpanded ?
+                <i className="fa fa-minus-circle" /> :
+                <i className="fa fa-plus-circle" />;
+        }
+        else {
+            // in case there is no expandable data for this gene display an info icon with a tooltip
+            component = (
+                <DefaultTooltip
+                    placement="right"
+                    overlay={
+                        <span>No tumor type information for {props.original.hugoSymbol}</span>
+                    }
+                >
+                    <i className="fa fa-info-circle" />
+                </DefaultTooltip>
+            );
+        }
+
+        return component;
     }
 
     @autobind
-    private renderSubComponent(row: any)
+    private renderSubComponent(row: { original: IGeneFrequencySummary })
     {
-        return (
+        const data = this.props.tumorTypeFrequencySummaryMap[row.original.hugoSymbol];
+
+        // do not render the table if there is no tumor type frequency summary data for this gene
+        return data ? (
             <div className="p-4">
                 <GeneTumorTypeFrequencyDecomposition
                     hugoSymbol={row.original.hugoSymbol}
                     penetrance={row.original.penetrance}
-                    dataPromise={Promise.resolve(this.props.tumorTypeFrequencySummaryMap[row.original.hugoSymbol])}
+                    dataPromise={Promise.resolve(data)}
                 />
             </div>
-        );
+        ): null;
     }
 
     @action.bound

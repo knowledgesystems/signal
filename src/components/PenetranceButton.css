@@ -1,0 +1,42 @@
+.penetranceName {
+  font-size: 1em;
+}
+
+.penetranceDescription {
+  font-size: 0.7em;
+}
+
+.geneCount,
+.variantCount,
+.patientCount {
+  font-size: 0.8em;
+}
+
+.penetranceButton {
+  border: 1px solid #d3d3d3;
+  background-color: white;
+  border-radius: 0.5rem;
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.penetranceButtonLink {
+  border: 0;
+  background-color: white;
+  width: 100%;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.penetranceButtonLink.high {
+  background-color: #41AB5D;
+}
+.penetranceButtonLink.moderate {
+  background-color: #80CCBB;
+}
+.penetranceButtonLink.low {
+  background-color: #C7E3BF;
+}
+.penetranceButtonLink.uncertain {
+  background-color: #BDBCBC;
+}

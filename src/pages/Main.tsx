@@ -9,6 +9,7 @@ import Header from "../components/Header";
 import GeneFrequencyStore from "../store/GeneFrequencyStore";
 import About from "./About";
 import Download from "./Download";
+import Explore from "./Explore";
 import Gene from "./Gene";
 import Home from "./Home";
 
@@ -30,6 +31,12 @@ class Main extends React.Component<{}>
             />
         );
 
+        const ExplorePage = () => (
+            <Explore
+                frequencyStore={this.frequencyStore}
+            />
+        );
+
         return (
             <BrowserRouter>
                 <div className="Main">
@@ -44,6 +51,8 @@ class Main extends React.Component<{}>
                     >
                         <Switch>
                             <Route exact={true} path="/" component={HomePage}/>
+                            <Route exact={true} path="/explore" component={ExplorePage}/>
+                            <Route exact={true} path="/explore/:penetrance" component={ExplorePage}/>
                             <Route exact={true} path="/gene/:hugoSymbol" component={GenePage} />
                             <Route exact={true} path="/about" component={About}/>
                             <Route exact={true} path="/download" component={Download}/>

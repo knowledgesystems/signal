@@ -8,11 +8,18 @@ export interface IPenetranceProps
     value: string;
 }
 
+export enum PenetranceLevel {
+    Uncertain= "Uncertain",
+    Low = "Low",
+    Moderate = "Moderate",
+    High = "High",
+}
+
 export const STYLE_MAP = {
-    Uncertain: {displayValue: "U", color: "#BDBCBC", priority: 1},
-    Low: {displayValue: "L", color: "#C7E3BF", priority: 2},
-    Moderate: {displayValue: "M", color: "#80CCBB", priority: 3},
-    High: {displayValue: "H", color: "#41AB5D", priority: 4},
+    [PenetranceLevel.Uncertain]: {displayValue: "U", color: "#BDBCBC", priority: 1},
+    [PenetranceLevel.Low]: {displayValue: "L", color: "#C7E3BF", priority: 2},
+    [PenetranceLevel.Moderate]: {displayValue: "M", color: "#80CCBB", priority: 3},
+    [PenetranceLevel.High]: {displayValue: "H", color: "#41AB5D", priority: 4},
 };
 
 export function comparePenetrance(a: string, b: string)

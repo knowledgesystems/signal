@@ -2,11 +2,18 @@ import _ from "lodash";
 import {action, computed, observable} from "mobx";
 
 import {IGeneFrequencySummary, ITumorTypeFrequencySummary} from "../model/GeneFrequencySummary";
+import {
+    applyGeneFrequencySummaryPenetranceFilter,
+    PenetranceFilter
+} from "../util/FilterUtils";
 import {fetchFrequencySummaryByGene, fetchTumorTypeFrequencySummaryByGene} from "../util/FrequencyDataUtils";
 import {DataStatus} from "./DataStatus";
 
 class GeneFrequencyStore
 {
+    @observable
+    public geneFrequencySummaryPenetranceFilter: PenetranceFilter | undefined;
+
     @observable
     public frequencySummaryDataStatus: DataStatus = 'pending';
 
@@ -27,6 +34,15 @@ class GeneFrequencyStore
     public get tumorTypeFrequencyDataGroupedByGene(): {[hugoSymbol: string]: ITumorTypeFrequencySummary[]}
     {
         return _.groupBy(this.tumorTypeFrequencySummaryData, "hugoSymbol");
+    }
+
+    @computed
+    public get filteredGeneFrequencySummaryData(): IGeneFrequencySummary[]
+    {
+        return this.geneFrequencySummaryData.filter(s =>
+            this.geneFrequencySummaryPenetranceFilter === undefined ||
+            applyGeneFrequencySummaryPenetranceFilter(this.geneFrequencySummaryPenetranceFilter, s)
+        );
     }
 
     constructor() {

@@ -10,7 +10,7 @@ import GeneFrequencyTable from "./GeneFrequencyTable";
 import LandscapePlot from "./LandscapePlot";
 
 interface IGeneLevelSummaryProps {
-    frequencyStore?: GeneFrequencyStore
+    frequencyStore?: GeneFrequencyStore;
 }
 
 @observer
@@ -39,7 +39,7 @@ class GeneLevelSummary extends React.Component<IGeneLevelSummaryProps>
                         <Row>
                             <Col className="m-auto">
                                 <GeneFrequencyTable
-                                    geneFrequencySummaryData={this.frequencyStore.geneFrequencySummaryData}
+                                    geneFrequencySummaryData={this.frequencyStore.filteredGeneFrequencySummaryData}
                                     tumorTypeFrequencySummaryMap={this.frequencyStore.tumorTypeFrequencyDataGroupedByGene}
                                 />
                             </Col>

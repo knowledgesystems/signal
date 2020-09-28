@@ -7,6 +7,7 @@ import {
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import GeneFrequencyStore from "../store/GeneFrequencyStore";
+import {getPenetranceLevel} from "../util/PenetranceUtils";
 import About from "./About";
 import Download from "./Download";
 import Explore from "./Explore";
@@ -31,9 +32,10 @@ class Main extends React.Component<{}>
             />
         );
 
-        const ExplorePage = () => (
+        const ExplorePage = (props: any) => (
             <Explore
                 frequencyStore={this.frequencyStore}
+                penetrance={getPenetranceLevel(props.match.params.penetrance)}
             />
         );
 

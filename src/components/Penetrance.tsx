@@ -1,18 +1,12 @@
 import Tooltip from "rc-tooltip";
 import * as React from "react";
 
+import {PenetranceLevel} from "../model/Penetrance";
 import CircledLetter from "./CircledLetter";
 
 export interface IPenetranceProps
 {
     value: string;
-}
-
-export enum PenetranceLevel {
-    Uncertain= "Uncertain",
-    Low = "Low",
-    Moderate = "Moderate",
-    High = "High",
 }
 
 export const STYLE_MAP = {

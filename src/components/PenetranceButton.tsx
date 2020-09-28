@@ -3,16 +3,17 @@ import pluralize from 'pluralize';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
+import {PenetranceLevel} from "../model/Penetrance";
 import "./PenetranceButton.css";
 
 export interface IPenetranceButtonProps {
-  penetrance: string;
+  penetrance: PenetranceLevel;
   title?: string;
-  geneCount: number;
-  variantCount: number;
-  patientCount: number;
+  geneCount?: number;
+  variantCount?: number;
+  patientCount?: number;
   // description: string;
-  // onClick?: () => void;
+  onClick?: (penetrance?: string) => void;
   className?: string;
   active?: boolean;
   href?: string;
@@ -25,18 +26,22 @@ export const PenetranceButton = (props: IPenetranceButtonProps) => {
       variant="light"
       active={props.active}
       href={props.href}
+      onClick={props.onClick ? () => props.onClick!(): undefined}
       disabled={props.disabled}
-      className={classnames(
-        props.href ? "penetranceButtonLink" : "penetranceButton",
-        props.className
-      )}
+      className={classnames("penetranceButton", props.className)}
     >
       <div className="penetranceName">
         <strong>{props.title ? props.title : props.penetrance}</strong>
       </div>
-      <div className="geneCount">{`${props.geneCount} ${pluralize('Gene', props.geneCount)}`}</div>
-      <div className="variantCount">{`${props.variantCount} ${pluralize('Unique variant', props.variantCount)}`}</div>
-      <div className="patientCount">{`${props.patientCount} ${pluralize('Patient', props.patientCount)}`}</div>
+      {props.geneCount !== undefined &&
+        <div className="geneCount">{`${props.geneCount} ${pluralize('Gene', props.geneCount)}`}</div>
+      }
+      {props.variantCount !== undefined &&
+        <div className="variantCount">{`${props.variantCount} ${pluralize('Unique variant', props.variantCount)}`}</div>
+      }
+      {props.patientCount !== undefined &&
+        <div className="patientCount">{`${props.patientCount} ${pluralize('Patient', props.patientCount)}`}</div>
+      }
     </Button>
   );
 }

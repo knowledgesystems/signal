@@ -2,13 +2,17 @@ import {
     CancerTypeFilter, DataFilter
 } from "react-mutation-mapper";
 
+import {IGeneFrequencySummary} from "../model/GeneFrequencySummary";
 import {IExtendedMutation, IMutation, ITumorTypeDecomposition} from "../model/Mutation";
+import {PenetranceLevel} from "../model/Penetrance";
 
 export const CANCER_TYPE_FILTER_ID = "_signalCancerTypeFilter_";
 export const MUTATION_STATUS_FILTER_ID = "_signalMutationStatusFilter_";
 export const PROTEIN_IMPACT_TYPE_FILTER_ID = "_signalProteinImpactTypeFilter_";
+export const PENETRANCE_FILTER_ID = "_signalPenetranceFilter_"
 export const MUTATION_STATUS_FILTER_TYPE = "signalMutationStatus";
 export const MUTATION_COUNT_FILTER_TYPE = "signalMutationCount";
+export const PENETRANCE_FILTER_TYPE = "signalPenetrance"
 
 export enum MutationStatusFilterValue {
     SOMATIC = "Somatic",
@@ -20,6 +24,7 @@ export enum MutationStatusFilterValue {
 
 export type MutationStatusFilter = DataFilter<MutationStatusFilterValue>;
 export type MutationCountFilter = DataFilter<number>; // TODO this should be an interval not a single number
+export type PenetranceFilter = DataFilter<PenetranceLevel>;
 
 export function applyCancerTypeFilter(filter: CancerTypeFilter, mutation: IMutation)
 {
@@ -28,6 +33,13 @@ export function applyCancerTypeFilter(filter: CancerTypeFilter, mutation: IMutat
             v.length > 0 &&
             c.variantCount > 0 &&
             c.tumorType.toLowerCase().includes(v.toLowerCase())) !== undefined) !== undefined
+}
+
+export function applyGeneFrequencySummaryPenetranceFilter(filter: PenetranceFilter, geneFrequencySummary: IGeneFrequencySummary)
+{
+    return filter.values
+        .map(v => geneFrequencySummary.penetrance.map(p => p.toLowerCase()).includes(v.toLowerCase()))
+        .includes(true);
 }
 
 export function applyMutationStatusFilter(filter: MutationStatusFilter,

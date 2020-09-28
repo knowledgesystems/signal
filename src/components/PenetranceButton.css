@@ -20,23 +20,15 @@
   font-size: 1.2rem;
 }
 
-.penetranceButtonLink {
-  border: 0;
-  background-color: white;
-  width: 100%;
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.penetranceButtonLink.high {
+.penetranceButton.high {
   background-color: #41AB5D;
 }
-.penetranceButtonLink.moderate {
+.penetranceButton.moderate {
   background-color: #80CCBB;
 }
-.penetranceButtonLink.low {
+.penetranceButton.low {
   background-color: #C7E3BF;
 }
-.penetranceButtonLink.uncertain {
+.penetranceButton.uncertain {
   background-color: #BDBCBC;
 }

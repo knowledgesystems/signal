@@ -23,8 +23,8 @@ interface ILandscapePlotProps {
 
 function tumorFrequencyDatumToScatterPlotDatum(d: ITumorTypeFrequencySummary): IScatterPlotDatum {
     return {
-        x: d.hugoSymbol,
-        y: d.tumorType,
+        x: d.tumorType,
+        y: d.hugoSymbol,
         datum: d
     };
 }
@@ -49,12 +49,18 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
     @computed
     public get genesWithSignificantPathogenicGermlineRatio()
     {
-        return this.props.frequencyStore.geneFrequencySummaryData.filter(d => {
+        // TODO we may not need this anymore
+        // if the data is unfiltered use a higher threshold
+        // const pathogenicGermlineThreshold =
+        //     this.props.frequencyStore.filteredGeneFrequencySummaryData.length ===
+        //     this.props.frequencyStore.geneFrequencySummaryData.length ? 0.0005: 0;
+
+        return this.props.frequencyStore.filteredGeneFrequencySummaryData.filter(d => {
             const pathogenicGermline = findPathogenicGermlineFrequency(d);
             const percentBiallelic = findPercentBiallelic(d);
 
             return (
-                pathogenicGermline && pathogenicGermline.frequency >= 0.0005 &&
+                pathogenicGermline && pathogenicGermline.frequency > 0 &&
                 percentBiallelic && percentBiallelic.frequency > 0
             );
         }).sort((a, b) => {
@@ -64,7 +70,7 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
             const aPercentBialellic = findPercentBiallelic(a)?.frequency || 0;
             const bPercentBialellic = findPercentBiallelic(b)?.frequency || 0;
 
-            return Math.sign(bGermlineFreq - aGermlineFreq) || Math.sign(bPercentBialellic - aPercentBialellic);
+            return Math.sign(aGermlineFreq - bGermlineFreq) || Math.sign(aPercentBialellic - bPercentBialellic);
         }).map(
             d => d.hugoSymbol
         );
@@ -105,11 +111,16 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
             .map(tumorFrequencyDatumToScatterPlotDatum);
     }
 
+    @computed
+    public get plotHeight(): number {
+        return Math.max(600, this.genesWithSignificantPathogenicGermlineRatio.length * 15);
+    }
+
     public render() {
         return (
             <ScatterPlot
                 width={1200}
-                height={700}
+                height={this.plotHeight}
                 theme={generateTheme()}
                 gradientLegendProps={this.gradientLegendProps}
                 discreteLegendProps={this.discreteLegendProps}
@@ -117,8 +128,8 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
                 dataComponentSize={dataPointSize}
                 containerStyle={{marginLeft: "auto", marginRight: "auto"}}
                 plotStyle={{data: {fill: dataPointFill}}}
-                xCategoriesCompare={this.compareHugoGeneSymbols}
-                yCategoriesCompare={this.compareTumorTypes}
+                xCategoriesCompare={this.compareTumorTypes}
+                yCategoriesCompare={this.compareHugoGeneSymbols}
                 tooltip={this.dataPointTooltip}
             />
         );

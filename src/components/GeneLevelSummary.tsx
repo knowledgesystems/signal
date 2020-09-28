@@ -27,7 +27,7 @@ class GeneLevelSummary extends React.Component<IGeneLevelSummaryProps>
 
     public render() {
         return (
-            <div className="text-center">
+            <div className="text-center mb-4">
                 {this.isLoading() ? (
                     <Row>
                         <Col className="m-auto">
@@ -38,16 +38,15 @@ class GeneLevelSummary extends React.Component<IGeneLevelSummaryProps>
                     <>
                         <Row>
                             <Col className="m-auto">
+                                <LandscapePlot frequencyStore={this.frequencyStore} />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col className="m-auto">
                                 <GeneFrequencyTable
                                     geneFrequencySummaryData={this.frequencyStore.filteredGeneFrequencySummaryData}
                                     tumorTypeFrequencySummaryMap={this.frequencyStore.tumorTypeFrequencyDataGroupedByGene}
                                 />
-                            </Col>
-                        </Row>
-                        <hr />
-                        <Row>
-                            <Col className="m-auto">
-                                <LandscapePlot frequencyStore={this.frequencyStore} />
                             </Col>
                         </Row>
                     </>

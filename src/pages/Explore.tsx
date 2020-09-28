@@ -61,7 +61,7 @@ class Explore extends React.Component<IExploreProps>
                 {this.blurb}
                 <hr />
                 {!this.isLoading() &&
-                    <Row className="mb-5">
+                    <Row className="mb-2">
                         <PenetranceFilterPanel
                             selectedPenetranceLevels={this.selectedPenetranceLevels}
                             geneFrequencyStore={this.props.frequencyStore}

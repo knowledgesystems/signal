@@ -66,6 +66,7 @@ class Explore extends React.Component<IExploreProps>
                             selectedPenetranceLevels={this.selectedPenetranceLevels}
                             geneFrequencyStore={this.props.frequencyStore}
                             onSelect={this.handlePenetranceSelect}
+                            multiSelect={true}
                         />
                     </Row>
                 }

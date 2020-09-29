@@ -113,13 +113,13 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
 
     @computed
     public get plotHeight(): number {
-        return Math.max(600, this.genesWithSignificantPathogenicGermlineRatio.length * 15);
+        return (this.genesWithSignificantPathogenicGermlineRatio.length * 10) + 400;
     }
 
     public render() {
         return (
             <ScatterPlot
-                width={1200}
+                width={1000}
                 height={this.plotHeight}
                 theme={generateTheme()}
                 gradientLegendProps={this.gradientLegendProps}
@@ -155,16 +155,16 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
         const bPriority = priority[b] || 0;
 
         if (aPriority < bPriority) {
-            return 1
-        }
-        else if (aPriority > bPriority) {
             return -1
         }
+        else if (aPriority > bPriority) {
+            return 1
+        }
         else if (a < b) {
-            return 1;
+            return -1;
         }
         else if (a > b) {
-            return -1;
+            return 1;
         }
         else {
             return 0;

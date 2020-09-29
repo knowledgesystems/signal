@@ -17,15 +17,27 @@ export interface IPenetranceFilterPanelProps {
     geneFrequencyStore?: GeneFrequencyStore;
     selectedPenetranceLevels?: PenetranceLevel[];
     onSelect?: (penetrance?: PenetranceLevel) => void;
+    multiSelect?: boolean;
 }
 
-const PenetranceButtonCol = (props: IPenetranceButtonProps & {selectedPenetranceLevels?: PenetranceLevel[]}) => {
+interface IPenetranceColProps extends IPenetranceButtonProps {
+    selectedPenetranceLevels?: PenetranceLevel[];
+    multiSelect?: boolean;
+}
+
+const PenetranceButtonCol = (props: IPenetranceColProps) => {
     return (
         <Col xs={12} sm={6} lg={2} className="px-2">
             <PenetranceButton
                 {...props}
                 active={(props.selectedPenetranceLevels || []).includes(props.penetrance)}
-                className={classnames("mb-2", props.penetrance.toLowerCase())}
+                className={
+                    classnames({
+                        "mb-2": true,
+                        [props.penetrance.toLowerCase()]: true,
+                        "no-bg-color": props.multiSelect
+                    })
+                }
                 onClick={props.onClick ? (() => props.onClick!(props.penetrance)): undefined}
                 // do not set href if there is a click handler available
                 href={props.onClick ? undefined: `/explore/${props.penetrance.toLowerCase()}`}
@@ -79,6 +91,7 @@ class PenetranceFilterPanel extends React.Component<IPenetranceFilterPanelProps>
                             {...props}
                             key={props.penetrance}
                             selectedPenetranceLevels={this.props.selectedPenetranceLevels}
+                            multiSelect={this.props.multiSelect}
                         />
                     )
                 }

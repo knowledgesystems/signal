@@ -23,12 +23,32 @@
 .penetranceButton.high {
   background-color: #41AB5D;
 }
+.penetranceButton.high.no-bg-color {
+  border: 1px solid #41AB5D;
+  background-color: white;
+}
+
 .penetranceButton.moderate {
   background-color: #80CCBB;
 }
+.penetranceButton.moderate.no-bg-color {
+  border: 1px solid #80CCBB;
+  background-color: white;
+}
+
 .penetranceButton.low {
   background-color: #C7E3BF;
 }
+.penetranceButton.low.no-bg-color {
+  border: 1px solid #C7E3BF;
+  background-color: white;
+}
+
 .penetranceButton.uncertain {
   background-color: #BDBCBC;
 }
+.penetranceButton.uncertain.no-bg-color {
+  border: 1px solid #BDBCBC;
+  background-color: white;
+}
+

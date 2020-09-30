@@ -7,7 +7,7 @@ import {Row} from 'react-bootstrap';
 import GeneLevelSummary from "../components/GeneLevelSummary";
 import PenetranceFilterPanel from "../components/PenetranceFilterPanel";
 import {PenetranceLevel} from "../model/Penetrance";
-import GeneFrequencyStore from "../store/GeneFrequencyStore";
+import GeneFrequencyStore, {isFrequencyDataPending} from "../store/GeneFrequencyStore";
 import {PENETRANCE_FILTER_ID, PENETRANCE_FILTER_TYPE, PenetranceFilter} from "../util/FilterUtils";
 
 interface IExploreProps {
@@ -65,10 +65,7 @@ class Explore extends React.Component<IExploreProps>
     }
 
     private isLoading(): boolean {
-        return this.props.frequencyStore !== undefined && (
-            this.props.frequencyStore.frequencySummaryDataStatus === "pending" ||
-            this.props.frequencyStore.tumorTypeFrequenciesDataStatus === "pending"
-        );
+        return isFrequencyDataPending(this.props.frequencyStore);
     }
 
     @action.bound

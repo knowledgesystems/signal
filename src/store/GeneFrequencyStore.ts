@@ -9,6 +9,13 @@ import {
 import {fetchFrequencySummaryByGene, fetchTumorTypeFrequencySummaryByGene} from "../util/FrequencyDataUtils";
 import {DataStatus} from "./DataStatus";
 
+export function isFrequencyDataPending(frequencyStore?: GeneFrequencyStore): boolean {
+    return frequencyStore !== undefined && (
+        frequencyStore.frequencySummaryDataStatus === "pending" ||
+        frequencyStore.tumorTypeFrequenciesDataStatus === "pending"
+    );
+}
+
 class GeneFrequencyStore
 {
     @observable

@@ -139,7 +139,7 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
     public render() {
         return (
             <ScatterPlot
-                width={1000}
+                width={1200}
                 height={this.plotHeight}
                 theme={generateTheme()}
                 gradientLegendProps={this.gradientLegendProps}

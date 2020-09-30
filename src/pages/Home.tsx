@@ -1,10 +1,12 @@
+import _ from 'lodash';
+import { observer } from 'mobx-react';
 import * as React from 'react';
 import {
     Col, Row
 } from 'react-bootstrap';
 
 import PenetranceFilterPanel from "../components/PenetranceFilterPanel";
-import GeneFrequencyStore from "../store/GeneFrequencyStore";
+import GeneFrequencyStore, {isFrequencyDataPending} from "../store/GeneFrequencyStore";
 
 import "./Home.css";
 
@@ -12,16 +14,19 @@ interface IHomeProps {
     frequencyStore?: GeneFrequencyStore
 }
 
+@observer
 class Home extends React.Component<IHomeProps>
 {
-    // TODO get these numbers from the store if possible
-
     private get numberOfPatients() {
-        return (17152).toLocaleString('en-US');
+        return (
+            Math.max(...(this.props.frequencyStore?.geneFrequencySummaryData.map(d => d.sampleCount) || [0]))
+        ).toLocaleString('en-US');
     }
 
     private get numberOfCancerTypes() {
-        return (55).toLocaleString('en-US');
+        return (
+            _.uniq(this.props.frequencyStore?.tumorTypeFrequencySummaryData.map(d => d.tumorType)).length
+        ).toLocaleString('en-US');
     }
 
     private get blurb() {
@@ -36,7 +41,7 @@ class Home extends React.Component<IHomeProps>
 
     public render()
     {
-        return (
+        return !this.isLoading() ? (
             <div>
                 <Row className="mb-3">
                     <Col
@@ -66,7 +71,11 @@ class Home extends React.Component<IHomeProps>
                     </Col>
                 </Row>
             </div>
-        );
+        ): null;
+    }
+
+    private isLoading(): boolean {
+        return isFrequencyDataPending(this.props.frequencyStore);
     }
 }
 

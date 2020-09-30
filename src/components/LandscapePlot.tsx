@@ -21,9 +21,23 @@ interface ILandscapePlotProps {
     frequencyStore: GeneFrequencyStore;
 }
 
+export function isKnownTumorType(tumorType: string) {
+    return !tumorType.toLowerCase().includes("unknown") && !tumorType.toLowerCase().includes("other");
+}
+
+function tumorTypeDataValue(d: ITumorTypeFrequencySummary): string {
+    const tumorType = d.tumorType
+        .replace("Cancer", "")
+        .replace("Tumors", "")
+        .replace("Tumor", "")
+        .trim();
+
+    return `${tumorType} (${d.sampleCount})`;
+}
+
 function tumorFrequencyDatumToScatterPlotDatum(d: ITumorTypeFrequencySummary): IScatterPlotDatum {
     return {
-        x: d.tumorType,
+        x: tumorTypeDataValue(d),
         y: d.hugoSymbol,
         datum: d
     };
@@ -40,10 +54,16 @@ function generateTheme() {
 class LandscapePlot extends React.Component<ILandscapePlotProps>
 {
     @computed
-    public get scatterPlotData(): IScatterPlotDatum[]
+    public get knownTumorTypeFrequencySummaryData()
     {
         return this.props.frequencyStore.tumorTypeFrequencySummaryData
-            .map(tumorFrequencyDatumToScatterPlotDatum);
+            .filter(d => isKnownTumorType(d.tumorType))
+    }
+
+    @computed
+    public get scatterPlotData(): IScatterPlotDatum[]
+    {
+        return this.knownTumorTypeFrequencySummaryData.map(tumorFrequencyDatumToScatterPlotDatum);
     }
 
     @computed
@@ -106,7 +126,7 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
     @computed
     public get filteredScatterPlotData(): IScatterPlotDatum[]
     {
-        return this.props.frequencyStore.tumorTypeFrequencySummaryData
+        return this.knownTumorTypeFrequencySummaryData
             .filter(d => this.genesWithSignificantPathogenicGermlineRatio.includes(d.hugoSymbol))
             .map(tumorFrequencyDatumToScatterPlotDatum);
     }
@@ -185,8 +205,8 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
 
         return (
             <>
-                <div>Hugo Symbol: {datum.x}</div>
-                <div>Tumor Type: {datum.y}</div>
+                <div>Hugo Symbol: {datum.datum.hugoSymbol}</div>
+                <div>Tumor Type: {datum.datum.tumorType}</div>
                 <div>% Pathogenic Germline: <strong>{pathogenicGermline}</strong></div>
                 <div>% Biallelic: <strong>{percentBiallelic}</strong></div>
             </>

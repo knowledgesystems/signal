@@ -1,6 +1,7 @@
 import _ from "lodash";
 import {action, computed, observable} from "mobx";
 import {observer} from "mobx-react";
+import pluralize from 'pluralize';
 import * as React from 'react';
 import {
     applyDataFilters,
@@ -163,9 +164,9 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
             <div className="signal-mutation-filter-panel">
                 <div style={FILTER_UI_STYLE}>
                     <strong>
-                        {this.totalFilteredSamples}
-                        {this.totalSamples !== this.totalFilteredSamples && `/${this.totalSamples}`}
-                    </strong> {this.totalFilteredSamples === 1 ? `total sample`: `total samples`}
+                        {this.totalFilteredSamples.toLocaleString('en-US')}
+                        {this.totalSamples !== this.totalFilteredSamples && ` / ${this.totalSamples.toLocaleString('en-US')}`}
+                    </strong> {pluralize(`total sample`, this.totalFilteredSamples)}
                 </div>
                 <div style={FILTER_UI_STYLE}>
                     <MutationStatusSelector

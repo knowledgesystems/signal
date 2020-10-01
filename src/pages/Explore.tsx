@@ -39,7 +39,7 @@ class Explore extends React.Component<IExploreProps>
         }
 
         if (this.props.frequencyStore) {
-            this.props.frequencyStore.geneFrequencySummaryPenetranceFilter = this.penetranceFilter;
+            this.props.frequencyStore.updateDataFilters(PENETRANCE_FILTER_ID,  this.penetranceFilter);
         }
     }
 
@@ -75,7 +75,7 @@ class Explore extends React.Component<IExploreProps>
             _.without(this.selectedPenetranceLevels, penetrance): [...this.selectedPenetranceLevels, penetrance];
 
         if (this.props.frequencyStore) {
-            this.props.frequencyStore.geneFrequencySummaryPenetranceFilter = this.penetranceFilter;
+            this.props.frequencyStore.updateDataFilters(PENETRANCE_FILTER_ID, this.penetranceFilter);
         }
     }
 }

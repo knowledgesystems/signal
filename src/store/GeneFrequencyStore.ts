@@ -1,10 +1,13 @@
 import _ from "lodash";
 import {action, computed, observable} from "mobx";
+import {DataFilter} from "react-mutation-mapper";
 
 import {IGeneFrequencySummary, ITumorTypeFrequencySummary} from "../model/GeneFrequencySummary";
 import {
+    applyGeneFrequencySummaryHugoSymbolFilter,
     applyGeneFrequencySummaryPenetranceFilter,
-    PenetranceFilter
+    HUGO_SYMBOL_FILTER_TYPE,
+    PENETRANCE_FILTER_TYPE,
 } from "../util/FilterUtils";
 import {fetchFrequencySummaryByGene, fetchTumorTypeFrequencySummaryByGene} from "../util/FrequencyDataUtils";
 import {DataStatus} from "./DataStatus";
@@ -18,8 +21,15 @@ export function isFrequencyDataPending(frequencyStore?: GeneFrequencyStore): boo
 
 class GeneFrequencyStore
 {
+    public readonly filterAppliers: {
+        [type: string]: (filter: DataFilter, geneFrequencySummary: IGeneFrequencySummary) => boolean
+    } = {
+        [HUGO_SYMBOL_FILTER_TYPE]: applyGeneFrequencySummaryHugoSymbolFilter,
+        [PENETRANCE_FILTER_TYPE]: applyGeneFrequencySummaryPenetranceFilter
+    }
+
     @observable
-    public geneFrequencySummaryPenetranceFilter: PenetranceFilter | undefined;
+    public dataFilters: DataFilter[] = [];
 
     @observable
     public frequencySummaryDataStatus: DataStatus = 'pending';
@@ -33,10 +43,6 @@ class GeneFrequencyStore
     @observable
     public tumorTypeFrequencySummaryData: ITumorTypeFrequencySummary[] = [];
 
-
-    @observable
-    public filterText: string|undefined;
-
     @computed
     public get tumorTypeFrequencyDataGroupedByGene(): {[hugoSymbol: string]: ITumorTypeFrequencySummary[]}
     {
@@ -47,8 +53,10 @@ class GeneFrequencyStore
     public get filteredGeneFrequencySummaryData(): IGeneFrequencySummary[]
     {
         return this.geneFrequencySummaryData.filter(s =>
-            this.geneFrequencySummaryPenetranceFilter === undefined ||
-            applyGeneFrequencySummaryPenetranceFilter(this.geneFrequencySummaryPenetranceFilter, s)
+            // should satisfy all filters, otherwise filter out
+            !this.dataFilters
+                .map(f => !this.filterAppliers[f.type] || this.filterAppliers[f.type](f, s))
+                .includes(false)
         );
     }
 
@@ -81,8 +89,20 @@ class GeneFrequencyStore
     }
 
     @action
-    public filterFrequenciesByGene(input: string) {
-        this.filterText = input;
+    public updateDataFilters(dataFilterId: string, dataFilter?: DataFilter)
+    {
+        // all other filters except the current filter with the given data filter id
+        const otherFilters = this.dataFilters.filter(
+            (f: DataFilter) => f.id !== dataFilterId
+        );
+
+        if (!dataFilter) {
+            // if no new filter is provided, just remove the existing one
+            this.dataFilters = otherFilters;
+        } else {
+            // update data filters with the new one
+            this.dataFilters = [...otherFilters, dataFilter];
+        }
     }
 }
 

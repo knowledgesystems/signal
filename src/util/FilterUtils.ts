@@ -6,10 +6,12 @@ import {IGeneFrequencySummary} from "../model/GeneFrequencySummary";
 import {IExtendedMutation, IMutation, ITumorTypeDecomposition} from "../model/Mutation";
 import {PenetranceLevel} from "../model/Penetrance";
 
+export const HUGO_SYMBOL_FILTER_ID = "_signalHugoSymbolFilter_";
 export const CANCER_TYPE_FILTER_ID = "_signalCancerTypeFilter_";
 export const MUTATION_STATUS_FILTER_ID = "_signalMutationStatusFilter_";
 export const PROTEIN_IMPACT_TYPE_FILTER_ID = "_signalProteinImpactTypeFilter_";
 export const PENETRANCE_FILTER_ID = "_signalPenetranceFilter_"
+export const HUGO_SYMBOL_FILTER_TYPE = "signalHugoSymbol";
 export const MUTATION_STATUS_FILTER_TYPE = "signalMutationStatus";
 export const MUTATION_COUNT_FILTER_TYPE = "signalMutationCount";
 export const PENETRANCE_FILTER_TYPE = "signalPenetrance"
@@ -25,6 +27,7 @@ export enum MutationStatusFilterValue {
 export type MutationStatusFilter = DataFilter<MutationStatusFilterValue>;
 export type MutationCountFilter = DataFilter<number>; // TODO this should be an interval not a single number
 export type PenetranceFilter = DataFilter<PenetranceLevel>;
+export type HugoSymbolFilter = DataFilter<string>;
 
 export function applyCancerTypeFilter(filter: CancerTypeFilter, mutation: IMutation)
 {
@@ -39,6 +42,13 @@ export function applyGeneFrequencySummaryPenetranceFilter(filter: PenetranceFilt
 {
     return filter.values
         .map(v => geneFrequencySummary.penetrance.map(p => p.toLowerCase()).includes(v.toLowerCase()))
+        .includes(true);
+}
+
+export function applyGeneFrequencySummaryHugoSymbolFilter(filter: HugoSymbolFilter, geneFrequencySummary: IGeneFrequencySummary)
+{
+    return filter.values
+        .map(v => geneFrequencySummary.hugoSymbol.toLowerCase().includes(v.toLowerCase()))
         .includes(true);
 }
 
@@ -104,6 +114,16 @@ export function findMutationStatusFilter(dataFilters: DataFilter[])
 export function findMutationTypeFilter(dataFilters: DataFilter[])
 {
     return dataFilters.find(f => f.id === PROTEIN_IMPACT_TYPE_FILTER_ID);
+}
+
+export function findHugoSymbolFilter(dataFilters: DataFilter[])
+{
+    return dataFilters.find(f => f.id === HUGO_SYMBOL_FILTER_ID);
+}
+
+export function findPenetranceFilter(dataFilters: DataFilter[])
+{
+    return dataFilters.find(f => f.id === PENETRANCE_FILTER_ID);
 }
 
 export function getDefaultMutationStatusFilterValues() {

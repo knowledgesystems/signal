@@ -69,7 +69,7 @@ class GeneLevelSummary extends React.Component<IGeneLevelSummaryProps>
             values: [searchText]
         }: undefined;
 
-        this.frequencyStore.updateDataFilters(HUGO_SYMBOL_FILTER_ID, dataFilter);
+        this.frequencyStore.updateGeneFrequencySummaryDataFilters(HUGO_SYMBOL_FILTER_ID, dataFilter);
     }
 }
 

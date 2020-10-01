@@ -21,10 +21,6 @@ interface ILandscapePlotProps {
     frequencyStore: GeneFrequencyStore;
 }
 
-export function isKnownTumorType(tumorType: string) {
-    return !tumorType.toLowerCase().includes("unknown") && !tumorType.toLowerCase().includes("other");
-}
-
 function tumorTypeDataValue(d: ITumorTypeFrequencySummary): string {
     const tumorType = d.tumorType
         .replace("Cancer", "")
@@ -54,16 +50,9 @@ function generateTheme() {
 class LandscapePlot extends React.Component<ILandscapePlotProps>
 {
     @computed
-    public get knownTumorTypeFrequencySummaryData()
-    {
-        return this.props.frequencyStore.tumorTypeFrequencySummaryData
-            .filter(d => isKnownTumorType(d.tumorType))
-    }
-
-    @computed
     public get scatterPlotData(): IScatterPlotDatum[]
     {
-        return this.knownTumorTypeFrequencySummaryData.map(tumorFrequencyDatumToScatterPlotDatum);
+        return this.props.frequencyStore.filteredTumorTypeFrequencySummaryData.map(tumorFrequencyDatumToScatterPlotDatum);
     }
 
     @computed
@@ -126,7 +115,7 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
     @computed
     public get filteredScatterPlotData(): IScatterPlotDatum[]
     {
-        return this.knownTumorTypeFrequencySummaryData
+        return this.props.frequencyStore.filteredTumorTypeFrequencySummaryData
             .filter(d => this.genesWithSignificantPathogenicGermlineRatio.includes(d.hugoSymbol))
             .map(tumorFrequencyDatumToScatterPlotDatum);
     }

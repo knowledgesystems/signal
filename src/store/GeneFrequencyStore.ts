@@ -1,13 +1,15 @@
 import _ from "lodash";
 import {action, computed, observable} from "mobx";
-import {DataFilter} from "react-mutation-mapper";
+import {DataFilter, DataFilterType} from "react-mutation-mapper";
 
 import {IGeneFrequencySummary, ITumorTypeFrequencySummary} from "../model/GeneFrequencySummary";
 import {
     applyGeneFrequencySummaryHugoSymbolFilter,
     applyGeneFrequencySummaryPenetranceFilter,
+    applyTumorTypeFrequencySummaryCancerTypeFilter,
     HUGO_SYMBOL_FILTER_TYPE,
-    PENETRANCE_FILTER_TYPE,
+    isKnownTumorType,
+    PENETRANCE_FILTER_TYPE, updateDataFilters,
 } from "../util/FilterUtils";
 import {fetchFrequencySummaryByGene, fetchTumorTypeFrequencySummaryByGene} from "../util/FrequencyDataUtils";
 import {DataStatus} from "./DataStatus";
@@ -21,15 +23,24 @@ export function isFrequencyDataPending(frequencyStore?: GeneFrequencyStore): boo
 
 class GeneFrequencyStore
 {
-    public readonly filterAppliers: {
+    public readonly geneFrequencySummaryFilterAppliers: {
         [type: string]: (filter: DataFilter, geneFrequencySummary: IGeneFrequencySummary) => boolean
     } = {
         [HUGO_SYMBOL_FILTER_TYPE]: applyGeneFrequencySummaryHugoSymbolFilter,
-        [PENETRANCE_FILTER_TYPE]: applyGeneFrequencySummaryPenetranceFilter
+        [PENETRANCE_FILTER_TYPE]: applyGeneFrequencySummaryPenetranceFilter,
+    }
+
+    public readonly tumorTypeFrequencySummaryFilterAppliers: {
+        [type: string]: (filter: DataFilter, geneFrequencySummary: ITumorTypeFrequencySummary) => boolean
+    } = {
+        [DataFilterType.CANCER_TYPE]: applyTumorTypeFrequencySummaryCancerTypeFilter,
     }
 
     @observable
-    public dataFilters: DataFilter[] = [];
+    public geneFrequencySummaryDataFilters: DataFilter[] = [];
+
+    @observable
+    public tumorTypeFrequencySummaryDataFilters: DataFilter[] = [];
 
     @observable
     public frequencySummaryDataStatus: DataStatus = 'pending';
@@ -54,10 +65,25 @@ class GeneFrequencyStore
     {
         return this.geneFrequencySummaryData.filter(s =>
             // should satisfy all filters, otherwise filter out
-            !this.dataFilters
-                .map(f => !this.filterAppliers[f.type] || this.filterAppliers[f.type](f, s))
+            !this.geneFrequencySummaryDataFilters
+                .map(f => !this.geneFrequencySummaryFilterAppliers[f.type] || this.geneFrequencySummaryFilterAppliers[f.type](f, s))
                 .includes(false)
         );
+    }
+
+    @computed
+    public get filteredTumorTypeFrequencySummaryData()
+    {
+        return this.tumorTypeFrequencySummaryData
+            // always filter out unknown
+            .filter(d => isKnownTumorType(d.tumorType))
+            .filter(s =>
+                // should satisfy all filters, otherwise filter out
+                !this.tumorTypeFrequencySummaryDataFilters
+                    .map(f => !this.tumorTypeFrequencySummaryFilterAppliers[f.type] ||
+                        this.tumorTypeFrequencySummaryFilterAppliers[f.type](f, s))
+                    .includes(false)
+            );
     }
 
     constructor() {
@@ -89,20 +115,23 @@ class GeneFrequencyStore
     }
 
     @action
-    public updateDataFilters(dataFilterId: string, dataFilter?: DataFilter)
+    public updateGeneFrequencySummaryDataFilters(dataFilterId: string, dataFilter?: DataFilter)
     {
-        // all other filters except the current filter with the given data filter id
-        const otherFilters = this.dataFilters.filter(
-            (f: DataFilter) => f.id !== dataFilterId
+        this.geneFrequencySummaryDataFilters = updateDataFilters(
+            this.geneFrequencySummaryDataFilters,
+            dataFilterId,
+            dataFilter
         );
+    }
 
-        if (!dataFilter) {
-            // if no new filter is provided, just remove the existing one
-            this.dataFilters = otherFilters;
-        } else {
-            // update data filters with the new one
-            this.dataFilters = [...otherFilters, dataFilter];
-        }
+    @action
+    public updateTumorTypeFrequencySummaryDataFilters(dataFilterId: string, dataFilter?: DataFilter)
+    {
+        this.tumorTypeFrequencySummaryDataFilters = updateDataFilters(
+            this.tumorTypeFrequencySummaryDataFilters,
+            dataFilterId,
+            dataFilter
+        );
     }
 }
 

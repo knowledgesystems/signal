@@ -3,12 +3,18 @@ import { action, computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 import {Row} from 'react-bootstrap';
+import {CancerTypeFilter, DataFilterType} from "react-mutation-mapper";
 
 import GeneLevelSummary from "../components/GeneLevelSummary";
 import PenetranceFilterPanel from "../components/PenetranceFilterPanel";
 import {PenetranceLevel} from "../model/Penetrance";
 import GeneFrequencyStore, {isFrequencyDataPending} from "../store/GeneFrequencyStore";
-import {PENETRANCE_FILTER_ID, PENETRANCE_FILTER_TYPE, PenetranceFilter} from "../util/FilterUtils";
+import {
+    CANCER_TYPE_FILTER_ID,
+    PENETRANCE_FILTER_ID,
+    PENETRANCE_FILTER_TYPE,
+    PenetranceFilter
+} from "../util/FilterUtils";
 
 interface IExploreProps {
     frequencyStore?: GeneFrequencyStore;
@@ -31,6 +37,19 @@ class Explore extends React.Component<IExploreProps>
         }: undefined;
     }
 
+    @observable
+    public selectedCancerTypes: string[] = [];
+
+    @computed
+    public get cancerTypeFilter(): CancerTypeFilter | undefined
+    {
+        return this.selectedCancerTypes.length > 0 ? {
+            id: CANCER_TYPE_FILTER_ID,
+            type: DataFilterType.CANCER_TYPE,
+            values: this.selectedCancerTypes
+        }: undefined;
+    }
+
     constructor(props: IExploreProps) {
         super(props);
 
@@ -39,7 +58,8 @@ class Explore extends React.Component<IExploreProps>
         }
 
         if (this.props.frequencyStore) {
-            this.props.frequencyStore.updateDataFilters(PENETRANCE_FILTER_ID,  this.penetranceFilter);
+            this.props.frequencyStore.updateGeneFrequencySummaryDataFilters(PENETRANCE_FILTER_ID, this.penetranceFilter);
+            this.props.frequencyStore.updateTumorTypeFrequencySummaryDataFilters(DataFilterType.CANCER_TYPE, this.cancerTypeFilter);
         }
     }
 
@@ -75,7 +95,7 @@ class Explore extends React.Component<IExploreProps>
             _.without(this.selectedPenetranceLevels, penetrance): [...this.selectedPenetranceLevels, penetrance];
 
         if (this.props.frequencyStore) {
-            this.props.frequencyStore.updateDataFilters(PENETRANCE_FILTER_ID, this.penetranceFilter);
+            this.props.frequencyStore.updateGeneFrequencySummaryDataFilters(PENETRANCE_FILTER_ID, this.penetranceFilter);
         }
     }
 }

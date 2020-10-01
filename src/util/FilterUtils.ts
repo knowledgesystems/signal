@@ -2,7 +2,7 @@ import {
     CancerTypeFilter, DataFilter
 } from "react-mutation-mapper";
 
-import {IGeneFrequencySummary} from "../model/GeneFrequencySummary";
+import {IGeneFrequencySummary, ITumorTypeFrequencySummary} from "../model/GeneFrequencySummary";
 import {IExtendedMutation, IMutation, ITumorTypeDecomposition} from "../model/Mutation";
 import {PenetranceLevel} from "../model/Penetrance";
 
@@ -42,6 +42,17 @@ export function applyGeneFrequencySummaryPenetranceFilter(filter: PenetranceFilt
 {
     return filter.values
         .map(v => geneFrequencySummary.penetrance.map(p => p.toLowerCase()).includes(v.toLowerCase()))
+        .includes(true);
+}
+
+export function isKnownTumorType(tumorType: string) {
+    return !tumorType.toLowerCase().includes("unknown") && !tumorType.toLowerCase().includes("other");
+}
+
+export function applyTumorTypeFrequencySummaryCancerTypeFilter(filter: CancerTypeFilter, tumorTypeFrequencySummary: ITumorTypeFrequencySummary)
+{
+    return filter.values
+        .map(v => tumorTypeFrequencySummary.tumorType.toLowerCase().includes(v.toLowerCase()))
         .includes(true);
 }
 
@@ -131,4 +142,24 @@ export function getDefaultMutationStatusFilterValues() {
         MutationStatusFilterValue.SOMATIC,
         MutationStatusFilterValue.PATHOGENIC_GERMLINE
     ];
+}
+
+export function updateDataFilters(
+    dataFilters: DataFilter[],
+    dataFilterId: string,
+    dataFilter?: DataFilter
+): DataFilter[]
+{
+    // all other filters except the current filter with the given data filter id
+    const otherFilters = dataFilters.filter(
+        (f: DataFilter) => f.id !== dataFilterId
+    );
+
+    if (!dataFilter) {
+        // if no new filter is provided, just remove the existing one
+        return otherFilters;
+    } else {
+        // update data filters with the new one
+        return [...otherFilters, dataFilter];
+    }
 }

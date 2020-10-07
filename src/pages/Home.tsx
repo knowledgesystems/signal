@@ -6,13 +6,14 @@ import {
 } from 'react-bootstrap';
 
 import PenetranceFilterPanel from "../components/PenetranceFilterPanel";
+import SearchBox from "../components/SearchBox";
 import GeneFrequencyStore, {isFrequencyDataPending} from "../store/GeneFrequencyStore";
 
 import "./Home.css";
 
 interface IHomeProps {
-    frequencyStore?: GeneFrequencyStore
-    history: any
+    frequencyStore?: GeneFrequencyStore;
+    history?: any;
 }
 
 @observer
@@ -61,15 +62,14 @@ class Home extends React.Component<IHomeProps>
                 <Row className="mb-5">
                     <PenetranceFilterPanel geneFrequencyStore={this.props.frequencyStore} />
                 </Row>
+                <Row className="mb-1">
+                    <Col md={6} className="mx-auto">
+                        <SearchBox history={this.props.history} />
+                    </Col>
+                </Row>
                 <Row className="mb-5">
-                    <Col md={6}
-                        className={'mx-auto'}>
-                        <HomePageSearchBox
-                            onChange={this.onTextChange}
-                            onSearch={this.onSearch}
-                            height={44}
-                            exampleData={EXAMPLE_DATA_GRCH37}
-                        />
+                    <Col md={6} className="mx-auto text-center">
+                        <strong>Examples</strong>: BRCA2, 17:41276045-41276046
                     </Col>
                 </Row>
                 <Row className="mb-5">

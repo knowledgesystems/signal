@@ -69,7 +69,7 @@ class Home extends React.Component<IHomeProps>
                 </Row>
                 <Row className="mb-5">
                     <Col md={6} className="mx-auto text-center">
-                        <strong>Examples</strong>: BRCA2, 17:41276045-41276046
+                        <strong>Examples</strong>: BRCA2, S1982Rfs, 17:41276045-41276046
                     </Col>
                 </Row>
                 <Row className="mb-5">

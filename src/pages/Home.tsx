@@ -4,6 +4,7 @@ import * as React from 'react';
 import {
     Col, Row
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import PenetranceFilterPanel from "../components/PenetranceFilterPanel";
 import SearchBox from "../components/SearchBox";
@@ -68,8 +69,12 @@ class Home extends React.Component<IHomeProps>
                     </Col>
                 </Row>
                 <Row className="mb-5">
-                    <Col md={6} className="mx-auto text-center">
-                        <strong>Examples</strong>: BRCA2, 17:41276045-41276046
+                    <Col md={10} className="mx-auto text-center">
+                        <strong>Examples</strong>:{' '}
+                        <Link to={`/gene/BRCA1`}>BRCA1</Link>,{' '}
+                        <Link to={`/variant/13:g.32914438_32914438delT`}>BRCA2 S1982Rfs (c.5946del)</Link>,{' '}
+                        <Link to={`/gene/NF1?cancerType=Nerve%20Sheath%20Tumor`}>NF1 in Nerve Sheath Tumor</Link>,{' '}
+                        <Link to={`/variant/17:g.41276045_41276046delCT`}>17:41276045-41276046</Link>
                     </Col>
                 </Row>
                 <Row className="mb-5">

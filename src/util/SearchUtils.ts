@@ -1,10 +1,10 @@
-import { GenomeNexusAPI } from 'genome-nexus-ts-api-client';
+import { GenomeNexusAPIInternal } from 'genome-nexus-ts-api-client';
+import { SignalQuery } from 'genome-nexus-ts-api-client/dist/generated/GenomeNexusAPIInternal';
 
 import {SearchOptionType} from "../components/SearchOption";
-import {ISignalSearch} from "../model/SignalSearch";
-import {getGenomeNexusClient} from "./ApiClientUtils";
+import {getGenomeNexusInternalClient} from "./ApiClientUtils";
 
-export function generateLink(query: ISignalSearch) {
+export function generateLink(query: SignalQuery) {
     switch (query.queryType) {
         case SearchOptionType.GENE:
             return `gene/${query.hugoSymbol}`;
@@ -20,13 +20,12 @@ export function generateLink(query: ISignalSearch) {
 export function searchMutationsByKeyword(
     keyword: string,
     limit: number = -1,
-    client: GenomeNexusAPI = getGenomeNexusClient()
-): Promise<ISignalSearch[]>
+    client: GenomeNexusAPIInternal = getGenomeNexusInternalClient()
+): Promise<SignalQuery[]>
 {
-    return new Promise<ISignalSearch[]>((resolve, reject) => {
-        // TODO temp url, use the genome nexus API client
-        fetch(`https://beta.genomenexus.org/signal/search/${keyword}?limit=${limit}`)
-            .then(response => resolve(response.json()))
-            .catch(err => reject(err));
-    });
+    return new Promise<SignalQuery[]>((resolve, reject) =>
+        client.searchSignalByKeywordGETUsingGET({keyword, limit})
+            .then(response => resolve(response))
+            .catch(err => reject(err))
+    );
 }

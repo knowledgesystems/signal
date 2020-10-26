@@ -1,0 +1,10 @@
+/* need to tweak popover style due to missing/different styles for react-bootstrap */
+/* TODO still missing popover arrow */
+
+.popover.cbioTooltip .popover-content {
+    padding: 9px 14px;
+}
+
+.popover.cbioTooltip.right {
+    margin-left: 10px;
+}

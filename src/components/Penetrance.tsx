@@ -1,6 +1,7 @@
 import Tooltip from "rc-tooltip";
 import * as React from "react";
 
+import {PenetranceLevel} from "../model/Penetrance";
 import CircledLetter from "./CircledLetter";
 
 export interface IPenetranceProps
@@ -8,11 +9,11 @@ export interface IPenetranceProps
     value: string;
 }
 
-const STYLE_MAP = {
-    Uncertain: {displayValue: "U", color: "#BDBCBC", priority: 1},
-    Low: {displayValue: "L", color: "#C7E3BF", priority: 2},
-    Moderate: {displayValue: "M", color: "#80CCBB", priority: 3},
-    High: {displayValue: "H", color: "#41AB5D", priority: 4},
+export const STYLE_MAP = {
+    [PenetranceLevel.Uncertain]: {displayValue: "U", color: "#BDBCBC", priority: 1},
+    [PenetranceLevel.Low]: {displayValue: "L", color: "#C7E3BF", priority: 2},
+    [PenetranceLevel.Moderate]: {displayValue: "M", color: "#80CCBB", priority: 3},
+    [PenetranceLevel.High]: {displayValue: "H", color: "#41AB5D", priority: 4},
 };
 
 export function comparePenetrance(a: string, b: string)

@@ -1,16 +1,20 @@
 import autobind from "autobind-decorator";
+import {
+    formatPercentValue,
+    numberOfLeadingDecimalZeros
+} from 'cbioportal-utils';
 import {computed} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 import {
     CancerTypeFilter,
     ColumnSortDirection,
-    DataFilterType, defaultSortMethod,
-    formatPercentValue,
+    DataFilter,
+    DataFilterType,
+    defaultSortMethod,
     MUTATION_COLUMNS_DEFINITION,
     MutationColumn,
     MutationStatus,
-    numberOfLeadingDecimalZeros,
     ProteinChange,
     TrackName
 } from "react-mutation-mapper";
@@ -20,6 +24,7 @@ import {IExtendedMutation, ITumorTypeDecomposition} from "../model/Mutation";
 import {
     applyCancerTypeFilter,
     applyMutationStatusFilter,
+    CANCER_TYPE_FILTER_ID,
     containsCancerType,
     getDefaultMutationStatusFilterValues,
     MUTATION_COUNT_FILTER_TYPE,
@@ -52,6 +57,7 @@ interface IMutationMapperProps
 {
     data: IExtendedMutation[];
     hugoSymbol: string;
+    cancerTypes?: string[];
     ensemblGene?: IEnsemblGene;
 }
 
@@ -91,27 +97,43 @@ function penetranceAccessor(mutation: IExtendedMutation)
 }
 
 @observer
-class MutationMapper extends React.Component<IMutationMapperProps>
-{
+class MutationMapper extends React.Component<IMutationMapperProps> {
     private signalMutationMapper: SignalMutationMapper | undefined;
 
     @computed
-    get entrezGeneId()
-    {
+    get entrezGeneId() {
         return this.props.ensemblGene ?
-            parseInt(this.props.ensemblGene.entrezGeneId, 10): undefined;
+            parseInt(this.props.ensemblGene.entrezGeneId, 10) : undefined;
     }
 
     @computed
-    get showGermlinePercent()
-    {
+    get showGermlinePercent() {
         return this.signalMutationMapper ? this.signalMutationMapper.showPercent : true;
     }
 
     @computed
-    get showSomaticPercent()
-    {
+    get showSomaticPercent() {
         return this.signalMutationMapper ? this.signalMutationMapper.showPercent : true;
+    }
+
+    @computed
+    get dataFilters()
+    {
+        const filters: DataFilter[] = [{
+            id: MUTATION_STATUS_FILTER_ID,
+            type: MUTATION_STATUS_FILTER_TYPE,
+            values: getDefaultMutationStatusFilterValues()
+        }];
+
+        if (this.props.cancerTypes) {
+            filters.push({
+                id: CANCER_TYPE_FILTER_ID,
+                type: DataFilterType.CANCER_TYPE,
+                values: this.props.cancerTypes
+            });
+        }
+
+        return filters;
     }
 
     public render()
@@ -201,6 +223,7 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.ANNOTATION],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.GNOMAD],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.CLINVAR],
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.DBSNP],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.CHROMOSOME],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.START_POSITION],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.END_POSITION],
@@ -226,13 +249,7 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                 }
                 plotYAxisLabelPadding={50}
                 plotLollipopTooltipCountInfo={this.lollipopTooltipCountInfo}
-                dataFilters={[
-                    {
-                        id: MUTATION_STATUS_FILTER_ID,
-                        type: MUTATION_STATUS_FILTER_TYPE,
-                        values: getDefaultMutationStatusFilterValues()
-                    }
-                ]}
+                dataFilters={this.dataFilters}
                 filterAppliersOverride={this.customFilterAppliers}
             />
         );

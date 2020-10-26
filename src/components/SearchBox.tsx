@@ -1,3 +1,4 @@
+import { SignalQuery } from 'genome-nexus-ts-api-client/dist/generated/GenomeNexusAPIInternal';
 import _ from 'lodash';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
@@ -5,7 +6,6 @@ import React from 'react';
 import { components } from 'react-select';
 import AsyncSelect from 'react-select/async';
 
-import {ISignalSearch} from "../model/SignalSearch";
 import {generateLink, searchMutationsByKeyword} from "../util/SearchUtils";
 import {SearchOption, SearchOptionType} from "./SearchOption";
 
@@ -25,7 +25,7 @@ export default class SearchBox extends React.Component<ISearchBoxProps, {}>
     @observable
     public keyword: string;
     @observable
-    public selectedOption: ISignalSearch | null;
+    public selectedOption: SignalQuery | null;
 
     // https://github.com/JedWatson/react-select/issues/614#issuecomment-244006496
     private debouncedFetch = _.debounce((searchTerm, callback) => {
@@ -101,7 +101,7 @@ export default class SearchBox extends React.Component<ISearchBoxProps, {}>
                     },
                 }}
                 isFocused={true}
-                defaultOptions={[] as ISignalSearch[]}
+                defaultOptions={[] as SignalQuery[]}
                 menuIsOpen={!!this.keyword}
                 isClearable={true}
                 value={this.selectedOption}
@@ -120,7 +120,7 @@ export default class SearchBox extends React.Component<ISearchBoxProps, {}>
     }
 
     @action.bound
-    private handleChange(query: ISignalSearch) {
+    private handleChange(query: SignalQuery) {
         if (query) {
             this.keyword = '';
             this.selectedOption = null;

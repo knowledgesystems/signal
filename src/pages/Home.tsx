@@ -5,16 +5,9 @@ import {
     Col, Row
 } from 'react-bootstrap';
 
-// TODO remove these components completely?
-// import HomePageSearchBox from "../components/HomePageSearchBox";
-// import { EXAMPLE_DATA_GRCH37 } from '../util/Constants';
-// import { isVariantValid } from '../util/validator/VariantValidator';
-
-import { action, observable } from 'mobx';
 import PenetranceFilterPanel from "../components/PenetranceFilterPanel";
 import SearchBox from "../components/SearchBox";
 import GeneFrequencyStore, {isFrequencyDataPending} from "../store/GeneFrequencyStore";
-import ValidatorNotification, { ErrorType } from '../util/validator/ValidatorNotification';
 
 import "./Home.css";
 
@@ -47,15 +40,6 @@ class Home extends React.Component<IHomeProps>
             </div>
         );
     }
-
-    @observable
-    protected inputText: string | undefined;
-
-    @observable
-    protected alert: boolean = false;
-
-    @observable
-    protected alertType: ErrorType = ErrorType.INVALID;
     
     public render()
     {
@@ -78,9 +62,14 @@ class Home extends React.Component<IHomeProps>
                 <Row className="mb-5">
                     <PenetranceFilterPanel geneFrequencyStore={this.props.frequencyStore} />
                 </Row>
-                <Row className="mb-5">
-                    <Col md={6} className={'mx-auto'}>
+                <Row className="mb-1">
+                    <Col md={6} className="mx-auto">
                         <SearchBox history={this.props.history} />
+                    </Col>
+                </Row>
+                <Row className="mb-5">
+                    <Col md={6} className="mx-auto text-center">
+                        <strong>Examples</strong>: BRCA2, 17:41276045-41276046
                     </Col>
                 </Row>
                 <Row className="mb-5">
@@ -88,41 +77,12 @@ class Home extends React.Component<IHomeProps>
                         {this.blurb}
                     </Col>
                 </Row>
-                <ValidatorNotification
-                    showAlert={this.alert}
-                    type={this.alertType}
-                    onClose={this.onClose}
-                />
             </div>
         ): null;
     }
 
     private isLoading(): boolean {
         return isFrequencyDataPending(this.props.frequencyStore);
-    }
-
-    // @action.bound
-    // private onSearch() {
-    //     // TODO update validator and notification to support gene and region
-    //     if (isVariantValid(`${this.inputText}`).isValid) {
-    //         this.alert = false;
-    //         this.props.history.push(`/variant/${this.inputText}`);
-    //         return;
-    //     } else {
-    //         this.alertType = ErrorType.INVALID;
-    //     }
-    //     this.alert = true;
-    //     return;
-    // }
-    //
-    // @action.bound
-    // private onTextChange(input: string) {
-    //     this.inputText = input.trim();
-    // }
-
-    @action.bound
-    private onClose() {
-        this.alert = false;
     }
 }
 

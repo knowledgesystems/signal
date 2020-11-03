@@ -1,7 +1,6 @@
+import { SignalQuery } from 'genome-nexus-ts-api-client/dist/generated/GenomeNexusAPIInternal';
 import React from 'react';
 import Highlighter from 'react-highlight-words';
-
-import {ISignalSearch} from "../model/SignalSearch";
 
 import './SearchOption.css';
 
@@ -15,19 +14,18 @@ export enum SearchOptionType {
 interface ISearchOptionProps {
     search: string | undefined;
     type: SearchOptionType;
-    data: ISignalSearch;
+    data: SignalQuery;
 }
 
 const GeneSearchOption: React.FunctionComponent<{
     search: string;
-    data: ISignalSearch;
+    data: SignalQuery;
 }> = props => {
     return (
         <>
             <div>
                 <Highlighter
                     searchWords={[props.search]}
-                    // textToHighlight={`${props.data.hugoSymbol} (Entrez Gene: ${props.data.entrezGeneId})`}
                     textToHighlight={props.data.hugoSymbol}
                 />
             </div>
@@ -42,7 +40,7 @@ const GeneSearchOption: React.FunctionComponent<{
 
 const AlterationSearchOption: React.FunctionComponent<{
     search: string;
-    data: ISignalSearch;
+    data: SignalQuery;
 }> = props => {
     return (
         <>
@@ -50,13 +48,18 @@ const AlterationSearchOption: React.FunctionComponent<{
                 <Highlighter
                     textToHighlight={props.data.hugoSymbol}
                     searchWords={[props.search]}
-                />{' '}
-                /
+                />
+                :
                 <Highlighter
                     textToHighlight={props.data.alteration}
                     searchWords={[props.search]}
                 />
             </div>
+            {props.data.variant ? (
+                <div className="search-option-subTitle">
+                    <span>{props.data.variant}</span>
+                </div>
+            ) : null}
             {props.data.description ? (
                 <div className="search-option-subTitle">
                     <span>{props.data.description}</span>
@@ -68,7 +71,7 @@ const AlterationSearchOption: React.FunctionComponent<{
 
 const RegionSearchOption: React.FunctionComponent<{
     search: string;
-    data: ISignalSearch;
+    data: SignalQuery;
 }> = props => {
     return (
         <>
@@ -94,7 +97,7 @@ const RegionSearchOption: React.FunctionComponent<{
 
 const VariantSearchOption: React.FunctionComponent<{
     search: string;
-    data: ISignalSearch;
+    data: SignalQuery;
 }> = props => {
     return (
         <>

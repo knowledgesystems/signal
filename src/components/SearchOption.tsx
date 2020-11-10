@@ -46,13 +46,9 @@ const AlterationSearchOption: React.FunctionComponent<{
         <>
             <div className={'d-flex align-items-center'}>
                 <Highlighter
-                    textToHighlight={props.data.hugoSymbol}
-                    searchWords={[props.search]}
-                />
-                :
-                <Highlighter
-                    textToHighlight={props.data.alteration}
-                    searchWords={[props.search]}
+                    // we allow multiple keywords for variant search
+                    searchWords={props.search.split(/\s+/)}
+                    textToHighlight={`${props.data.hugoSymbol} ${props.data.alteration}`}
                 />
             </div>
             {props.data.variant ? (

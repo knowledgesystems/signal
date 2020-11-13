@@ -1,3 +1,4 @@
+import { GenomeNexusAPIInternal } from 'genome-nexus-ts-api-client';
 import _ from "lodash";
 import {CancerTypeFilter} from "react-mutation-mapper";
 
@@ -7,6 +8,7 @@ import {
     IMutation,
     ITumorTypeDecomposition
 } from "../model/Mutation";
+import {getGenomeNexusInternalClient} from "./ApiClientUtils";
 import {
     applyMutationStatusFilter,
     containsCancerType,
@@ -33,14 +35,16 @@ export function findAllUniqueCancerTypes(mutations: Array<Partial<IMutation>>)
     return _.uniq(_.flatten(mutations.map(m => (m.countsByTumorType || []).map(c => c.tumorType))));
 }
 
-export function fetchMutationsByGene(hugoSymbol: string): Promise<IMutation[]>
+export function fetchMutationsByGene(
+    hugoGeneSymbol: string,
+    client: GenomeNexusAPIInternal = getGenomeNexusInternalClient()
+): Promise<IMutation[]>
 {
-    return new Promise<IMutation[]>((resolve, reject) => {
-        // TODO use the genome nexus API client
-        fetch(`https://www.genomenexus.org/signal/mutation?hugoGeneSymbol=${hugoSymbol}`)
-            .then(response => resolve(response.json()))
-            .catch(err => reject(err));
-    });
+    return new Promise<IMutation[]>((resolve, reject) =>
+        client.fetchSignalMutationsByHugoSymbolGETUsingGET({hugoGeneSymbol})
+            .then(response => resolve(response))
+            .catch(err => reject(err))
+    );
 }
 
 export function fetchExtendedMutationsByGene(hugoSymbol: string): Promise<IExtendedMutation[]>

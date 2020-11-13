@@ -4324,6 +4324,14 @@ genome-nexus-ts-api-client@^1.1.7:
     superagent "^3.8.3"
     typescript "3.8.3"
 
+genome-nexus-ts-api-client@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/genome-nexus-ts-api-client/-/genome-nexus-ts-api-client-1.1.9.tgz#6ab9632f9a54630bfd6b3c5e7d5ea5a0341e99c6"
+  integrity sha512-gLdFJJ8Q6jqiht51T12wv6p2L5n0Nx5q3q9dewMYZHsQ8OAr/pzka4rzwdfBmYgPQ/1DphxmvJakiFqqBq3iQw==
+  dependencies:
+    superagent "^3.8.3"
+    typescript "4.0.3"
+
 get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
@@ -9992,6 +10000,11 @@ typescript@3.8.3:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
   integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
+
+typescript@4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.3.tgz#153bbd468ef07725c1df9c77e8b453f8d36abba5"
+  integrity sha512-tEu6DGxGgRJPb/mVPIZ48e69xCn2yRmCgYmDugAVwmJ6o+0u1RI18eO7E7WBTLYLaEVVOhwQmcdhQHweux/WPg==
 
 typescript@^3.8.3:
   version "3.9.6"

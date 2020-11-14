@@ -83,7 +83,7 @@ class MutationTumorTypeFrequencyTable extends React.Component<ITumorTypeFrequenc
                             {
                                 id: "frequency",
                                 Cell: renderPercentage,
-                                Header: "%",
+                                Header: "% Prevalence",
                                 accessor: "frequency",
                                 sortMethod: defaultSortMethod,
                                 maxWidth: 100

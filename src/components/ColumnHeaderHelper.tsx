@@ -48,6 +48,6 @@ export const HEADER_COMPONENT: {[id: string] : JSX.Element} = {
             overlay={<span>Percent of pathogenic germline carriers biallelic in the corresponding tumor sample</span>}
         />
     ),
-    [ColumnId.MUTATION_PERCENT]: <ColumnHeader headerContent={<span className="pull-right mr-3">%</span>} />,
+    [ColumnId.MUTATION_PERCENT]: <ColumnHeader headerContent={<span className="pull-right mr-3">% Prevalence</span>} />,
     [ColumnId.SAMPLE_COUNT]: <ColumnHeader headerContent={<span className="text-wrap"># Samples</span>} />,
 };

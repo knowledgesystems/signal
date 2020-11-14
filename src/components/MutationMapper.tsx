@@ -43,7 +43,7 @@ import {
 } from "../util/MutationDataUtils";
 import {loaderWithText} from "../util/StatusHelper";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
-import {renderPenetrance, renderPercentage} from "./ColumnRenderHelper";
+import {renderHgvsg, renderPenetrance, renderPercentage} from "./ColumnRenderHelper";
 import {sortPenetrance} from "./GeneFrequencyTable";
 import MutationTumorTypeFrequencyDecomposition from "./MutationTumorTypeFrequencyDecomposition";
 import SignalMutationMapper from "./SignalMutationMapper";
@@ -200,7 +200,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.MUTATION_TYPE],
                     {
                         id: ColumnId.MUTATION_PERCENT,
-                        name: "%",
+                        name: "% Prevalence",
                         Cell: renderPercentage,
                         accessor: mutationPercentAccessor,
                         Header: HEADER_COMPONENT[ColumnId.MUTATION_PERCENT],
@@ -221,6 +221,13 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                         sortMethod: defaultSortMethod
                     },
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.ANNOTATION],
+                    {
+                        // override default HGVSg column to customize the link
+                        ...MUTATION_COLUMNS_DEFINITION[MutationColumn.HGVSG],
+                        Cell: renderHgvsg,
+                        width: 200
+                    },
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.HGVSC],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.GNOMAD],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.CLINVAR],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.DBSNP],

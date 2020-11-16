@@ -15,6 +15,7 @@ import {
 
 import {
     CANCER_TYPE_FILTER_ID,
+    CANCER_TYPE_IGNORE_MUTATION_STATUS_FILTER_TYPE,
     findCancerTypeFilter,
     findMutationStatusFilter,
     findMutationTypeFilter,
@@ -268,8 +269,11 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
             values: [MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE]
         };
 
-        const filtersWithoutMutationStatusFilter =
-            this.store.dataStore.dataFilters.filter(f => f.id !== MUTATION_STATUS_FILTER_ID);
+        const filtersWithoutMutationStatusFilter = this.store.dataStore.dataFilters
+            .filter(f => f.id !== MUTATION_STATUS_FILTER_ID)
+            // we cannot directly apply the default cancer type filter, we need to ignore mutation status
+            .map(f => f.id === CANCER_TYPE_FILTER_ID ?
+                {...f, type: CANCER_TYPE_IGNORE_MUTATION_STATUS_FILTER_TYPE}: f);
 
         // apply filters excluding the mutation status filter
         // this prevents ratio of unchecked mutation status values from being calculated as zero

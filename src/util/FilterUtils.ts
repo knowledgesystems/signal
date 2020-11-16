@@ -15,6 +15,7 @@ export const PENETRANCE_FILTER_ID = "_signalPenetranceFilter_"
 export const HUGO_SYMBOL_FILTER_TYPE = "signalHugoSymbol";
 export const MUTATION_STATUS_FILTER_TYPE = "signalMutationStatus";
 export const MUTATION_COUNT_FILTER_TYPE = "signalMutationCount";
+export const CANCER_TYPE_IGNORE_MUTATION_STATUS_FILTER_TYPE = "signalCancerTypeIgnoreMutationStatus";
 export const PENETRANCE_FILTER_TYPE = "signalPenetrance"
 
 export enum MutationStatusFilterValue {

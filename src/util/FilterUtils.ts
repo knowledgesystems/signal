@@ -131,6 +131,7 @@ export function findMutationTypeFilter(dataFilters: DataFilter[])
 
 export function getDefaultMutationStatusFilterValues() {
     return [
+        MutationStatusFilterValue.SOMATIC,
         MutationStatusFilterValue.PATHOGENIC_GERMLINE
     ];
 }

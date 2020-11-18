@@ -241,8 +241,13 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                 customMutationTableProps={{
                     SubComponent: this.renderSubComponent
                 }}
-                mutationTableInitialSortColumn={MutationColumn.PROTEIN_CHANGE}
-                mutationTableInitialSortDirection={ColumnSortDirection.ASC}
+                // default mutation table waits for annotation column data by default to initiate sort
+                // we don't sort by annotation column, so setting this to an empty array to bypass the initial wait
+                mutationTableInitialSortRemoteData={[]}
+                mutationTableInitialSort={[
+                    {column: MutationColumn.MUTATION_STATUS, sortDirection: ColumnSortDirection.ASC},
+                    {column: MutationColumn.PROTEIN_CHANGE, sortDirection: ColumnSortDirection.ASC},
+                ]}
                 groupFilters={
                     [
                         {

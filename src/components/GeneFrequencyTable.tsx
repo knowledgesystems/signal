@@ -126,8 +126,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                         }
                     ]}
                     initialItemsPerPage={10}
-                    initialSortColumn={ColumnId.GERMLINE}
-                    initialSortDirection={ColumnSortDirection.DESC}
+                    initialSort={[{column: ColumnId.GERMLINE, sortDirection: ColumnSortDirection.DESC}]}
                     showColumnVisibility={false}
                     searchPlaceholder="Search Gene"
                 />

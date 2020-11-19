@@ -74,7 +74,7 @@ class Home extends React.Component<IHomeProps>
                         <Link to={`/gene/BRCA1`}>BRCA1</Link>,{' '}
                         <Link to={`/variant/13:g.32914438del`}>BRCA2 S1982Rfs (c.5946del)</Link>,{' '}
                         <Link to={`/gene/NF1?cancerType=Nerve%20Sheath%20Tumor`}>NF1 in Nerve Sheath Tumor</Link>,{' '}
-                        <Link to={`/variant/17:g.41276045_41276046delCT`}>17:41276045-41276046</Link>
+                        <Link to={`/variant/17:g.41276045_41276046del`}>17:41276045-41276046</Link>
                     </Col>
                 </Row>
                 <Row className="mb-5">

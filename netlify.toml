@@ -5,6 +5,10 @@
   BABEL_CACHE_FOLDER = "/opt/build/cache/"
   BUILD_REPORT_ERRORS_ONLY = "true"
 
+[build]
+  command = "yarn && yarn run build"
+  publish = "build/"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

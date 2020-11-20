@@ -23,7 +23,7 @@ export function renderPenetrance(cellProps: any)
 
 export function renderHgvsg(cellProps: any)
 {
-    const constructLink = (hgvsg: string, content: JSX.Element) => <Link to={`/variant/${hgvsg}`}>{content}</Link>;
+    const constructLink = (hgvsg: string) => <Link to={`/variant/${hgvsg}`}>{hgvsg}</Link>;
 
     return (
         <Hgvsg

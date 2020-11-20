@@ -25,6 +25,7 @@ import {
     applyCancerTypeFilter,
     applyMutationStatusFilter,
     CANCER_TYPE_FILTER_ID,
+    CANCER_TYPE_IGNORE_MUTATION_STATUS_FILTER_TYPE,
     containsCancerType,
     getDefaultMutationStatusFilterValues,
     MUTATION_COUNT_FILTER_TYPE,
@@ -266,6 +267,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
     {
         return {
             [DataFilterType.CANCER_TYPE]: this.applyCancerTypeFilter,
+            [CANCER_TYPE_IGNORE_MUTATION_STATUS_FILTER_TYPE]: this.applyCancerTypeFilterIgnoreMutationStatus,
             [MUTATION_STATUS_FILTER_TYPE]: this.applyMutationStatusFilter,
             [MUTATION_COUNT_FILTER_TYPE]: this.applyMutationCountFilter
         };
@@ -283,12 +285,21 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
     }
 
     @autobind
-    private getMutationCount(mutation: IExtendedMutation)
+    private getDefaultMutationCount(mutation: IExtendedMutation)
     {
+        // take the current cancer type and mutation status filter into account
         const cancerTypeFilter = this.signalMutationMapper ? this.signalMutationMapper.cancerTypeFilter : undefined;
         const mutationStatusFilter = this.signalMutationMapper ? this.signalMutationMapper.mutationStatusFilter : undefined;
 
-        // take the current cancer type and mutation status filter into account
+        return this.getMutationCount(mutation, cancerTypeFilter, mutationStatusFilter);
+    }
+
+    @autobind
+    private getMutationCount(
+        mutation: IExtendedMutation,
+        cancerTypeFilter?: DataFilter,
+        mutationStatusFilter?: DataFilter)
+    {
         return mutation.tumorTypeDecomposition
             .map(t => getVariantCount(mutation, t, cancerTypeFilter, mutationStatusFilter))
             .reduce((sum, count) => sum + count);
@@ -306,7 +317,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
     @autobind
     private getLollipopCountValue(mutation: IExtendedMutation)
     {
-        return this.needToShowPercent(mutation) ? this.getMutationRate(mutation) : this.getMutationCount(mutation);
+        return this.needToShowPercent(mutation) ? this.getMutationRate(mutation) : this.getDefaultMutationCount(mutation);
     }
 
     private needToShowPercent(mutation: IExtendedMutation)
@@ -332,13 +343,25 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
     }
 
     @autobind
+    private applyCancerTypeFilterIgnoreMutationStatus(filter: CancerTypeFilter, mutation: IExtendedMutation) {
+        return applyCancerTypeFilter(filter, mutation) && this.applyMutationCountFilterIgnoreMutationStatus(this.mutationCountFilter, mutation);
+    }
+
+    @autobind
     private applyMutationStatusFilter(filter: MutationStatusFilter, mutation: IExtendedMutation) {
         return applyMutationStatusFilter(filter, mutation) && this.applyMutationCountFilter(this.mutationCountFilter, mutation);
     }
 
     @autobind
     private applyMutationCountFilter(filter: MutationCountFilter, mutation: IExtendedMutation) {
-        return filter.values.map(v => this.getMutationCount(mutation) > v).includes(true);
+        return filter.values.map(v => this.getDefaultMutationCount(mutation) > v).includes(true);
+    }
+
+    @autobind
+    private applyMutationCountFilterIgnoreMutationStatus(filter: MutationCountFilter, mutation: IExtendedMutation) {
+        return filter.values.map(
+            v => this.getMutationCount(mutation, this.signalMutationMapper?.cancerTypeFilter) > v
+        ).includes(true);
     }
 
     private get loader() {

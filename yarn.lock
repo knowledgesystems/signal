@@ -4265,6 +4265,14 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
+genome-nexus-ts-api-client@^1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/genome-nexus-ts-api-client/-/genome-nexus-ts-api-client-1.1.11.tgz#d2dfce9b8757e3035aad48f25f16929fd7fb0fd3"
+  integrity sha512-MwwlJMn+3wKowFu1cp00b6nt9YgEWIG1CTgsPk2+k16Hxop20D17YCP/B0i2x1ZiQFTqMNyLxHH2IFIHjVTQtg==
+  dependencies:
+    superagent "^3.8.3"
+    typescript "4.0.3"
+
 genome-nexus-ts-api-client@^1.1.9:
   version "1.1.9"
   resolved "https://registry.yarnpkg.com/genome-nexus-ts-api-client/-/genome-nexus-ts-api-client-1.1.9.tgz#6ab9632f9a54630bfd6b3c5e7d5ea5a0341e99c6"

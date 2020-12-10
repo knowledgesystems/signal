@@ -1,10 +1,10 @@
 import {
-    FrequencySummaryCategory,
-    IGeneFrequencySummary,
-    ITumorTypeFrequencySummary
-} from "../model/GeneFrequencySummary";
+    ISignalGeneFrequencySummary,
+    ISignalTumorTypeFrequencySummary,
+    SignalFrequencySummaryCategory
+} from "cbioportal-utils";
 
-export function transformFrequencySummaryByGene(frequencySummaryByGene: any[]): IGeneFrequencySummary[]
+export function transformFrequencySummaryByGene(frequencySummaryByGene: any[]): ISignalGeneFrequencySummary[]
 {
     return frequencySummaryByGene.map(summary => ({
         hugoSymbol: summary.Hugo_Symbol,
@@ -14,7 +14,7 @@ export function transformFrequencySummaryByGene(frequencySummaryByGene: any[]): 
     }));
 }
 
-export function transformTumorTypeFrequenciesByGene(tumorTypeFrequenciesByGene: any[]): ITumorTypeFrequencySummary[]
+export function transformTumorTypeFrequenciesByGene(tumorTypeFrequenciesByGene: any[]): ISignalTumorTypeFrequencySummary[]
 {
     return tumorTypeFrequenciesByGene.map(summary => ({
         tumorType: summary.Proposed_level,
@@ -29,15 +29,15 @@ export function extractFrequencies(summary: any)
 {
     return [
         {
-            category: FrequencySummaryCategory.SOMATIC_DRIVER,
+            category: SignalFrequencySummaryCategory.SOMATIC_DRIVER,
             frequency: Number(summary.somatic_driver_rate)
         },
         {
-            category: FrequencySummaryCategory.PATHOGENIC_GERMLINE,
+            category: SignalFrequencySummaryCategory.PATHOGENIC_GERMLINE,
             frequency: Number(summary.pathogenic_germline_rate)
         },
         {
-            category: FrequencySummaryCategory.PERCENT_BIALLELIC,
+            category: SignalFrequencySummaryCategory.PERCENT_BIALLELIC,
             frequency: Number(summary.percent_biallelic)
         },
     ];

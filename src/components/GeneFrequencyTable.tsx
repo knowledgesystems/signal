@@ -1,12 +1,11 @@
 import autobind from "autobind-decorator";
 import {DefaultTooltip} from "cbioportal-frontend-commons";
+import {ISignalGeneFrequencySummary} from "cbioportal-utils";
 import {action, computed} from "mobx";
 import {observer} from "mobx-react";
 import pluralize from 'pluralize';
 import * as React from "react";
 import {ColumnSortDirection, defaultSortMethod} from "react-mutation-mapper";
-
-import {IGeneFrequencySummary} from "../model/GeneFrequencySummary";
 import GeneFrequencyStore from "../store/GeneFrequencyStore";
 import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelper";
 import {containsCancerType, findCancerTypeFilter} from "../util/FilterUtils";
@@ -18,7 +17,6 @@ import GeneTumorTypeFrequencyDecomposition from "./GeneTumorTypeFrequencyDecompo
 import { comparePenetrance } from './Penetrance';
 
 import "react-table/react-table.css";
-import "./FrequencyTable.css";
 
 interface IFrequencyTableProps
 {
@@ -137,7 +135,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
     @autobind
     private renderExpander(props: {
         isExpanded: boolean;
-        original: IGeneFrequencySummary;
+        original: ISignalGeneFrequencySummary;
     }) {
         let component: JSX.Element;
 
@@ -164,7 +162,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
     }
 
     @autobind
-    private renderSubComponent(row: { original: IGeneFrequencySummary })
+    private renderSubComponent(row: { original: ISignalGeneFrequencySummary })
     {
         const data = this.props.store.tumorTypeFrequencyDataGroupedByGene[row.original.hugoSymbol];
 

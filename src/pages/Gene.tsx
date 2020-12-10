@@ -2,8 +2,8 @@ import {action, computed, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from 'react';
 
+import {IExtendedSignalMutation} from "cbioportal-utils";
 import MutationMapper from "../components/MutationMapper";
-import {IExtendedMutation} from "../model/Mutation";
 import {DataStatus} from "../store/DataStatus";
 import EnsemblGeneStore from "../store/EnsemblGeneStore";
 import {fetchExtendedMutationsByGene} from "../util/MutationDataUtils";
@@ -19,7 +19,7 @@ interface IGeneProps
 class Gene extends React.Component<IGeneProps>
 {
     @observable
-    private signalMutations: IExtendedMutation[] = [];
+    private signalMutations: IExtendedSignalMutation[] = [];
 
     @observable
     private signalStatus: DataStatus = 'pending';
@@ -70,7 +70,7 @@ class Gene extends React.Component<IGeneProps>
     }
 
     @action.bound
-    private handleSignalDataLoad(mutations: IExtendedMutation[])
+    private handleSignalDataLoad(mutations: IExtendedSignalMutation[])
     {
         this.signalStatus = 'complete';
         this.signalMutations = mutations;

@@ -1,17 +1,17 @@
 import {scaleLinear} from "d3-scale";
 import {interpolateYlOrBr} from "d3-scale-chromatic";
 
-import {comparePenetrance, STYLE_MAP as PENETRANCE_STYLE_MAP} from "../components/Penetrance";
 import {
-    FrequencySummaryCategory,
-    IGeneFrequencySummary,
-    ITumorTypeFrequencySummary
-} from "../model/GeneFrequencySummary";
+    ISignalGeneFrequencySummary,
+    ISignalTumorTypeFrequencySummary,
+    SignalFrequencySummaryCategory
+} from "cbioportal-utils";
+import {comparePenetrance, STYLE_MAP as PENETRANCE_STYLE_MAP} from "../components/Penetrance";
 
 export interface IScatterPlotDatum {
     x: string;
     y: string;
-    datum: ITumorTypeFrequencySummary;
+    datum: ISignalTumorTypeFrequencySummary;
 }
 
 // TODO this should be applied to the gene, not to a single data point
@@ -23,24 +23,24 @@ export function getPenetranceColor(d: IScatterPlotDatum) {
     return penetranceStyle.color;
 }
 
-export function findPathogenicGermlineFrequency(d?: IGeneFrequencySummary)
+export function findPathogenicGermlineFrequency(d?: ISignalGeneFrequencySummary)
 {
     return d ? d.frequencies.find(
-        f => f.category === FrequencySummaryCategory.PATHOGENIC_GERMLINE
+        f => f.category === SignalFrequencySummaryCategory.PATHOGENIC_GERMLINE
     ): undefined;
 }
 
-export function findPercentBiallelic(d?: IGeneFrequencySummary)
+export function findPercentBiallelic(d?: ISignalGeneFrequencySummary)
 {
     return d ? d.frequencies.find(
-        f => f.category === FrequencySummaryCategory.PERCENT_BIALLELIC
+        f => f.category === SignalFrequencySummaryCategory.PERCENT_BIALLELIC
     ): undefined;
 }
 
 export function dataPointFill(d: IScatterPlotDatum)
 {
     const percentBiallelic = d.datum.frequencies.find(
-        f => f.category === FrequencySummaryCategory.PERCENT_BIALLELIC
+        f => f.category === SignalFrequencySummaryCategory.PERCENT_BIALLELIC
     );
 
     const scaleFn = scaleLinear().domain([0, 1]).range([0.25, 1]);

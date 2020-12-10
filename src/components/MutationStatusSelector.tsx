@@ -10,22 +10,22 @@ import {
     MutationStatusBadgeSelectorProps
 } from "react-mutation-mapper";
 
-import {MutationStatusFilterValue} from "../util/FilterUtils";
+import {SignalMutationStatus} from "cbioportal-utils";
 
 export const MUTATION_RATE_HELPER = {
-    [MutationStatusFilterValue.SOMATIC]: {
+    [SignalMutationStatus.SOMATIC]: {
         title: "Somatic",
         description: "Percent of samples with a somatic mutation"
     },
-    [MutationStatusFilterValue.BENIGN_GERMLINE]: {
+    [SignalMutationStatus.BENIGN_GERMLINE]: {
         title: "Rare Benign/VUS Germline",
         description: "Percent of samples with a rare benign/VUS germline mutation"
     },
-    [MutationStatusFilterValue.PATHOGENIC_GERMLINE]: {
+    [SignalMutationStatus.PATHOGENIC_GERMLINE]: {
         title: "Pathogenic Germline",
         description: "Percent of samples with a pathogenic germline mutation"
     },
-    [MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE]: {
+    [SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE]: {
         title: "Show Biallelic Only",
         description: "Percent of pathogenic germline carriers biallelic in the corresponding tumor sample"
     }
@@ -37,7 +37,7 @@ export function getChecklistOptionLabel(option: Option,
 {
     const defaultLabel = getOptionLabel(option, selectedValues, checkBoxType);
 
-    return option.value === MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE ?
+    return option.value === SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE ?
         <span>└─ {defaultLabel}</span>: defaultLabel;
 }
 
@@ -67,26 +67,26 @@ export function getMutationStatusFilterOptions()
 {
     return [
         {
-            value: MutationStatusFilterValue.SOMATIC,
-            label: getFilterOptionLabel(MUTATION_RATE_HELPER[MutationStatusFilterValue.SOMATIC]),
+            value: SignalMutationStatus.SOMATIC,
+            label: getFilterOptionLabel(MUTATION_RATE_HELPER[SignalMutationStatus.SOMATIC]),
             badgeStyleOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE,
             badgeStyleSelectedOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE
         },
         {
-            value: MutationStatusFilterValue.BENIGN_GERMLINE,
-            label: getFilterOptionLabel(MUTATION_RATE_HELPER[MutationStatusFilterValue.BENIGN_GERMLINE]),
+            value: SignalMutationStatus.BENIGN_GERMLINE,
+            label: getFilterOptionLabel(MUTATION_RATE_HELPER[SignalMutationStatus.BENIGN_GERMLINE]),
             badgeStyleOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE,
             badgeStyleSelectedOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE
         },
         {
-            value: MutationStatusFilterValue.PATHOGENIC_GERMLINE,
-            label: getFilterOptionLabel(MUTATION_RATE_HELPER[MutationStatusFilterValue.PATHOGENIC_GERMLINE]),
+            value: SignalMutationStatus.PATHOGENIC_GERMLINE,
+            label: getFilterOptionLabel(MUTATION_RATE_HELPER[SignalMutationStatus.PATHOGENIC_GERMLINE]),
             badgeStyleOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE,
             badgeStyleSelectedOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE
         },
         {
-            value: MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE,
-            label: getFilterOptionLabel(MUTATION_RATE_HELPER[MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE]),
+            value: SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE,
+            label: getFilterOptionLabel(MUTATION_RATE_HELPER[SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE]),
             badgeStyleOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE,
             badgeStyleSelectedOverride: MUTATION_STATUS_BADGE_STYLE_OVERRIDE
         },
@@ -106,17 +106,17 @@ export function onMutationStatusFilterOptionSelect(selectedValues: string[],
 
     let values = selectedValues;
 
-    if (checkedValues.includes(MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE) ||
-            (selectedValues.includes(MutationStatusFilterValue.PATHOGENIC_GERMLINE) &&
-            selectedValues.includes(MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE)))
+    if (checkedValues.includes(SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE) ||
+            (selectedValues.includes(SignalMutationStatus.PATHOGENIC_GERMLINE) &&
+            selectedValues.includes(SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE)))
     {
-        values = _.without(values, MutationStatusFilterValue.PATHOGENIC_GERMLINE);
+        values = _.without(values, SignalMutationStatus.PATHOGENIC_GERMLINE);
     }
-    else if (uncheckedValues.includes(MutationStatusFilterValue.PATHOGENIC_GERMLINE)) {
-        values = _.without(values, MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE);
+    else if (uncheckedValues.includes(SignalMutationStatus.PATHOGENIC_GERMLINE)) {
+        values = _.without(values, SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE);
     }
 
-    if (!selectedValues.includes(MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE) &&
+    if (!selectedValues.includes(SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE) &&
         selectedValues.length === 3)
     {
         // no filtering required if all categories except biallelic is selected

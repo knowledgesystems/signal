@@ -2,7 +2,7 @@ import * as React from "react";
 import {Hgvsg} from "react-mutation-mapper";
 import {Link} from "react-router-dom";
 
-import FrequencyCell from "./FrequencyCell";
+import {FrequencyCell} from "cbioportal-frontend-commons";
 import PenetranceList from "./PenetranceList";
 
 export function renderPercentage(cellProps: any)

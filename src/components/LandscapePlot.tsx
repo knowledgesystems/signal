@@ -6,7 +6,7 @@ import {observer} from "mobx-react";
 import * as React from "react";
 import { Link } from 'react-router-dom';
 
-import {ITumorTypeFrequencySummary} from "../model/GeneFrequencySummary";
+import {ISignalTumorTypeFrequencySummary} from "cbioportal-utils";
 import GeneFrequencyStore from "../store/GeneFrequencyStore";
 import {
     dataPointSize,
@@ -23,7 +23,7 @@ interface ILandscapePlotProps {
 }
 
 function tumorTypeDataValue(
-    d: ITumorTypeFrequencySummary,
+    d: ISignalTumorTypeFrequencySummary,
     sampleCountByTumorType?: {[tumorType: string]: number}
 ): string {
     const tumorType = d.tumorType
@@ -40,7 +40,7 @@ function tumorTypeDataValue(
 }
 
 function tumorFrequencyDatumToScatterPlotDatum(
-    d: ITumorTypeFrequencySummary,
+    d: ISignalTumorTypeFrequencySummary,
     sampleCountByTumorType?: {[tumorType: string]: number}
 ): IScatterPlotDatum {
     return {

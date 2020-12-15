@@ -2153,13 +2153,13 @@ cbioportal-frontend-commons@^0.3.15:
     url "^0.11.0"
     victory "30.0.0"
 
-cbioportal-frontend-commons@^0.3.18:
-  version "0.3.18"
-  resolved "https://registry.yarnpkg.com/cbioportal-frontend-commons/-/cbioportal-frontend-commons-0.3.18.tgz#7c23811442542d8b3cda4628957797f052e6150e"
-  integrity sha512-0bOMOhXoomujRNyV1XCXUEMhz/cqp90jE/2QszxOWIBRzqZ5EmpXAqZbbBLdF4uJkhmeb2FUbvml0eS+GUaUcg==
+cbioportal-frontend-commons@^0.3.19:
+  version "0.3.19"
+  resolved "https://registry.yarnpkg.com/cbioportal-frontend-commons/-/cbioportal-frontend-commons-0.3.19.tgz#06515bb3f39ae32c1c371d573d6f7ebd57d26f6d"
+  integrity sha512-/5QsGnQXR/1u9qyEUlxu0lkzY/J1fG0eGwATMW2Uf0vySJh4JmtwgZu61flm7xY/pE+OLrKR/XBI0EbYf6NRBA==
   dependencies:
     autobind-decorator "^2.1.0"
-    cbioportal-utils "^0.2.15"
+    cbioportal-utils "^0.2.16"
     classnames "^2.2.5"
     jquery "^3.2.1"
     lodash "^4.17.11"
@@ -2190,12 +2190,12 @@ cbioportal-utils@^0.2.12:
     superagent "^3.8.3"
     typescript "4.0.3"
 
-cbioportal-utils@^0.2.15:
-  version "0.2.15"
-  resolved "https://registry.yarnpkg.com/cbioportal-utils/-/cbioportal-utils-0.2.15.tgz#1251db60d1281af93bd4f247f5ca480daa5b2d9b"
-  integrity sha512-hhgHZ934NsKVbos6DeUKyqGSdKLZcZMrQDRPywymYH7c43TT14PWsgclnVNmuTIgPQNgSLZuQngUiv8sjEuq6g==
+cbioportal-utils@^0.2.16:
+  version "0.2.16"
+  resolved "https://registry.yarnpkg.com/cbioportal-utils/-/cbioportal-utils-0.2.16.tgz#a23108dd9adf1763dc86e78bfc262dbd30cb5549"
+  integrity sha512-ZQ51zOnvkvT407odhqkGNuHNXPI0LYIA/qGJOH/69Ad5cxT1xUvPr6UIrRH3dhiaoO+6AAz5tHVfPIHmD2Gadw==
   dependencies:
-    genome-nexus-ts-api-client "^1.1.11"
+    genome-nexus-ts-api-client "^1.1.12"
     lodash "^4.17.11"
     oncokb-ts-api-client "^1.1.3"
     superagent "^3.8.3"
@@ -4265,10 +4265,10 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
-genome-nexus-ts-api-client@^1.1.11:
-  version "1.1.11"
-  resolved "https://registry.yarnpkg.com/genome-nexus-ts-api-client/-/genome-nexus-ts-api-client-1.1.11.tgz#d2dfce9b8757e3035aad48f25f16929fd7fb0fd3"
-  integrity sha512-MwwlJMn+3wKowFu1cp00b6nt9YgEWIG1CTgsPk2+k16Hxop20D17YCP/B0i2x1ZiQFTqMNyLxHH2IFIHjVTQtg==
+genome-nexus-ts-api-client@^1.1.12:
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/genome-nexus-ts-api-client/-/genome-nexus-ts-api-client-1.1.12.tgz#1c795922551426ee10b3d5c85f489b71212f28fb"
+  integrity sha512-XTFatFasHhsnWFNGFxhaaCpGESK22P379IQeIU/SeRo++ZVRbz+h903hlgs5dD5OUF2Wda6uwj0JS1j6khJW0A==
   dependencies:
     superagent "^3.8.3"
     typescript "4.0.3"
@@ -8185,16 +8185,16 @@ react-mutation-mapper@^0.6.19:
     superagent "^3.8.3"
     typescript "4.0.3"
 
-react-mutation-mapper@^0.6.22:
-  version "0.6.22"
-  resolved "https://registry.yarnpkg.com/react-mutation-mapper/-/react-mutation-mapper-0.6.22.tgz#614f442c5931c4a7d5ac8092349ab4e9373906b6"
-  integrity sha512-1rQCxPLuMrF1VjolZHpflE5vJziTG7gSxxUFpSpuVoOu2ULrZ6I9NV7iV7T7CNvQmdKYGzBROhsxmOHVJBXqYg==
+react-mutation-mapper@^0.6.23:
+  version "0.6.23"
+  resolved "https://registry.yarnpkg.com/react-mutation-mapper/-/react-mutation-mapper-0.6.23.tgz#1ee135fca852de95d73a9904ffceb03d9b7f6642"
+  integrity sha512-mRvYVQY88QFgsQzjIBEZkDMXG0/kRRG5a4wbZ3YSRdlCtyYLiz6GVb805toKDgzcAa6JiMw5wej08IYZEIHOBA==
   dependencies:
     autobind-decorator "^2.1.0"
-    cbioportal-frontend-commons "^0.3.18"
-    cbioportal-utils "^0.2.15"
+    cbioportal-frontend-commons "^0.3.19"
+    cbioportal-utils "^0.2.16"
     classnames "^2.2.5"
-    genome-nexus-ts-api-client "^1.1.11"
+    genome-nexus-ts-api-client "^1.1.12"
     jquery "^3.2.1"
     lodash "^4.17.11"
     mobxpromise "github:cbioportal/mobxpromise#v1.0.2"
@@ -8399,17 +8399,17 @@ react-transition-group@^4.3.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-variant-view@0.1.10:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/react-variant-view/-/react-variant-view-0.1.10.tgz#711ef4364fa8d33d018eb94786ae56b27f2b5cb7"
-  integrity sha512-FWkc+7dSc87Sjf4jH7i2V76UO3UevIJXHBVfuy6zhTfBQfIt8P6KPYvP46BOiAYYlp/Frk12cqQFGIH/T/tjdA==
+react-variant-view@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/react-variant-view/-/react-variant-view-0.1.11.tgz#97dfc3409c272a64bc51f671a4e840b2c61b42ec"
+  integrity sha512-9E+04wZUffxcrWS3C6bKeQ6Fd0Le5gLyJHSE9pjUsYh/1Ai3AeCeND999WyNScTZbQhrf6hH/LzU6XLQK7MSjA==
   dependencies:
     autobind-decorator "^2.1.0"
-    cbioportal-frontend-commons "^0.3.18"
-    cbioportal-utils "^0.2.15"
+    cbioportal-frontend-commons "^0.3.19"
+    cbioportal-utils "^0.2.16"
     classnames "^2.2.5"
     font-awesome "^4.7.0"
-    genome-nexus-ts-api-client "^1.1.11"
+    genome-nexus-ts-api-client "^1.1.12"
     jquery "^3.2.1"
     lodash "^4.17.11"
     mobxpromise "github:cbioportal/mobxpromise#v1.0.2"
@@ -8419,7 +8419,7 @@ react-variant-view@0.1.10:
     react-collapse "4.0.3"
     react-if "^2.1.0"
     react-motion "^0.5.2"
-    react-mutation-mapper "^0.6.22"
+    react-mutation-mapper "^0.6.23"
     react-rangeslider "^2.2.0"
     react-select "^3.0.4"
     react-table "^6.10.0"

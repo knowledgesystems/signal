@@ -4,17 +4,16 @@ import * as React from "react";
 import {defaultSortMethod} from "react-mutation-mapper";
 import ReactTable from "react-table";
 
-import {ITumorTypeFrequencySummary} from "../model/GeneFrequencySummary";
+import {FrequencyCell} from "cbioportal-frontend-commons";
+import {ISignalTumorTypeFrequencySummary} from "cbioportal-utils";
 import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelper";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
-import FrequencyCell from "./FrequencyCell";
 
 import "react-table/react-table.css";
-import "./FrequencyTable.css";
 
 interface ITumorTypeFrequencyTableProps
 {
-    data: ITumorTypeFrequencySummary[];
+    data: ISignalTumorTypeFrequencySummary[];
     penetrance: string[];
     hugoSymbol: string;
 }

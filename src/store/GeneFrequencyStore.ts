@@ -2,7 +2,7 @@ import _ from "lodash";
 import {action, computed, observable} from "mobx";
 import {DataFilter, DataFilterType} from "react-mutation-mapper";
 
-import {IGeneFrequencySummary, ITumorTypeFrequencySummary} from "../model/GeneFrequencySummary";
+import {ISignalGeneFrequencySummary, ISignalTumorTypeFrequencySummary} from "cbioportal-utils";
 import {
     applyGeneFrequencySummaryHugoSymbolFilter,
     applyGeneFrequencySummaryPenetranceFilter,
@@ -24,14 +24,14 @@ export function isFrequencyDataPending(frequencyStore?: GeneFrequencyStore): boo
 class GeneFrequencyStore
 {
     public readonly geneFrequencySummaryFilterAppliers: {
-        [type: string]: (filter: DataFilter, geneFrequencySummary: IGeneFrequencySummary) => boolean
+        [type: string]: (filter: DataFilter, geneFrequencySummary: ISignalGeneFrequencySummary) => boolean
     } = {
         [HUGO_SYMBOL_FILTER_TYPE]: applyGeneFrequencySummaryHugoSymbolFilter,
         [PENETRANCE_FILTER_TYPE]: applyGeneFrequencySummaryPenetranceFilter,
     }
 
     public readonly tumorTypeFrequencySummaryFilterAppliers: {
-        [type: string]: (filter: DataFilter, geneFrequencySummary: ITumorTypeFrequencySummary) => boolean
+        [type: string]: (filter: DataFilter, geneFrequencySummary: ISignalTumorTypeFrequencySummary) => boolean
     } = {
         [DataFilterType.CANCER_TYPE]: applyTumorTypeFrequencySummaryCancerTypeFilter,
     }
@@ -49,28 +49,28 @@ class GeneFrequencyStore
     public tumorTypeFrequenciesDataStatus: DataStatus = 'pending';
 
     @observable
-    public geneFrequencySummaryData: IGeneFrequencySummary[] = [];
+    public geneFrequencySummaryData: ISignalGeneFrequencySummary[] = [];
 
     @observable
-    public tumorTypeFrequencySummaryData: ITumorTypeFrequencySummary[] = [];
+    public tumorTypeFrequencySummaryData: ISignalTumorTypeFrequencySummary[] = [];
 
     @computed
     public get sampleCountByTumorType(): {[tumorType: string]: number}
     {
         return _.mapValues(
-            _.groupBy(this.tumorTypeFrequencySummaryData, (s: ITumorTypeFrequencySummary) => s.tumorType),
-            (d: ITumorTypeFrequencySummary[]) => Math.max(...d.map(s => s.sampleCount))
+            _.groupBy(this.tumorTypeFrequencySummaryData, (s: ISignalTumorTypeFrequencySummary) => s.tumorType),
+            (d: ISignalTumorTypeFrequencySummary[]) => Math.max(...d.map(s => s.sampleCount))
         );
     }
 
     @computed
-    public get tumorTypeFrequencyDataGroupedByGene(): {[hugoSymbol: string]: ITumorTypeFrequencySummary[]}
+    public get tumorTypeFrequencyDataGroupedByGene(): {[hugoSymbol: string]: ISignalTumorTypeFrequencySummary[]}
     {
         return _.groupBy(this.tumorTypeFrequencySummaryData, d => d.hugoSymbol);
     }
 
     @computed
-    public get filteredGeneFrequencySummaryData(): IGeneFrequencySummary[]
+    public get filteredGeneFrequencySummaryData(): ISignalGeneFrequencySummary[]
     {
         return this.geneFrequencySummaryData.filter(s =>
             // should satisfy all filters, otherwise filter out
@@ -100,7 +100,7 @@ class GeneFrequencyStore
     }
 
     constructor() {
-        const geneFrequencySummaryDataPromise: Promise<IGeneFrequencySummary[]> =
+        const geneFrequencySummaryDataPromise: Promise<ISignalGeneFrequencySummary[]> =
             fetchFrequencySummaryByGene();
 
         geneFrequencySummaryDataPromise
@@ -113,7 +113,7 @@ class GeneFrequencyStore
                 this.frequencySummaryDataStatus = 'error';
             });
 
-        const tumorTypeFrequencySummaryDataPromise: Promise<ITumorTypeFrequencySummary[]> =
+        const tumorTypeFrequencySummaryDataPromise: Promise<ISignalTumorTypeFrequencySummary[]> =
             fetchTumorTypeFrequencySummaryByGene();
 
         tumorTypeFrequencySummaryDataPromise

@@ -1,36 +1,24 @@
-import { GenomeNexusAPIInternal } from 'genome-nexus-ts-api-client';
+import { CountByTumorType, GenomeNexusAPIInternal, SignalMutation } from 'genome-nexus-ts-api-client';
 import _ from "lodash";
 import {CancerTypeFilter} from "react-mutation-mapper";
 
 import {
-    ICountByTumorType,
-    IExtendedMutation,
-    IMutation,
-    ITumorTypeDecomposition
-} from "../model/Mutation";
+    calculateOverallFrequency,
+    extendMutations,
+    IExtendedSignalMutation,
+    isGermlineMutation,
+    ISignalTumorTypeDecomposition,
+    SignalMutationStatus
+} from "cbioportal-utils";
 import {getGenomeNexusInternalClient} from "./ApiClientUtils";
 import {
     applyMutationStatusFilter,
     containsCancerType,
     matchesMutationStatus,
-    MutationStatusFilter,
-    MutationStatusFilterValue
+    MutationStatusFilter
 } from "./FilterUtils";
 
-
-export function isGermlineMutation(mutation: IMutation) {
-    return mutation.mutationStatus.toLowerCase() === "germline";
-}
-
-export function isSomaticMutation(mutation: IMutation) {
-    return mutation.mutationStatus.toLowerCase() === "somatic";
-}
-
-export function isPathogenicMutation(mutation: IMutation) {
-    return mutation.pathogenic === "1";
-}
-
-export function findAllUniqueCancerTypes(mutations: Array<Partial<IMutation>>)
+export function findAllUniqueCancerTypes(mutations: Array<Partial<SignalMutation>>)
 {
     return _.uniq(_.flatten(mutations.map(m => (m.countsByTumorType || []).map(c => c.tumorType))));
 }
@@ -38,91 +26,25 @@ export function findAllUniqueCancerTypes(mutations: Array<Partial<IMutation>>)
 export function fetchMutationsByGene(
     hugoGeneSymbol: string,
     client: GenomeNexusAPIInternal = getGenomeNexusInternalClient()
-): Promise<IMutation[]>
+): Promise<SignalMutation[]>
 {
-    return new Promise<IMutation[]>((resolve, reject) =>
+    return new Promise<SignalMutation[]>((resolve, reject) =>
         client.fetchSignalMutationsByHugoSymbolGETUsingGET({hugoGeneSymbol})
             .then(response => resolve(response))
             .catch(err => reject(err))
     );
 }
 
-export function fetchExtendedMutationsByGene(hugoSymbol: string): Promise<IExtendedMutation[]>
+export function fetchExtendedMutationsByGene(hugoSymbol: string): Promise<IExtendedSignalMutation[]>
 {
-    return new Promise<IExtendedMutation[]>((resolve, reject) => {
+    return new Promise<IExtendedSignalMutation[]>((resolve, reject) => {
         fetchMutationsByGene(hugoSymbol)
             .then(mutations => resolve(extendMutations(mutations)))
             .catch(err => reject(err));
     });
 }
 
-/**
- * Extends given mutations with frequency and biallelic count information.
- */
-export function extendMutations(mutations: IMutation[]): IExtendedMutation[]
-{
-    // filter out biallelic mutations, since their count is already included in germline mutations
-    // we only use biallelic mutations to add frequency values and additional count fields
-    return mutations.map(mutation => {
-        const isSomatic = isSomaticMutation(mutation);
-        const isGermline = isGermlineMutation(mutation);
-        const isPathogenic = isPathogenicMutation(mutation);
-
-        const pathogenicGermlineFrequency = (isGermline && isPathogenic) ?
-            calculateOverallFrequency(mutation.countsByTumorType): null;
-        const biallelicGermlineFrequency = (isGermline && mutation.biallelicCountsByTumorType) ?
-            calculateOverallFrequency(mutation.biallelicCountsByTumorType): null;
-
-        const tumorTypeDecomposition: ITumorTypeDecomposition[] = generateTumorTypeDecomposition(mutation.countsByTumorType,
-            mutation.biallelicCountsByTumorType,
-            mutation.qcPassCountsByTumorType);
-
-        return {
-            ...mutation,
-            tumorTypeDecomposition,
-            somaticFrequency: isSomatic ? calculateOverallFrequency(mutation.countsByTumorType): null,
-            germlineFrequency: isGermline ? calculateOverallFrequency(mutation.countsByTumorType): null,
-            pathogenicGermlineFrequency,
-            biallelicGermlineFrequency,
-            biallelicPathogenicGermlineFrequency: isPathogenic ? biallelicGermlineFrequency: null,
-            ratioBiallelicPathogenic: isPathogenic && mutation.biallelicCountsByTumorType && mutation.qcPassCountsByTumorType ?
-                calculateTotalVariantRatio(mutation.biallelicCountsByTumorType, mutation.qcPassCountsByTumorType): null
-        };
-    })
-}
-
-function generateTumorTypeDecomposition(countsByTumorType: ICountByTumorType[],
-                                        biallelicCountsByTumorType?: ICountByTumorType[],
-                                        qcPassCountsByTumorType?: ICountByTumorType[])
-{
-    let biallelicTumorMap: {[tumorType: string] : ICountByTumorType};
-    let qcPassTumorMap: {[tumorType: string] : ICountByTumorType};
-
-    if (biallelicCountsByTumorType && qcPassCountsByTumorType) {
-        biallelicTumorMap = _.keyBy(biallelicCountsByTumorType, "tumorType");
-        qcPassTumorMap = _.keyBy(qcPassCountsByTumorType, "tumorType");
-    }
-
-    return countsByTumorType.map(counts => ({
-        ...counts,
-        frequency: counts.variantCount / counts.tumorTypeCount,
-        biallelicRatio: biallelicTumorMap && qcPassTumorMap ?
-            calcBiallelicRatio(biallelicTumorMap[counts.tumorType], qcPassTumorMap[counts.tumorType]): null,
-        biallelicVariantCount: biallelicTumorMap && biallelicTumorMap[counts.tumorType] ?
-            biallelicTumorMap[counts.tumorType].variantCount: 0
-    }));
-}
-
-export function calcBiallelicRatio(biallelicCountByTumorType?: ICountByTumorType,
-                                   qcPassCountByTumorType?: ICountByTumorType)
-{
-    const ratio = (biallelicCountByTumorType ? biallelicCountByTumorType.variantCount : 0) /
-        (qcPassCountByTumorType ? qcPassCountByTumorType.variantCount : 0);
-
-    return _.isNaN(ratio) ? null: ratio;
-}
-
-export function calculateTotalFrequency(mutations: IExtendedMutation[],
+export function calculateTotalFrequency(mutations: IExtendedSignalMutation[],
                                         mutationStatusFilter: MutationStatusFilter,
                                         cancerTypeFilter?: CancerTypeFilter)
 {
@@ -139,7 +61,7 @@ export function calculateTotalFrequency(mutations: IExtendedMutation[],
     return frequency;
 }
 
-export function calculateTotalBiallelicRatio(mutations: IExtendedMutation[],
+export function calculateTotalBiallelicRatio(mutations: IExtendedSignalMutation[],
                                              pathogenicGermlineFilter: MutationStatusFilter,
                                              biallelicPathogenicGermlineFilter: MutationStatusFilter,
                                              cancerTypeFilter?: CancerTypeFilter)
@@ -163,70 +85,63 @@ export function calculateTotalBiallelicRatio(mutations: IExtendedMutation[],
     return ratio;
 }
 
-function combinedBiallelicCountsByTumorType(mutations: IExtendedMutation[], cancerTypeFilter?: CancerTypeFilter)
+function combinedBiallelicCountsByTumorType(mutations: IExtendedSignalMutation[], cancerTypeFilter?: CancerTypeFilter)
 {
     return combinedCounts(mutations,
-        (mutation: IExtendedMutation) => mutation.biallelicCountsByTumorType,
+        (mutation: IExtendedSignalMutation) => mutation.biallelicCountsByTumorType,
         cancerTypeFilter);
 }
 
-function combinedQcPassCountsByTumorType(mutations: IExtendedMutation[], cancerTypeFilter?: CancerTypeFilter)
+function combinedQcPassCountsByTumorType(mutations: IExtendedSignalMutation[], cancerTypeFilter?: CancerTypeFilter)
 {
     return combinedCounts(mutations,
-        (mutation: IExtendedMutation) => mutation.qcPassCountsByTumorType,
+        (mutation: IExtendedSignalMutation) => mutation.qcPassCountsByTumorType,
         cancerTypeFilter);
 }
 
-function combinedTumorTypeDecompositions(mutations: IExtendedMutation[], cancerTypeFilter?: CancerTypeFilter)
+function combinedTumorTypeDecompositions(mutations: IExtendedSignalMutation[], cancerTypeFilter?: CancerTypeFilter)
 {
     return combinedCounts(mutations,
-        (mutation: IExtendedMutation) => mutation.tumorTypeDecomposition,
+        (mutation: IExtendedSignalMutation) => mutation.tumorTypeDecomposition,
         cancerTypeFilter);
 }
 
-function combinedCounts(mutations: IExtendedMutation[],
-                        getCounts: (mutation: IExtendedMutation) => ICountByTumorType[] | undefined,
+function combinedCounts(mutations: IExtendedSignalMutation[],
+                        getCounts: (mutation: IExtendedSignalMutation) => CountByTumorType[] | undefined,
                         cancerTypeFilter?: CancerTypeFilter)
 {
     return _.flatten(mutations.map(mutation =>
         filterCountsByTumorType(getCounts(mutation), cancerTypeFilter)));
 }
 
-function filterCountsByTumorType(counts?: ICountByTumorType[], cancerTypeFilter?: CancerTypeFilter)
+function filterCountsByTumorType(counts?: CountByTumorType[], cancerTypeFilter?: CancerTypeFilter)
 {
     return counts ? counts.filter(c => containsCancerType(cancerTypeFilter, c.tumorType)) : [];
 }
 
-function totalVariants(counts: ICountByTumorType[]) {
+// TODO duplicate of https://bit.ly/3qQ13V5
+function totalVariants(counts: CountByTumorType[]) {
     return counts.map(c => c.variantCount).reduce((acc, curr) => acc + curr, 0) || 0;
 }
 
-function totalSamples(counts: ICountByTumorType[]) {
+// TODO duplicate of https://bit.ly/3qGXeBi
+function totalSamples(counts: CountByTumorType[]) {
     return counts.map(c => c.tumorTypeCount).reduce((acc, curr) => acc + curr, 0) || 0;
 }
 
-export function totalFilteredVariants(mutations: IExtendedMutation[], cancerTypeFilter?: CancerTypeFilter) {
+export function totalFilteredVariants(mutations: IExtendedSignalMutation[], cancerTypeFilter?: CancerTypeFilter) {
     return totalVariants(
         combinedTumorTypeDecompositions(mutations, cancerTypeFilter)
     );
 }
 
-export function totalFilteredSamples(mutations: IExtendedMutation[], cancerTypeFilter?: CancerTypeFilter) {
+export function totalFilteredSamples(mutations: IExtendedSignalMutation[], cancerTypeFilter?: CancerTypeFilter) {
     return mutations.length > 0 ? totalSamples(
         filterCountsByTumorType(mutations[0].tumorTypeDecomposition, cancerTypeFilter)
     ): 0;
 }
 
-export function calculateOverallFrequency(counts: ICountByTumorType[]) {
-    return totalVariants(counts) / totalSamples(counts);
-}
-
-export function calculateTotalVariantRatio(counts1: ICountByTumorType[], counts2: ICountByTumorType[])
-{
-    return totalVariants(counts1) / totalVariants(counts2);
-}
-
-export function calculateMutationRate(mutation: IExtendedMutation,
+export function calculateMutationRate(mutation: IExtendedSignalMutation,
                                       cancerTypeFilter?: CancerTypeFilter,
                                       mutationStatusFilter?: MutationStatusFilter)
 {
@@ -256,8 +171,8 @@ export function calculateMutationRate(mutation: IExtendedMutation,
     return 100 * frequency;
 }
 
-export function getVariantCount(mutation: IExtendedMutation,
-                                tumorTypeDecomposition: ITumorTypeDecomposition,
+export function getVariantCount(mutation: IExtendedSignalMutation,
+                                tumorTypeDecomposition: ISignalTumorTypeDecomposition,
                                 cancerTypeFilter?: CancerTypeFilter,
                                 mutationStatusFilter?: MutationStatusFilter)
 {
@@ -286,7 +201,7 @@ function containsOnlyBiallelicGermlineFilterValue(mutationStatusFilter?: Mutatio
     return (
         mutationStatusFilter &&
         _.every(mutationStatusFilter.values,
-                v => v === MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE ||
-                    v === MutationStatusFilterValue.SOMATIC)
+                v => v === SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE ||
+                    v === SignalMutationStatus.SOMATIC)
     );
 }

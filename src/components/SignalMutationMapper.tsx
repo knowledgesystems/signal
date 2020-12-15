@@ -22,7 +22,6 @@ import {
     getDefaultMutationStatusFilterValues,
     MUTATION_STATUS_FILTER_ID,
     MUTATION_STATUS_FILTER_TYPE,
-    MutationStatusFilterValue,
     PROTEIN_IMPACT_TYPE_FILTER_ID
 } from "../util/FilterUtils";
 import {
@@ -34,6 +33,7 @@ import {
 import CancerTypeSelector from "./CancerTypeSelector";
 import MutationStatusSelector, {onMutationStatusFilterOptionSelect} from "./MutationStatusSelector";
 
+import { SignalMutationStatus } from 'cbioportal-utils';
 import {AxisScale, AxisScaleSwitch} from "./AxisScaleSwitch";
 import "./SignalMutationMapper.css";
 
@@ -83,9 +83,9 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
     public get selectedMutationStatusValues() {
         // default values in case no filter
         let values = [
-            {value: MutationStatusFilterValue.SOMATIC},
-            {value: MutationStatusFilterValue.BENIGN_GERMLINE},
-            {value: MutationStatusFilterValue.PATHOGENIC_GERMLINE}
+            {value: SignalMutationStatus.SOMATIC},
+            {value: SignalMutationStatus.BENIGN_GERMLINE},
+            {value: SignalMutationStatus.PATHOGENIC_GERMLINE}
         ];
 
         // no filter, return defaults
@@ -96,8 +96,8 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
             values = this.mutationStatusFilter.values.map(value => ({value}));
 
             // need to show PATHOGENIC_GERMLINE as selected when BIALLELIC_PATHOGENIC_GERMLINE is in the filter
-            if (this.mutationStatusFilter.values.includes(MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE)) {
-                values.push({value: MutationStatusFilterValue.PATHOGENIC_GERMLINE});
+            if (this.mutationStatusFilter.values.includes(SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE)) {
+                values.push({value: SignalMutationStatus.PATHOGENIC_GERMLINE});
             }
         }
 
@@ -251,22 +251,22 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
         // TODO pick only likely driver ones, not all somatic mutations
         const somaticFilter = {
             type: MUTATION_STATUS_FILTER_TYPE,
-            values: [MutationStatusFilterValue.SOMATIC]
+            values: [SignalMutationStatus.SOMATIC]
         };
 
         const benignGermlineFilter = {
             type: MUTATION_STATUS_FILTER_TYPE,
-            values: [MutationStatusFilterValue.BENIGN_GERMLINE]
+            values: [SignalMutationStatus.BENIGN_GERMLINE]
         };
 
         const pathogenicGermlineFilter = {
             type: MUTATION_STATUS_FILTER_TYPE,
-            values: [MutationStatusFilterValue.PATHOGENIC_GERMLINE]
+            values: [SignalMutationStatus.PATHOGENIC_GERMLINE]
         };
 
         const biallelicPathogenicGermlineFilter = {
             type: MUTATION_STATUS_FILTER_TYPE,
-            values: [MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE]
+            values: [SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE]
         };
 
         const filtersWithoutMutationStatusFilter = this.store.dataStore.dataFilters
@@ -290,10 +290,10 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
             sortedFilteredData, pathogenicGermlineFilter, biallelicPathogenicGermlineFilter, this.cancerTypeFilter);
 
         return {
-            [MutationStatusFilterValue.SOMATIC]: (somaticFrequency || 0) * 100,
-            [MutationStatusFilterValue.BENIGN_GERMLINE]: (benignGermlineFrequency || 0) * 100,
-            [MutationStatusFilterValue.PATHOGENIC_GERMLINE]: (pathogenicGermlineFrequency || 0) * 100,
-            [MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE]: (biallelicRatio || 0) * 100,
+            [SignalMutationStatus.SOMATIC]: (somaticFrequency || 0) * 100,
+            [SignalMutationStatus.BENIGN_GERMLINE]: (benignGermlineFrequency || 0) * 100,
+            [SignalMutationStatus.PATHOGENIC_GERMLINE]: (pathogenicGermlineFrequency || 0) * 100,
+            [SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE]: (biallelicRatio || 0) * 100,
         };
     }
 

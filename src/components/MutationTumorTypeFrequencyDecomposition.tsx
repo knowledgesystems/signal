@@ -2,16 +2,15 @@ import {action, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 
-import {ITumorTypeDecomposition} from "../model/Mutation";
+import {ISignalTumorTypeDecomposition} from "cbioportal-utils";
 import {DataStatus} from "../store/DataStatus";
-import MutationTumorTypeFrequencyTable from "./MutationTumorTypeFrequencyTable";
 
 import "react-table/react-table.css";
-import "./FrequencyTable.css";
+import { MutationTumorTypeFrequencyTable } from 'react-variant-view';
 
 interface ITumorTypeFrequencyDecompositionProps
 {
-    dataPromise: Promise<ITumorTypeDecomposition[]>;
+    dataPromise: Promise<ISignalTumorTypeDecomposition[]>;
     hugoSymbol: string;
 }
 
@@ -19,7 +18,7 @@ interface ITumorTypeFrequencyDecompositionProps
 class MutationTumorTypeFrequencyDecomposition extends React.Component<ITumorTypeFrequencyDecompositionProps>
 {
     @observable
-    private data: ITumorTypeDecomposition[] = [];
+    private data: ISignalTumorTypeDecomposition[] = [];
 
     @observable
     private status: DataStatus = 'pending';
@@ -31,7 +30,6 @@ class MutationTumorTypeFrequencyDecomposition extends React.Component<ITumorType
         ): (
             <MutationTumorTypeFrequencyTable
                 data={this.data}
-                hugoSymbol={this.props.hugoSymbol}
             />
         );
     }
@@ -44,7 +42,7 @@ class MutationTumorTypeFrequencyDecomposition extends React.Component<ITumorType
     }
 
     @action.bound
-    private handleDataLoad(frequencies: ITumorTypeDecomposition[]) {
+    private handleDataLoad(frequencies: ISignalTumorTypeDecomposition[]) {
         this.data = frequencies;
         this.status = 'complete';
     }

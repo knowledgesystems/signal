@@ -246,6 +246,24 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
         ): info;
     }
 
+    public get defaultAnnotationColumnProps() {
+        // TODO most of this code is duplicated from react-mutation-mapper
+        //  we should make the default props accessible if possible
+        return {
+            enableOncoKb: true,
+            enableHotspot: true,
+            enableCivic: this.props.enableCivic || false,
+            enableMyCancerGenome: true,
+            hotspotData: this.store.indexedHotspotData,
+            oncoKbData: this.store.oncoKbData,
+            oncoKbCancerGenes: this.store.oncoKbCancerGenes,
+            usingPublicOncoKbInstance: this.store.usingPublicOncoKbInstance,
+            pubMedCache: this.pubMedCache,
+            civicGenes: this.store.civicGenes,
+            civicVariants: this.store.civicVariants
+        };
+    }
+
     @computed
     public get mutationRatesByMutationStatus() {
         // TODO pick only likely driver ones, not all somatic mutations

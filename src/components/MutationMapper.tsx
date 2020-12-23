@@ -11,6 +11,7 @@ import {computed} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 import {
+    Annotation,
     CancerTypeFilter,
     ColumnSortDirection,
     DataFilter,
@@ -241,7 +242,10 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                         Header: HEADER_COMPONENT[ColumnId.PERCENT_BIALLELIC],
                         sortMethod: defaultSortMethod
                     },
-                    MUTATION_COLUMNS_DEFINITION[MutationColumn.ANNOTATION],
+                    {
+                        ...MUTATION_COLUMNS_DEFINITION[MutationColumn.ANNOTATION],
+                        Cell: this.renderAnnotation
+                    },
                     {
                         // override default HGVSg column to customize the link
                         ...MUTATION_COLUMNS_DEFINITION[MutationColumn.HGVSG],
@@ -355,6 +359,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
             this.showSomaticPercent
         );
     }
+
     private get mutationCountFilter() {
         return {
             type: MUTATION_COUNT_FILTER_TYPE,
@@ -420,6 +425,25 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
         return props.isExpanded ?
             <i className="fa fa-minus-circle" /> :
             <i className="fa fa-plus-circle" />;
+    }
+
+    @autobind
+    private renderAnnotation(column: any) {
+        const mutation: IExtendedSignalMutation = column.original;
+
+        // disable certain annotations for germline mutations
+        const props = this.signalMutationMapper ? {
+            ...this.signalMutationMapper.defaultAnnotationColumnProps,
+            mutation: mutation as any,
+            enableOncoKb: isSomaticMutation(mutation) ?
+                this.signalMutationMapper.defaultAnnotationColumnProps.enableOncoKb : false,
+            enableHotspot: isSomaticMutation(mutation) ?
+                this.signalMutationMapper.defaultAnnotationColumnProps.enableHotspot : false,
+            enableMyCancerGenome: isSomaticMutation(mutation) ?
+                this.signalMutationMapper.defaultAnnotationColumnProps.enableMyCancerGenome : false,
+        }: undefined;
+
+        return props ? <Annotation {...props} />: undefined;
     }
 
     @autobind

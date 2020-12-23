@@ -1,5 +1,6 @@
+import {SignalMutationStatus} from "cbioportal-utils";
 import * as React from "react";
-import {Hgvsg} from "react-mutation-mapper";
+import {Hgvsg, MutationStatus} from "react-mutation-mapper";
 import {Link} from "react-router-dom";
 
 import {FrequencyCell} from "cbioportal-frontend-commons";
@@ -37,6 +38,29 @@ export function renderHgvsg(cellProps: any)
             mutation={cellProps.original}
             constructLink={constructLink}
             disableTooltip={true}
+        />
+    );
+}
+
+export function renderMutationStatus(cellProps: any)
+{
+    return (
+        <MutationStatus
+            value={cellProps.value}
+            enableTooltip={false}
+            displayValueMap={{
+                [SignalMutationStatus.SOMATIC.toLowerCase()]:
+                SignalMutationStatus.SOMATIC,
+                [SignalMutationStatus.PATHOGENIC_GERMLINE.toLowerCase()]:
+                SignalMutationStatus.PATHOGENIC_GERMLINE,
+                [SignalMutationStatus.BENIGN_GERMLINE.toLowerCase()]:
+                SignalMutationStatus.BENIGN_GERMLINE,
+            }}
+            styleMap={{
+                [SignalMutationStatus.PATHOGENIC_GERMLINE.toLowerCase()]: {
+                    background: "#FFA963"
+                }
+            }}
         />
     );
 }

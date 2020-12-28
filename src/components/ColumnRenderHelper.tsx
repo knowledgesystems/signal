@@ -12,6 +12,13 @@ export function renderPercentage(cellProps: any)
     );
 }
 
+export function renderCancerType(cellProps: any)
+{
+    const tumorTypes: string[] = cellProps.value;
+
+    return <span>{tumorTypes.join(", ")}</span>;
+}
+
 export function renderPenetrance(cellProps: any)
 {
     return (

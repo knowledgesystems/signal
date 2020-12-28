@@ -32,6 +32,7 @@ import {
     CANCER_TYPE_IGNORE_MUTATION_STATUS_FILTER_TYPE,
     containsCancerType,
     getDefaultMutationStatusFilterValues,
+    isKnownTumorType,
     MUTATION_COUNT_FILTER_TYPE,
     MUTATION_STATUS_FILTER_ID,
     MUTATION_STATUS_FILTER_TYPE,
@@ -44,7 +45,7 @@ import {
 } from "../util/MutationDataUtils";
 import {loaderWithText} from "../util/StatusHelper";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
-import {renderHgvsg, renderPenetrance, renderPercentage} from "./ColumnRenderHelper";
+import {renderCancerType, renderHgvsg, renderPenetrance, renderPercentage} from "./ColumnRenderHelper";
 import {sortPenetrance} from "./GeneFrequencyTable";
 import MutationTumorTypeFrequencyDecomposition from "./MutationTumorTypeFrequencyDecomposition";
 import SignalMutationMapper from "./SignalMutationMapper";
@@ -90,6 +91,16 @@ function mutationPercentAccessor(mutation: IExtendedSignalMutation)
     else {
         return 0;
     }
+}
+
+function cancerTypeAccessor(mutation: IExtendedSignalMutation)
+{
+    return mutation.tumorTypeDecomposition
+        // remove tumor types with non-zero frequency and unknown tumors
+        .filter(c => c.frequency && c.frequency > 0 && isKnownTumorType(c.tumorType))
+        // sort by frequency
+        .sort((a, b) => Math.sign((b.frequency || 0) - (a.frequency || 0)))
+        .map(c => c.tumorType);
 }
 
 function penetranceAccessor(mutation: IExtendedSignalMutation)
@@ -205,6 +216,14 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                         Cell: renderPercentage,
                         accessor: mutationPercentAccessor,
                         Header: HEADER_COMPONENT[ColumnId.MUTATION_PERCENT],
+                        sortMethod: defaultSortMethod
+                    },
+                    {
+                        id: ColumnId.CANCER_TYPE,
+                        name: "Cancer Type",
+                        Cell: renderCancerType,
+                        accessor: cancerTypeAccessor,
+                        Header: HEADER_COMPONENT[ColumnId.CANCER_TYPE],
                         sortMethod: defaultSortMethod
                     },
                     {

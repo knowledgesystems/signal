@@ -1,12 +1,12 @@
 import autobind from "autobind-decorator";
 import {CBIOPORTAL_VICTORY_THEME, ScatterPlot} from "cbioportal-frontend-commons";
+import {ISignalTumorTypeFrequencySummary, SignalMutationStatus} from "cbioportal-utils";
 import _ from "lodash";
 import {computed} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 import { Link } from 'react-router-dom';
 
-import {ISignalTumorTypeFrequencySummary} from "cbioportal-utils";
 import GeneFrequencyStore from "../store/GeneFrequencyStore";
 import {
     dataPointSize,
@@ -206,12 +206,44 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
             sampleCount
         } = datum.datum;
 
+        const totalSampleCount = this.props.frequencyStore
+            .geneFrequencySummaryData
+            .find(d => d.hugoSymbol === hugoSymbol)?.sampleCount;
+
+        const pathogenicGermlineCount = _.round((sampleCount * (pathogenicGermlineFreq || 0)));
+        const pathogenicGermlineRatio = pathogenicGermlineFreq !== undefined ?
+            `${pathogenicGermlineCount} out of ${sampleCount} samples`: undefined
+
+        // TODO these numbers do not always match
+        // const biallelicCount = _.round(pathogenicGermlineCount * (percentBiallelicFreq || 0));
+        // const biallelicRatio = pathogenicGermlineFreq !== undefined ?
+        //     `${biallelicCount} out of ${pathogenicGermlineCount} samples`: undefined
+
         return (
             <>
-                <div>Hugo Symbol: <Link to={`/gene/${hugoSymbol}`}>{hugoSymbol}</Link></div>
-                <div>Tumor Type: <Link to={`/gene/${hugoSymbol}?cancerType=${tumorType}`}>{tumorType}</Link> ({sampleCount})</div>
-                <div>% Pathogenic Germline: <strong>{pathogenicGermline}</strong></div>
-                <div>% Biallelic: <strong>{percentBiallelic}</strong></div>
+                <div>
+                    Hugo Symbol:{' '}
+                    <Link to={`/gene/${hugoSymbol}`}>{hugoSymbol}</Link>{' '}
+                    ({totalSampleCount} total samples)
+                </div>
+                <div>
+                    Tumor Type:{' '}
+                    <Link to={`/gene/${hugoSymbol}?cancerType=${tumorType}`}>{tumorType}</Link>{' '}
+                    ({sampleCount} samples)
+                </div>
+                <div>
+                    Pathogenic Germline:{' '}
+                    <Link to={`/gene/${hugoSymbol}?cancerType=${tumorType}&mutationStatus=${SignalMutationStatus.PATHOGENIC_GERMLINE}`}>
+                        {pathogenicGermline}%
+                    </Link>{' '}
+                    ({pathogenicGermlineRatio})
+                </div>
+                <div>
+                    Biallelic:{' '}
+                    <Link to={`/gene/${hugoSymbol}?cancerType=${tumorType}&mutationStatus=${SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE}`}>
+                        {percentBiallelic}%
+                    </Link>
+                </div>
             </>
         );
     }

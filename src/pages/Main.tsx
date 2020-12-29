@@ -26,6 +26,7 @@ class Main extends React.Component<{}>
             <Gene
                 hugoSymbol={props.match.params.hugoSymbol}
                 cancerTypes={getQueryParamAsArray(props.location, SearchParam.CANCER_TYPE)}
+                mutationStatuses={getQueryParamAsArray(props.location, SearchParam.MUTATION_STATUS)}
             />
         );
 

@@ -59,6 +59,7 @@ interface IMutationMapperProps
     data: IExtendedSignalMutation[];
     hugoSymbol: string;
     cancerTypes?: string[];
+    mutationStatuses?: string[];
     ensemblGene?: IEnsemblGene;
 }
 
@@ -123,7 +124,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
         const filters: DataFilter[] = [{
             id: MUTATION_STATUS_FILTER_ID,
             type: MUTATION_STATUS_FILTER_TYPE,
-            values: getDefaultMutationStatusFilterValues()
+            values: this.props.mutationStatuses || getDefaultMutationStatusFilterValues()
         }];
 
         if (this.props.cancerTypes) {

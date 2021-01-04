@@ -3,6 +3,7 @@ import {parse} from 'query-string';
 
 export enum SearchParam {
     CANCER_TYPE = 'cancerType',
+    MUTATION_STATUS = 'mutationStatus',
     PENETRANCE = 'penetrance',
     HUGO_SYMBOL = 'gene'
 }

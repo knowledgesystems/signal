@@ -13,6 +13,7 @@ interface IGeneProps
 {
     hugoSymbol: string;
     cancerTypes?: string[];
+    mutationStatuses?: string[];
 }
 
 @observer
@@ -55,6 +56,7 @@ class Gene extends React.Component<IGeneProps>
                             data={this.signalMutations}
                             ensemblGene={this.geneStore.ensemblGeneData}
                             cancerTypes={this.props.cancerTypes}
+                            mutationStatuses={this.props.mutationStatuses}
                         />
                 }
             </div>

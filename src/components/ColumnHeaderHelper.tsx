@@ -10,6 +10,7 @@ export enum ColumnId {
     GERMLINE = "germline",
     PERCENT_BIALLELIC = "percentBialleic",
     MUTATION_PERCENT = "mutationPercent",
+    CANCER_TYPE = "cancerType",
     SAMPLE_COUNT = "sampleCount"
 }
 
@@ -49,5 +50,10 @@ export const HEADER_COMPONENT: {[id: string] : JSX.Element} = {
         />
     ),
     [ColumnId.MUTATION_PERCENT]: <ColumnHeader headerContent={<span className="pull-right mr-3">% Prevalence</span>} />,
+    [ColumnId.CANCER_TYPE]: (
+        <ColumnHeader
+            headerContent={<span className="pull-left">Cancer Type</span>}
+        />
+    ),
     [ColumnId.SAMPLE_COUNT]: <ColumnHeader headerContent={<span className="text-wrap"># Samples</span>} />,
 };

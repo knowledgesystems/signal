@@ -43,7 +43,8 @@ class MutationTumorTypeFrequencyDecomposition extends React.Component<ITumorType
 
     @action.bound
     private handleDataLoad(frequencies: ISignalTumorTypeDecomposition[]) {
-        this.data = frequencies;
+        // filter out cancer types with zero frequency
+        this.data = frequencies.filter(f => f.frequency && f.frequency > 0);
         this.status = 'complete';
     }
 

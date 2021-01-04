@@ -24,7 +24,7 @@ class Main extends React.Component<{}>
     {
         const GenePage = (props: any) => (
             <Gene
-                hugoSymbol={props.match.params.hugoSymbol}
+                hugoSymbol={props.match.params.hugoSymbol.toUpperCase()}
                 cancerTypes={getQueryParamAsArray(props.location, SearchParam.CANCER_TYPE)}
                 mutationStatuses={getQueryParamAsArray(props.location, SearchParam.MUTATION_STATUS)}
             />

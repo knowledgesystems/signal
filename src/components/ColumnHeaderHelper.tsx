@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ColumnHeader} from "react-mutation-mapper";
+import {ColumnHeader, MutationColumn} from "react-mutation-mapper";
 
 export enum ColumnId {
     HUGO_SYMBOL = "hugoSymbol",
@@ -56,4 +56,5 @@ export const HEADER_COMPONENT: {[id: string] : JSX.Element} = {
         />
     ),
     [ColumnId.SAMPLE_COUNT]: <ColumnHeader headerContent={<span className="text-wrap"># Samples</span>} />,
+    [MutationColumn.ANNOTATION]: <ColumnHeader headerContent={<span className="pull-left">Somatic Annotation</span>} />,
 };

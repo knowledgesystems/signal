@@ -11,6 +11,7 @@ import {computed} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 import {
+    Annotation,
     CancerTypeFilter,
     ColumnSortDirection,
     DataFilter,
@@ -18,7 +19,6 @@ import {
     defaultSortMethod,
     MUTATION_COLUMNS_DEFINITION,
     MutationColumn,
-    MutationStatus,
     ProteinChange,
     TrackName
 } from "react-mutation-mapper";
@@ -45,7 +45,7 @@ import {
 } from "../util/MutationDataUtils";
 import {loaderWithText} from "../util/StatusHelper";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
-import {renderCancerType, renderHgvsg, renderPenetrance, renderPercentage} from "./ColumnRenderHelper";
+import {renderCancerType, renderHgvsg, renderMutationStatus, renderPenetrance, renderPercentage} from "./ColumnRenderHelper";
 import {sortPenetrance} from "./GeneFrequencyTable";
 import MutationTumorTypeFrequencyDecomposition from "./MutationTumorTypeFrequencyDecomposition";
 import SignalMutationMapper from "./SignalMutationMapper";
@@ -184,24 +184,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                         ...MUTATION_COLUMNS_DEFINITION[MutationColumn.MUTATION_STATUS],
                         accessor: mutationStatusAccessor,
                         width: 200,
-                        Cell: (column: any) =>
-                            <MutationStatus
-                                value={column.value}
-                                enableTooltip={false}
-                                displayValueMap={{
-                                    [SignalMutationStatus.SOMATIC.toLowerCase()]:
-                                        SignalMutationStatus.SOMATIC,
-                                    [SignalMutationStatus.PATHOGENIC_GERMLINE.toLowerCase()]:
-                                        SignalMutationStatus.PATHOGENIC_GERMLINE,
-                                    [SignalMutationStatus.BENIGN_GERMLINE.toLowerCase()]:
-                                        SignalMutationStatus.BENIGN_GERMLINE,
-                                }}
-                                styleMap={{
-                                    [SignalMutationStatus.PATHOGENIC_GERMLINE.toLowerCase()]: {
-                                        background: "#FFA963"
-                                    }
-                                }}
-                            />
+                        Cell: renderMutationStatus
                     },
                     {
                         id: ColumnId.PENETRANCE,
@@ -241,7 +224,14 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                         Header: HEADER_COMPONENT[ColumnId.PERCENT_BIALLELIC],
                         sortMethod: defaultSortMethod
                     },
-                    MUTATION_COLUMNS_DEFINITION[MutationColumn.ANNOTATION],
+                    {
+                        ...MUTATION_COLUMNS_DEFINITION[MutationColumn.ANNOTATION],
+                        Header: HEADER_COMPONENT[MutationColumn.ANNOTATION],
+                        Cell: this.renderAnnotation,
+                        // TODO disable sort for now due to an undesired sort behavior
+                        //  (see https://github.com/cBioPortal/cbioportal/issues/8247)
+                        sortable: false
+                    },
                     {
                         // override default HGVSg column to customize the link
                         ...MUTATION_COLUMNS_DEFINITION[MutationColumn.HGVSG],
@@ -355,6 +345,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
             this.showSomaticPercent
         );
     }
+
     private get mutationCountFilter() {
         return {
             type: MUTATION_COUNT_FILTER_TYPE,
@@ -420,6 +411,25 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
         return props.isExpanded ?
             <i className="fa fa-minus-circle" /> :
             <i className="fa fa-plus-circle" />;
+    }
+
+    @autobind
+    private renderAnnotation(cellProps: any) {
+        const mutation: IExtendedSignalMutation = cellProps.original;
+
+        // disable certain annotations for germline mutations
+        const props = this.signalMutationMapper ? {
+            ...this.signalMutationMapper.defaultAnnotationColumnProps,
+            mutation: mutation as any,
+            enableOncoKb: isSomaticMutation(mutation) ?
+                this.signalMutationMapper.defaultAnnotationColumnProps.enableOncoKb : false,
+            enableHotspot: isSomaticMutation(mutation) ?
+                this.signalMutationMapper.defaultAnnotationColumnProps.enableHotspot : false,
+            enableMyCancerGenome: isSomaticMutation(mutation) ?
+                this.signalMutationMapper.defaultAnnotationColumnProps.enableMyCancerGenome : false,
+        }: undefined;
+
+        return props ? <Annotation {...props} />: undefined;
     }
 
     @autobind

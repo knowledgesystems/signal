@@ -1,6 +1,6 @@
 import { SignalQuery } from 'genome-nexus-ts-api-client/dist/generated/GenomeNexusAPIInternal';
 import _ from 'lodash';
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { components } from 'react-select';
@@ -36,6 +36,11 @@ export default class SearchBox extends React.Component<ISearchBoxProps, {}>
             .catch((error: any) => callback(error, null));
     }, 500);
 
+    constructor(props: any) {
+        super(props);
+        makeObservable(this);
+    }
+    
     @action.bound
     public getOptions(keyword: string) {
         this.keyword = keyword;

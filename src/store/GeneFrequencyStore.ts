@@ -1,5 +1,5 @@
 import _ from "lodash";
-import {action, computed, observable} from "mobx";
+import {action, computed, makeObservable, observable} from "mobx";
 import {DataFilter, DataFilterType} from "react-mutation-mapper";
 
 import {ISignalGeneFrequencySummary, ISignalTumorTypeFrequencySummary} from "cbioportal-utils";
@@ -100,6 +100,7 @@ class GeneFrequencyStore
     }
 
     constructor() {
+        makeObservable(this);
         const geneFrequencySummaryDataPromise: Promise<ISignalGeneFrequencySummary[]> =
             fetchFrequencySummaryByGene();
 

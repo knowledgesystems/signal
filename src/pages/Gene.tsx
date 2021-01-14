@@ -1,4 +1,4 @@
-import {action, computed, observable} from "mobx";
+import {action, computed, makeObservable, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from 'react';
 
@@ -25,6 +25,19 @@ class Gene extends React.Component<IGeneProps>
     @observable
     private signalStatus: DataStatus = 'pending';
 
+    constructor(props: any) {
+        super(props);
+        makeObservable(this);
+    }
+
+    // @computed get loader() {
+    //     return this.getLoader();
+    // }
+
+    @computed get loader() {
+        return loaderWithText("Fetching alterations...");
+    }
+    
     @computed
     private get hugoSymbol() {
         return this.props.hugoSymbol;
@@ -33,10 +46,6 @@ class Gene extends React.Component<IGeneProps>
     @computed
     private get geneStore() {
         return new EnsemblGeneStore(this.hugoSymbol);
-    }
-
-    private get loader() {
-        return loaderWithText("Fetching alterations...");
     }
 
     public render()
@@ -71,10 +80,16 @@ class Gene extends React.Component<IGeneProps>
             .catch(this.handleSignalDataError);
     }
 
+    // @action.bound
+    // protected getLoader() {
+    //     return loaderWithText("Fetching alterations...");
+    // }
+
     @action.bound
     private handleSignalDataLoad(mutations: IExtendedSignalMutation[])
     {
-        this.signalStatus = 'complete';
+        
+        this.signalStatus = 'complete';       
         this.signalMutations = mutations;
     }
 
@@ -82,6 +97,11 @@ class Gene extends React.Component<IGeneProps>
     private handleSignalDataError(reason: any) {
         this.signalStatus = 'error';
     }
+
+    // @action.bound
+    // private loader() {
+    //     return loaderWithText("Fetching alterations...");
+    // }
 }
 
 export default Gene;

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import {action, observable} from "mobx";
+import {action, makeObservable, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 import {ButtonGroup} from "react-bootstrap";
@@ -27,6 +27,7 @@ export class AxisScaleSwitch extends React.Component<IAxisScaleSwitchProps, {}>
     constructor(props: IAxisScaleSwitchProps) {
         super(props);
         this.selectedScale = props.selectedScale;
+        makeObservable(this);
     }
 
     public toggleButton(scale: AxisScale,

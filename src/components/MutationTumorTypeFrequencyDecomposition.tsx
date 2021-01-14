@@ -1,4 +1,4 @@
-import {action, observable} from "mobx";
+import {action, makeObservable, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 
@@ -22,6 +22,11 @@ class MutationTumorTypeFrequencyDecomposition extends React.Component<ITumorType
 
     @observable
     private status: DataStatus = 'pending';
+
+    constructor(props: any) {
+        super(props);
+        makeObservable(this);
+    }
 
     public render()
     {

@@ -1,4 +1,4 @@
-import {observable} from "mobx";
+import {makeObservable, observable} from "mobx";
 
 import {IEnsemblGene} from "../model/EnsemblGene";
 import {fetchEnsemblGene} from "../util/EnsemblDataUtils";
@@ -18,6 +18,7 @@ class EnsemblGeneStore
     public filterText: string|undefined;
 
     constructor(hugoSymbol: string) {
+        makeObservable(this);
         this.ensemblGenePromise = fetchEnsemblGene(hugoSymbol);
 
         this.ensemblGenePromise

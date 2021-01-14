@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { action, computed, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import {CancerTypeFilter, DataFilterType} from "react-mutation-mapper";
 
 import {PenetranceLevel} from "../model/Penetrance";
@@ -38,6 +38,7 @@ class GeneFrequencyFilterHelper
         selectedHugoSymbols?: string[],
         hugoSymbolSearchText?: string
     ) {
+        makeObservable(this);
         this.selectedPenetranceLevels = selectedPenetranceLevels;
         this.selectedCancerTypes = selectedCancerTypes;
         this.selectedHugoSymbols = selectedHugoSymbols;

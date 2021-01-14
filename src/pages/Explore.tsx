@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import { action } from 'mobx';
+import { action, makeObservable } from 'mobx';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 import {Row} from 'react-bootstrap';
@@ -28,7 +28,7 @@ class Explore extends React.Component<IExploreProps>
 
     constructor(props: IExploreProps) {
         super(props);
-
+        makeObservable(this);
         this.filterHelper = new GeneFrequencyFilterHelper(
             this.props.frequencyStore,
             this.defaultFilterHandler,

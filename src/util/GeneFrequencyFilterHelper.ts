@@ -8,7 +8,8 @@ import {
     applyGeneFrequencySummaryPenetranceFilter,
     CANCER_TYPE_FILTER_ID,
     HUGO_SYMBOL_DROPDOWN_FILTER_ID,
-    HUGO_SYMBOL_FILTER_TYPE, HUGO_SYMBOL_SEARCH_FILTER_ID,
+    HUGO_SYMBOL_FILTER_TYPE,
+    HUGO_SYMBOL_SEARCH_FILTER_ID,
     HugoSymbolFilter,
     PENETRANCE_FILTER_ID,
     PENETRANCE_FILTER_TYPE,
@@ -31,14 +32,15 @@ class GeneFrequencyFilterHelper
 
 
     constructor(
-        private geneFrequencyStore?: GeneFrequencyStore,
-        private defaultFilterHandler?: () => void,
+        private readonly geneFrequencyStore?: GeneFrequencyStore,
+        private readonly defaultFilterHandler?: () => void,
         selectedPenetranceLevels?: PenetranceLevel[],
         selectedCancerTypes?: string[],
         selectedHugoSymbols?: string[],
         hugoSymbolSearchText?: string
     ) {
         makeObservable(this);
+
         this.selectedPenetranceLevels = selectedPenetranceLevels;
         this.selectedCancerTypes = selectedCancerTypes;
         this.selectedHugoSymbols = selectedHugoSymbols;
@@ -50,10 +52,18 @@ class GeneFrequencyFilterHelper
     @computed
     public get isFiltered(): boolean
     {
+        // here we force access to each observable field so that mobx behaves as desired
+        const hasGeneFrequencySummaryDataFilters =
+            this.geneFrequencyStore !== undefined &&
+            this.geneFrequencyStore.geneFrequencySummaryDataFilters.length > 0;
+        const hasTumorTypeFrequencySummaryDataFilters =
+            this.geneFrequencyStore !== undefined &&
+            this.geneFrequencyStore.tumorTypeFrequencySummaryDataFilters.length > 0;
+
         return (
             !this.geneFrequencyStore ||
-            this.geneFrequencyStore.geneFrequencySummaryDataFilters.length > 0 ||
-            this.geneFrequencyStore.tumorTypeFrequencySummaryDataFilters.length > 0
+            hasGeneFrequencySummaryDataFilters ||
+            hasTumorTypeFrequencySummaryDataFilters
         );
     }
 
@@ -115,9 +125,8 @@ class GeneFrequencyFilterHelper
         }: undefined;
     }
 
-    @action.bound
-    public handlePenetranceSelect(penetrance: PenetranceLevel)
-    {
+    @action
+    public handlePenetranceSelect = (penetrance: PenetranceLevel) => {
         let selectedPenetranceLevels = this.selectedPenetranceLevels || [];
 
         selectedPenetranceLevels = selectedPenetranceLevels.includes(penetrance) ?
@@ -135,8 +144,8 @@ class GeneFrequencyFilterHelper
         }
     }
 
-    @action.bound
-    public handleCancerTypeSelect(selectedCancerTypeIds: string[], allValuesSelected: boolean)
+    @action
+    public handleCancerTypeSelect = (selectedCancerTypeIds: string[], allValuesSelected: boolean) =>
     {
         this.selectedCancerTypes = allValuesSelected ? undefined: selectedCancerTypeIds;
 
@@ -149,8 +158,8 @@ class GeneFrequencyFilterHelper
         }
     }
 
-    @action.bound
-    public handleHugoSymbolSelect(selectedHugoSymbols: string[], allValuesSelected: boolean)
+    @action
+    public handleHugoSymbolSelect = (selectedHugoSymbols: string[], allValuesSelected: boolean) =>
     {
         this.selectedHugoSymbols = allValuesSelected ? undefined: selectedHugoSymbols;
 
@@ -163,8 +172,8 @@ class GeneFrequencyFilterHelper
         }
     }
 
-    @action.bound
-    public handleHugoSymbolSearch(searchText: string) {
+    @action
+    public handleHugoSymbolSearch = (searchText: string) => {
         this.hugoSymbolSearchText = searchText ? searchText: undefined;
 
         if (this.geneFrequencyStore) {
@@ -176,8 +185,8 @@ class GeneFrequencyFilterHelper
         }
     }
 
-    @action.bound
-    public handleFilterReset()
+    @action
+    public handleFilterReset = () =>
     {
         this.selectedPenetranceLevels = undefined;
         this.selectedCancerTypes = undefined;
@@ -191,8 +200,8 @@ class GeneFrequencyFilterHelper
         }
     }
 
-    @action.bound
-    private updateFilters()
+    @action
+    private updateFilters = () =>
     {
         if (this.geneFrequencyStore) {
             this.geneFrequencyStore.updateGeneFrequencySummaryDataFilters(PENETRANCE_FILTER_ID, this.penetranceFilter);

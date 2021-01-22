@@ -16,7 +16,7 @@ interface ISearchBoxProps {
 }
 
 @observer
-export default class SearchBox extends React.Component<ISearchBoxProps, {}>
+export default class SearchBox extends React.Component<ISearchBoxProps>
 {
     public static defaultProps: Partial<ISearchBoxProps> = {
         placeholder: "Search Gene / Variant / Region"
@@ -36,7 +36,7 @@ export default class SearchBox extends React.Component<ISearchBoxProps, {}>
             .catch((error: any) => callback(error, null));
     }, 500);
 
-    constructor(props: any) {
+    constructor(props: ISearchBoxProps) {
         super(props);
         makeObservable(this);
     }

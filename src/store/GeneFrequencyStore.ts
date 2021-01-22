@@ -9,7 +9,8 @@ import {
     applyTumorTypeFrequencySummaryCancerTypeFilter,
     HUGO_SYMBOL_FILTER_TYPE,
     isKnownTumorType,
-    PENETRANCE_FILTER_TYPE, updateDataFilters,
+    PENETRANCE_FILTER_TYPE,
+    updateDataFilters,
 } from "../util/FilterUtils";
 import {fetchFrequencySummaryByGene, fetchTumorTypeFrequencySummaryByGene} from "../util/FrequencyDataUtils";
 import {DataStatus} from "./DataStatus";
@@ -101,31 +102,44 @@ class GeneFrequencyStore
 
     constructor() {
         makeObservable(this);
+
         const geneFrequencySummaryDataPromise: Promise<ISignalGeneFrequencySummary[]> =
             fetchFrequencySummaryByGene();
 
         geneFrequencySummaryDataPromise
-            .then(data => {
-                this.geneFrequencySummaryData = data;
-                this.frequencySummaryDataStatus = 'complete';
-            })
-            .catch(() => {
-                this.geneFrequencySummaryData = [];
-                this.frequencySummaryDataStatus = 'error';
-            });
+            .then(this.handleGeneFrequencySummaryDataLoad)
+            .catch(this.handleGeneFrequencySummaryDataError);
 
         const tumorTypeFrequencySummaryDataPromise: Promise<ISignalTumorTypeFrequencySummary[]> =
             fetchTumorTypeFrequencySummaryByGene();
 
         tumorTypeFrequencySummaryDataPromise
-            .then(data => {
-                this.tumorTypeFrequencySummaryData = data;
-                this.tumorTypeFrequenciesDataStatus = 'complete';
-            })
-            .catch(() => {
-                this.tumorTypeFrequencySummaryData = [];
-                this.tumorTypeFrequenciesDataStatus = 'error';
-            });
+            .then(this.handleTumorTypeFrequencySummaryDataLoad)
+            .catch(this.handleTumorTypeFrequencySummaryDataError);
+    }
+
+    @action.bound
+    public handleGeneFrequencySummaryDataLoad(data: ISignalGeneFrequencySummary[]) {
+        this.geneFrequencySummaryData = data;
+        this.frequencySummaryDataStatus = 'complete';
+    }
+
+    @action.bound
+    public handleGeneFrequencySummaryDataError() {
+        this.geneFrequencySummaryData = [];
+        this.frequencySummaryDataStatus = 'error';
+    }
+
+    @action.bound
+    public handleTumorTypeFrequencySummaryDataLoad(data: ISignalTumorTypeFrequencySummary[]) {
+        this.tumorTypeFrequencySummaryData = data;
+        this.tumorTypeFrequenciesDataStatus = 'complete';
+    }
+
+    @action.bound
+    public handleTumorTypeFrequencySummaryDataError() {
+        this.tumorTypeFrequencySummaryData = [];
+        this.tumorTypeFrequenciesDataStatus = 'error';
     }
 
     @action

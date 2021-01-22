@@ -12,7 +12,7 @@ class CellOverlay extends React.Component<ICellOverlayProps>
     @observable
     private content:JSX.Element;
 
-    constructor(props: any) {
+    constructor(props: ICellOverlayProps) {
         super(props);
         makeObservable(this);
     }

@@ -25,14 +25,10 @@ class Gene extends React.Component<IGeneProps>
     @observable
     private signalStatus: DataStatus = 'pending';
 
-    constructor(props: any) {
+    constructor(props: IGeneProps) {
         super(props);
         makeObservable(this);
     }
-
-    // @computed get loader() {
-    //     return this.getLoader();
-    // }
 
     @computed get loader() {
         return loaderWithText("Fetching alterations...");
@@ -48,6 +44,13 @@ class Gene extends React.Component<IGeneProps>
         return new EnsemblGeneStore(this.hugoSymbol);
     }
 
+    @computed
+    private get isLoading() {
+        // here we force access to each observable field so that mobx behaves as desired
+        const isPending = this.signalStatus === 'pending';
+        return this.geneStore.ensemblGeneDataStatus === "pending" || isPending;
+    }
+
     public render()
     {
         return (
@@ -58,7 +61,7 @@ class Gene extends React.Component<IGeneProps>
                 }}
             >
                 {
-                    this.signalStatus === 'pending' || this.geneStore.ensemblGeneDataStatus === "pending" ?
+                    this.isLoading ?
                         this.loader :
                         <MutationMapper
                             hugoSymbol={this.hugoSymbol}
@@ -80,15 +83,9 @@ class Gene extends React.Component<IGeneProps>
             .catch(this.handleSignalDataError);
     }
 
-    // @action.bound
-    // protected getLoader() {
-    //     return loaderWithText("Fetching alterations...");
-    // }
-
     @action.bound
     private handleSignalDataLoad(mutations: IExtendedSignalMutation[])
     {
-        
         this.signalStatus = 'complete';       
         this.signalMutations = mutations;
     }
@@ -97,11 +94,6 @@ class Gene extends React.Component<IGeneProps>
     private handleSignalDataError(reason: any) {
         this.signalStatus = 'error';
     }
-
-    // @action.bound
-    // private loader() {
-    //     return loaderWithText("Fetching alterations...");
-    // }
 }
 
 export default Gene;

@@ -122,27 +122,25 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
         return totalFilteredSamples(this.store.dataStore.allData);
     }
 
-    // @computed
-    // protected get plotTopYAxisSymbol() {
-    //     return this.showPercent ? "%" : "#";
-    // }
+    protected get plotTopYAxisSymbol() {
+        return this.showPercent ? "%" : "#";
+    }
 
-    // @computed
-    // protected get plotBottomYAxisSymbol() {
-    //     return this.showPercent ? "%" : "#";
-    // }
+    protected get plotBottomYAxisSymbol() {
+        return this.showPercent ? "%" : "#";
+    }
 
-    // @computed
-    // protected get plotTopYAxisDefaultMax() {
-    //     return this.showPercent ? 0 : 5;
-    // }
+    protected get plotTopYAxisDefaultMax() {
+        return this.showPercent ? 0 : 5;
+    }
 
-    // @computed
-    // protected get plotBottomYAxisDefaultMax() {
-    //     return this.showPercent ? 0 : 5;
-    // }
+    protected get plotBottomYAxisDefaultMax() {
+        return this.showPercent ? 0 : 5;
+    }
 
-
+    protected get plotYMaxLabelPostfix() {
+        return this.showPercent ? "%" : "";
+    }
 
     constructor(props: ISignalMutationMapperProps)
     {
@@ -151,25 +149,6 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
         if (props.onInit) {
             props.onInit(this);
         }
-    }
-    protected getPlotYMaxLabelPostfix() {
-        return this.showPercent ? "%" : "";
-    }
-
-    protected getPlotBottomYAxisDefaultMax() {
-        return this.showPercent ? 0 : 5;
-    }
-
-    protected  getPlotTopYAxisDefaultMax() {
-        return this.showPercent ? 0 : 5;
-    }
-
-    protected getPlotBottomYAxisSymbol() {
-        return this.showPercent ? "%" : "#";
-    }
-
-    protected getPlotTopYAxisSymbol() {
-        return this.showPercent ? "%" : "#";
     }
 
     /**

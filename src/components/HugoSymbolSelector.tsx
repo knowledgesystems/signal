@@ -3,19 +3,16 @@ import * as React from 'react';
 
 import {DropdownSelector, DropdownSelectorProps} from "react-mutation-mapper";
 
-@observer
-export class HugoSymbolSelector extends React.Component<DropdownSelectorProps, {}>
+export const HugoSymbolSelector = observer((props: DropdownSelectorProps) =>
 {
-    public render() {
-        return (
-            <DropdownSelector
-                name="hugoSymbolFilter"
-                placeholder="Gene"
-                showControls={true}
-                {...this.props}
-            />
-        );
-    }
-}
+    return (
+        <DropdownSelector
+            name="hugoSymbolFilter"
+            placeholder="Gene"
+            showControls={true}
+            {...props}
+        />
+    );
+});
 
 export default HugoSymbolSelector;

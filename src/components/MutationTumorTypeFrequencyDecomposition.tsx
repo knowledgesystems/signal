@@ -24,7 +24,7 @@ class MutationTumorTypeFrequencyDecomposition extends React.Component<ITumorType
     @observable
     private status: DataStatus = 'pending';
 
-    constructor(props: any) {
+    constructor(props: ITumorTypeFrequencyDecompositionProps) {
         super(props);
         makeObservable(this);
     }

@@ -3,19 +3,16 @@ import * as React from 'react';
 
 import {DropdownSelector, DropdownSelectorProps} from "react-mutation-mapper";
 
-@observer
-export class CancerTypeSelector extends React.Component<DropdownSelectorProps, {}>
+export const CancerTypeSelector = observer((props: DropdownSelectorProps) =>
 {
-    public render() {
-        return (
-            <DropdownSelector
-                name="cancerTypeFilter"
-                placeholder="Cancer Type"
-                showControls={true}
-                {...this.props}
-            />
-        );
-    }
-}
+    return (
+        <DropdownSelector
+            name="cancerTypeFilter"
+            placeholder="Cancer Type"
+            showControls={true}
+            {...props}
+        />
+    );
+});
 
 export default CancerTypeSelector;

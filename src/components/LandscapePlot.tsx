@@ -2,7 +2,7 @@ import autobind from "autobind-decorator";
 import {CBIOPORTAL_VICTORY_THEME, ScatterPlot} from "cbioportal-frontend-commons";
 import {ISignalTumorTypeFrequencySummary, SignalMutationStatus} from "cbioportal-utils";
 import _ from "lodash";
-import {computed} from "mobx";
+import {computed, makeObservable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 import { Link } from 'react-router-dom';
@@ -60,11 +60,28 @@ function generateTheme() {
 @observer
 class LandscapePlot extends React.Component<ILandscapePlotProps>
 {
+    constructor(props: ILandscapePlotProps) {
+        super(props);
+        makeObservable(this);
+    }
+
     @computed
     public get scatterPlotData(): IScatterPlotDatum[]
     {
         return this.props.frequencyStore.filteredTumorTypeFrequencySummaryData.map(
             d => tumorFrequencyDatumToScatterPlotDatum(d, this.props.frequencyStore.sampleCountByTumorType)
+        );
+    }
+
+    @computed
+    public get geneIndex(): {[gene: string]: number}
+    {
+        return this.genesWithSignificantPathogenicGermlineRatio.reduce(
+            (acc, gene) => {
+                acc[gene] = this.genesWithSignificantPathogenicGermlineRatio.indexOf(gene);
+                return acc;
+            },
+            {}
         );
     }
 
@@ -154,10 +171,7 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
 
     @autobind
     private compareHugoGeneSymbols(a: string, b: string) {
-        return Math.sign(
-            this.genesWithSignificantPathogenicGermlineRatio.indexOf(a) -
-            this.genesWithSignificantPathogenicGermlineRatio.indexOf(b)
-        );
+        return Math.sign(this.geneIndex[a] - this.geneIndex[b]);
     }
 
     @autobind

@@ -20,42 +20,39 @@ export interface IGeneLevelFilterPanelProps {
     onHugoSymbolSelect?: (hugoSymbols: string[], allValuesSelected: boolean) => void;
 }
 
-@observer
-class LandscapeFilterPanel extends React.Component<IGeneLevelFilterPanelProps>
+const LandscapeFilterPanel = observer((props: IGeneLevelFilterPanelProps) =>
 {
-    public render() {
-        return (
-            <>
-                <Col xs={0} lg={1} className="m-auto" />
-                <Col xs={12} sm={6} lg={2} className="px-2">
-                    <HugoSymbolSelector
-                        filter={this.props.hugoSymbolFilter}
-                        options={this.props.hugoSymbolOptions}
-                        onSelect={this.props.onHugoSymbolSelect}
+    return (
+        <>
+            <Col xs={0} lg={1} className="m-auto" />
+            <Col xs={12} sm={6} lg={2} className="px-2">
+                <HugoSymbolSelector
+                    filter={props.hugoSymbolFilter}
+                    options={props.hugoSymbolOptions}
+                    onSelect={props.onHugoSymbolSelect}
+                />
+            </Col>
+            <Col xs={12} sm={6} lg={2} className="px-2">
+                <CancerTypeSelector
+                    filter={props.cancerTypeFilter}
+                    options={props.cancerTypesOptions}
+                    onSelect={props.onCancerTypeSelect}
+                />
+            </Col>
+            <Col xs={12} sm={6} lg={2} className="px-2">
+                {props.isFiltered &&
+                    <FilterResetPanel
+                        resetFilters={props.onResetFilters}
+                        buttonText="Clear Filters"
+                        filterInfo=""
+                        className=""
                     />
-                </Col>
-                <Col xs={12} sm={6} lg={2} className="px-2">
-                    <CancerTypeSelector
-                        filter={this.props.cancerTypeFilter}
-                        options={this.props.cancerTypesOptions}
-                        onSelect={this.props.onCancerTypeSelect}
-                    />
-                </Col>
-                <Col xs={12} sm={6} lg={2} className="px-2">
-                    {this.props.isFiltered &&
-                        <FilterResetPanel
-                            resetFilters={this.props.onResetFilters}
-                            buttonText="Clear Filters"
-                            filterInfo=""
-                            className=""
-                        />
-                    }
-                </Col>
-                <Col xs={12} sm={6} lg={2} className="px-2" />
-                <Col xs={0} lg={1} className="m-auto" />
-            </>
-        );
-    }
-}
+                }
+            </Col>
+            <Col xs={12} sm={6} lg={2} className="px-2" />
+            <Col xs={0} lg={1} className="m-auto" />
+        </>
+    );
+});
 
 export default LandscapeFilterPanel;

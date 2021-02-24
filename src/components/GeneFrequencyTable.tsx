@@ -1,7 +1,7 @@
 import autobind from "autobind-decorator";
 import {DefaultTooltip} from "cbioportal-frontend-commons";
 import {ISignalGeneFrequencySummary} from "cbioportal-utils";
-import {action, computed} from "mobx";
+import {action, computed, makeObservable} from "mobx";
 import {observer} from "mobx-react";
 import pluralize from 'pluralize';
 import * as React from "react";
@@ -51,6 +51,11 @@ export function sortPenetrance(a: string[], b: string[])
 class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
 {
     private tableComponentRef: GeneFrequencyTableComponent;
+
+    constructor(props: IFrequencyTableProps) {
+        super(props);
+        makeObservable(this);
+    }
 
     @computed
     private get filteredData() {

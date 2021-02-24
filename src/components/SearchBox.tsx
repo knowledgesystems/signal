@@ -1,6 +1,6 @@
 import { SignalQuery } from 'genome-nexus-ts-api-client/dist/generated/GenomeNexusAPIInternal';
 import _ from 'lodash';
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { components } from 'react-select';
@@ -16,7 +16,7 @@ interface ISearchBoxProps {
 }
 
 @observer
-export default class SearchBox extends React.Component<ISearchBoxProps, {}>
+export default class SearchBox extends React.Component<ISearchBoxProps>
 {
     public static defaultProps: Partial<ISearchBoxProps> = {
         placeholder: "Search Gene / Variant / Region"
@@ -36,8 +36,13 @@ export default class SearchBox extends React.Component<ISearchBoxProps, {}>
             .catch((error: any) => callback(error, null));
     }, 500);
 
-    @action.bound
-    public getOptions(keyword: string) {
+    constructor(props: ISearchBoxProps) {
+        super(props);
+        makeObservable(this);
+    }
+
+    @action
+    public getOptions = (keyword: string) => {
         this.keyword = keyword;
 
         return searchMutationsByKeyword(keyword);
@@ -45,7 +50,7 @@ export default class SearchBox extends React.Component<ISearchBoxProps, {}>
 
     public render()
     {
-        const Option: React.FunctionComponent<any> = (props: any) => {
+        const Option: React.FunctionComponent<any> = observer((props: any) => {
             return (
                 <>
                     <components.Option {...props}>
@@ -59,9 +64,9 @@ export default class SearchBox extends React.Component<ISearchBoxProps, {}>
                     </components.Option>
                 </>
             );
-        };
+        });
 
-        const NoOptionsMessage: React.FunctionComponent<any> = (props: any) => {
+        const NoOptionsMessage: React.FunctionComponent<any> = observer((props: any) => {
             if (this.keyword) {
                 return (
                     <components.Option {...props}>
@@ -73,7 +78,20 @@ export default class SearchBox extends React.Component<ISearchBoxProps, {}>
             } else {
                 return null;
             }
-        };
+        });
+
+        // this is a workaround for the problem with menuIsOpen option,
+        // it doesn't update when this.menuIsOpen changes to true,
+        // so we need to update the menu within a custom Menu component
+        const Menu: React.FunctionComponent<any> = observer((props: any) => {
+            if (!_.isEmpty(this.keyword)) {
+                return (
+                    <components.Menu {...props} />
+                );
+            } else {
+                return null;
+            }
+        });
 
         return (
             <AsyncSelect
@@ -83,6 +101,7 @@ export default class SearchBox extends React.Component<ISearchBoxProps, {}>
                     DropdownIndicator: () => null,
                     IndicatorSeparator: () => null,
                     NoOptionsMessage,
+                    Menu
                 }}
                 styles={{
                     input(styles) {
@@ -102,7 +121,9 @@ export default class SearchBox extends React.Component<ISearchBoxProps, {}>
                 }}
                 isFocused={true}
                 defaultOptions={[] as SignalQuery[]}
-                menuIsOpen={!!this.keyword}
+                // for some reason this.keyword is not observed. we need to set menuIsOpen to always true, and
+                // handle rendering inside the custom Menu component instead
+                menuIsOpen={true}
                 isClearable={true}
                 value={this.selectedOption}
                 onChange={this.handleChange}
@@ -114,13 +135,13 @@ export default class SearchBox extends React.Component<ISearchBoxProps, {}>
         );
     }
 
-    @action.bound
-    private handleInputChange(keyword: string) {
+    @action
+    private handleInputChange = (keyword: string) => {
         this.keyword = keyword;
     }
 
-    @action.bound
-    private handleChange(query: SignalQuery) {
+    @action
+    private handleChange = (query: SignalQuery) => {
         if (query) {
             this.keyword = '';
             this.selectedOption = null;

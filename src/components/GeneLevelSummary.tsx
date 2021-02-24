@@ -1,4 +1,4 @@
-import {computed} from "mobx";
+import {computed, makeObservable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from 'react';
 import {
@@ -20,6 +20,11 @@ interface IGeneLevelSummaryProps {
 @observer
 class GeneLevelSummary extends React.Component<IGeneLevelSummaryProps>
 {
+    constructor(props: IGeneLevelSummaryProps) {
+        super(props);
+        makeObservable(this);
+    }
+
     @computed
     private get frequencyStore() {
         return this.props.frequencyStore || new GeneFrequencyStore();
@@ -30,17 +35,20 @@ class GeneLevelSummary extends React.Component<IGeneLevelSummaryProps>
         return this.props.filterHelper || new GeneFrequencyFilterHelper(this.frequencyStore);
     }
 
-    private get loadingIndicator() {
-        return <i className="fa fa-spinner fa-pulse fa-2x" />;
+    @computed
+    private get isLoading(): boolean {
+        // here we force access to each observable field so that mobx behaves as desired
+        const isPending = this.frequencyStore.frequencySummaryDataStatus === "pending";
+        return this.frequencyStore.tumorTypeFrequenciesDataStatus === "pending" || isPending;
     }
 
     public render() {
         return (
             <div className="text-center mb-4">
-                {this.isLoading() ? (
+                {this.isLoading ? (
                     <Row>
                         <Col className="m-auto">
-                            {this.loadingIndicator}
+                            <i className="fa fa-spinner fa-pulse fa-2x" />
                         </Col>
                     </Row>
                 ) : (
@@ -63,11 +71,6 @@ class GeneLevelSummary extends React.Component<IGeneLevelSummaryProps>
                 )}
             </div>
         );
-    }
-
-    private isLoading(): boolean {
-        return this.frequencyStore.frequencySummaryDataStatus === "pending" ||
-            this.frequencyStore.tumorTypeFrequenciesDataStatus === "pending";
     }
 }
 

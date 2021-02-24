@@ -1,12 +1,13 @@
-import {action, observable} from "mobx";
+import {action, makeObservable, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 
+import {MutationTumorTypeFrequencyTable} from 'cbioportal-frontend-commons';
 import {ISignalTumorTypeDecomposition} from "cbioportal-utils";
+
 import {DataStatus} from "../store/DataStatus";
 
 import "react-table/react-table.css";
-import { MutationTumorTypeFrequencyTable } from 'react-variant-view';
 
 interface ITumorTypeFrequencyDecompositionProps
 {
@@ -22,6 +23,11 @@ class MutationTumorTypeFrequencyDecomposition extends React.Component<ITumorType
 
     @observable
     private status: DataStatus = 'pending';
+
+    constructor(props: ITumorTypeFrequencyDecompositionProps) {
+        super(props);
+        makeObservable(this);
+    }
 
     public render()
     {

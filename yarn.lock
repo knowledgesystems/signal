@@ -25,10 +25,17 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.1.2":
   version "7.11.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
   integrity sha512-TeWkU52so0mPtDcaCTxNBI/IHiz0pZgr8VEFqXFtZWpYD08ZB6FaSwVAS8MKRQAP3bYKiVjwysOJgMFY28o6Tw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.10.1", "@babel/runtime@^7.11.1", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5":
+  version "7.13.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.13.0.tgz#7f2cd0e2086626eea186a5a062e21e77ec0e45d0"
+  integrity sha512-himjPiVq1N4Eqv80uaIMdLYav1LWO51J7PwQkgp3z8N0v8cnaeP5kSgWH4hS6jvjjWAbh5tB5fVw+zuNyyQTYQ==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -2127,21 +2134,23 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-cbioportal-frontend-commons@^0.3.20:
-  version "0.3.20"
-  resolved "https://registry.yarnpkg.com/cbioportal-frontend-commons/-/cbioportal-frontend-commons-0.3.20.tgz#7cf87875943685dcf13f220fb3194b0f214fd050"
-  integrity sha512-757XSjJo7syvAV5HK7+cI4vuz0BJD8H/SMIX3aY0O/IHdre8yD7jlEIjDO2BkReGxVbh6QHMFgxzrRkOnRXxCw==
+cbioportal-frontend-commons@^0.4.8:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/cbioportal-frontend-commons/-/cbioportal-frontend-commons-0.4.8.tgz#1e97025e9276ff83a73a7b5f962c183453b06ae6"
+  integrity sha512-Pd77ME9kIgNjGjGtB85zmPxgIM3k3/bZMDPwVc3kDcdHB68kptDYIulFcnK15VORiyfPU7hy4MUGPEm145kZfw==
   dependencies:
     autobind-decorator "^2.1.0"
-    cbioportal-utils "^0.2.17"
+    cbioportal-utils "^0.2.25"
     classnames "^2.2.5"
     jquery "^3.2.1"
     lodash "^4.17.11"
     measure-text "0.0.4"
-    mobxpromise "github:cbioportal/mobxpromise#v1.0.2"
+    mobxpromise "github:cbioportal/mobxpromise#303db72588860bff0a6862a4f07a4e8a3578c94f"
     object-sizeof "^1.2.0"
-    oncokb-ts-api-client "^1.1.3"
-    rc-tooltip "3.7.3"
+    oncokb-ts-api-client "^1.1.5"
+    rc-tooltip "^5.0.2"
+    rc-trigger "^5.2.1"
+    rc-util "^5.8.0"
     react-file-download "^0.3.2"
     react-overlays "0.7.4"
     react-select "^3.0.4"
@@ -2153,14 +2162,14 @@ cbioportal-frontend-commons@^0.3.20:
     url "^0.11.0"
     victory "30.0.0"
 
-cbioportal-utils@^0.2.17:
-  version "0.2.17"
-  resolved "https://registry.yarnpkg.com/cbioportal-utils/-/cbioportal-utils-0.2.17.tgz#9cd61888fdde8b99bc5fee81fdc2698c176f4469"
-  integrity sha512-gB9H4tKfROaMxQcK0cC+4J3u6Kza5cQ9r9jrmU3y68rmF3x8n30Dj8O3c7ihC+9kjJsgBhx0NxkShk/aIiBKmQ==
+cbioportal-utils@^0.2.25:
+  version "0.2.25"
+  resolved "https://registry.yarnpkg.com/cbioportal-utils/-/cbioportal-utils-0.2.25.tgz#33190f59a5b690a9a83502c24201a1806c0b4e97"
+  integrity sha512-9MTDsNr3U8mg42KITH48FVHJSq5m9tgxKNfYCJ0WeP54a6ubW71BTOKlJoZ3e9oLqlIy/m7GrHCmbRZQhhEnpg==
   dependencies:
-    genome-nexus-ts-api-client "^1.1.12"
+    genome-nexus-ts-api-client "^1.1.13"
     lodash "^4.17.11"
-    oncokb-ts-api-client "^1.1.3"
+    oncokb-ts-api-client "^1.1.5"
     superagent "^3.8.3"
     typescript "4.0.3"
 
@@ -2281,7 +2290,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.3, classnames@^2.2.5, classnames@^2.2.6:
+classnames@2.x, classnames@^2.2.1, classnames@^2.2.3, classnames@^2.2.5, classnames@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
   integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
@@ -2918,11 +2927,6 @@ csstype@^2.2.0, csstype@^2.5.7:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.5.tgz#1cd1dff742ebf4d7c991470ae71e12bb6751e034"
   integrity sha512-JsTaiksRsel5n7XwqPAfB0l3TFKdpjW/kgAELf9vrb5adGA7UCPLajKK5s3nFrcFm3Rkyp/Qkgl73ENc1UY3cA==
 
-csstype@^3.0.2:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.3.tgz#2b410bbeba38ba9633353aff34b05d9755d065f8"
-  integrity sha512-jPl+wbWPOWJ7SXsWyqGRk3lGecbar0Cb0OvZF/r/ZU011R4YqiRehgkQ9p4eQfo9DSDLqLL3wHwfxeJiuIsNag==
-
 csvtojson@^2.0.10:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/csvtojson/-/csvtojson-2.0.10.tgz#11e7242cc630da54efce7958a45f443210357574"
@@ -3291,14 +3295,6 @@ dom-helpers@^3.2.0, dom-helpers@^3.2.1, dom-helpers@^3.4.0:
   integrity sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==
   dependencies:
     "@babel/runtime" "^7.1.2"
-
-dom-helpers@^5.0.1:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-5.2.0.tgz#57fd054c5f8f34c52a3eeffdb7e7e93cd357d95b"
-  integrity sha512-Ru5o9+V8CpunKnz5LGgWXkmrH/20cGKwcHwS4m73zIvs54CN9epEmT/HLqFJW3kXpakAFkEdzgy1hzlJe3E4OQ==
-  dependencies:
-    "@babel/runtime" "^7.8.7"
-    csstype "^3.0.2"
 
 dom-serializer@0:
   version "0.1.1"
@@ -4228,10 +4224,10 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
-genome-nexus-ts-api-client@^1.1.12:
-  version "1.1.12"
-  resolved "https://registry.yarnpkg.com/genome-nexus-ts-api-client/-/genome-nexus-ts-api-client-1.1.12.tgz#1c795922551426ee10b3d5c85f489b71212f28fb"
-  integrity sha512-XTFatFasHhsnWFNGFxhaaCpGESK22P379IQeIU/SeRo++ZVRbz+h903hlgs5dD5OUF2Wda6uwj0JS1j6khJW0A==
+genome-nexus-ts-api-client@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/genome-nexus-ts-api-client/-/genome-nexus-ts-api-client-1.1.13.tgz#27da18e424c7a19b18991ad67782083ad7b7d350"
+  integrity sha512-WeEUPyjZb+UXP1RdA2dQs51o31NC9fA5pAh2OlObcS+Bdg4zTRS82rFhcbFPOptOs300yT/XoGke6DaCG4bPgA==
   dependencies:
     superagent "^3.8.3"
     typescript "4.0.3"
@@ -4546,7 +4542,7 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0:
+hoist-non-react-statics@^2.5.0:
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
   integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
@@ -6177,10 +6173,15 @@ lodash.words@^3.0.0:
   dependencies:
     lodash._root "^3.0.0"
 
-"lodash@>=3.5 <5", lodash@^4.17.11, lodash@^4.17.19, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
+"lodash@>=3.5 <5", lodash@^4.17.11, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
   version "4.17.19"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
+
+lodash@^4.17.20:
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
 
 loglevel@^1.4.1:
   version "1.6.3"
@@ -6325,6 +6326,11 @@ memoize-one@^5.0.0:
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-5.0.4.tgz#005928aced5c43d890a4dfab18ca908b0ec92cbc"
   integrity sha512-P0z5IeAH6qHHGkJIXWw0xC2HNEgkx/9uWWBQw64FJj3/ol14VYdfVGWWr0fXfjhhv3TKVIqUq65os6O4GUNksA==
+
+memoize-weak-decorator@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/memoize-weak-decorator/-/memoize-weak-decorator-1.0.3.tgz#ee3e373fad529a1321b80f0f631fa604bed91ac4"
+  integrity sha1-7j43P61SmhMhuA8PYx+mBL7ZGsQ=
 
 memory-fs@^0.4.0, memory-fs@~0.4.1:
   version "0.4.1"
@@ -6530,23 +6536,28 @@ mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mobx-react@^4.1.3:
-  version "4.4.3"
-  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-4.4.3.tgz#baa9ec41165ee35ae7b9df19bca10190f36f117e"
-  integrity sha1-uqnsQRZe41rnud8ZvKEBkPNvEX4=
-  dependencies:
-    hoist-non-react-statics "^2.3.1"
+mobx-react-lite@^2.2.0:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/mobx-react-lite/-/mobx-react-lite-2.2.2.tgz#87c217dc72b4e47b22493daf155daf3759f868a6"
+  integrity sha512-2SlXALHIkyUPDsV4VTKVR9DW7K3Ksh1aaIv3NrNJygTbhXe2A9GrcKHZ2ovIiOp/BXilOcTYemfHHZubP431dg==
 
-mobx@^3.1.7:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.6.2.tgz#fb9f5ff5090539a1ad54e75dc4c098b602693320"
-  integrity sha512-Dq3boJFLpZEvuh5a/MbHLUIyN9XobKWIb0dBfkNOJffNkE3vtuY0C9kSDVpfH8BB0BPkVw8g22qCv7d05LEhKg==
-
-"mobxpromise@github:cbioportal/mobxpromise#v1.0.2":
-  version "1.3.1"
-  resolved "https://codeload.github.com/cbioportal/mobxpromise/tar.gz/bacd7f20be0b4e9285bd5330c103241a0f2d5256"
+mobx-react@^6.0.0:
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-6.3.1.tgz#204f9756e42e19d91cb6598837063b7e7de87c52"
+  integrity sha512-IOxdJGnRSNSJrL2uGpWO5w9JH5q5HoxEqwOF4gye1gmZYdjoYkkMzSGMDnRCUpN/BNzZcFoMdHXrjvkwO7KgaQ==
   dependencies:
-    mobx "^3.1.7"
+    mobx-react-lite "^2.2.0"
+
+mobx@^6.0.0:
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-6.0.4.tgz#8fc3e3629a3346f8afddf5bd954411974744dad1"
+  integrity sha512-wT2QJT9tW19VSHo9x7RPKU3z/I2Ps6wUS8Kb1OO+kzmg7UY3n4AkcaYG6jq95Lp1R9ohjC/NGYuT2PtuvBjhFg==
+
+"mobxpromise@github:cbioportal/mobxpromise#303db72588860bff0a6862a4f07a4e8a3578c94f":
+  version "2.0.1"
+  resolved "https://codeload.github.com/cbioportal/mobxpromise/tar.gz/303db72588860bff0a6862a4f07a4e8a3578c94f"
+  dependencies:
+    mobx "^6.0.0"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -6914,10 +6925,15 @@ oncokb-styles@~0.1.2:
   resolved "https://registry.yarnpkg.com/oncokb-styles/-/oncokb-styles-0.1.2.tgz#8b26c0a0829787cdc1b595d3a021b3266607102b"
   integrity sha512-tuy5s3qFxgf1ogMATQSRPNgLlAMrvOOTCAN1dm/wJ+VZoStbJ7g36/qHwc99UPfh3vrB05broLodF+k58p5tUw==
 
-oncokb-ts-api-client@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/oncokb-ts-api-client/-/oncokb-ts-api-client-1.1.3.tgz#4a85a86eb85b4617b6099819020f8dd432734338"
-  integrity sha512-7zrqNSXDyDjrfo4n6bTP0SBdEjeg3Y8fhxxfOcq/6+8gEzzOSLhkjvFK3Od+xm2kvXMsT9glKX7mu+g694rjSQ==
+oncokb-styles@~1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/oncokb-styles/-/oncokb-styles-1.1.0.tgz#2817ed1ed18720e18384ebf1e99c7706bac514e4"
+  integrity sha512-GSfqB2uGfJD9HefZJXlmNHXYJe0TbfKwAE1y0E5xc/ZKuL2Wle+KoesLL0iIxCyOc89uovnCXDYxSbIBxzgLGA==
+
+oncokb-ts-api-client@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/oncokb-ts-api-client/-/oncokb-ts-api-client-1.1.5.tgz#a9d75063e676016d3b8daced55fc0922a1083b8b"
+  integrity sha512-on0pjp1opi/uYcA8iMT5iYdGfWrnFGgsn/kemIv8sFPUmp4kCIfEza6+118MwhvLfk/6dF6qdP763iZJhG9/Ew==
   dependencies:
     superagent "^3.8.3"
     typescript "4.0.3"
@@ -7912,6 +7928,17 @@ rc-align@^2.4.0:
     prop-types "^15.5.8"
     rc-util "^4.0.4"
 
+rc-align@^4.0.0:
+  version "4.0.9"
+  resolved "https://registry.yarnpkg.com/rc-align/-/rc-align-4.0.9.tgz#46d8801c4a139ff6a65ad1674e8efceac98f85f2"
+  integrity sha512-myAM2R4qoB6LqBul0leaqY8gFaiECDJ3MtQDmzDo9xM9NRT/04TvWOYd2YHU9zvGzqk9QXF6S9/MifzSKDZeMw==
+  dependencies:
+    "@babel/runtime" "^7.10.1"
+    classnames "2.x"
+    dom-align "^1.7.0"
+    rc-util "^5.3.0"
+    resize-observer-polyfill "^1.5.1"
+
 rc-animate@2.x:
   version "2.8.3"
   resolved "https://registry.yarnpkg.com/rc-animate/-/rc-animate-2.8.3.tgz#80d45402f35d3617276fc14810fb8a635fe90dc0"
@@ -7924,7 +7951,16 @@ rc-animate@2.x:
     raf "^3.4.0"
     react-lifecycles-compat "^3.0.4"
 
-rc-tooltip@3.7.3, rc-tooltip@^3.7.3:
+rc-motion@^2.0.0:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/rc-motion/-/rc-motion-2.4.1.tgz#323f47c8635e6b2bc0cba2dfad25fc415b58e1dc"
+  integrity sha512-TWLvymfMu8SngPx5MDH8dQ0D2RYbluNTfam4hY/dNNx9RQ3WtGuZ/GXHi2ymLMzH+UNd6EEFYkOuR5JTTtm8Xg==
+  dependencies:
+    "@babel/runtime" "^7.11.1"
+    classnames "^2.2.1"
+    rc-util "^5.2.1"
+
+rc-tooltip@^3.7.3:
   version "3.7.3"
   resolved "https://registry.yarnpkg.com/rc-tooltip/-/rc-tooltip-3.7.3.tgz#280aec6afcaa44e8dff0480fbaff9e87fc00aecc"
   integrity sha512-dE2ibukxxkrde7wH9W8ozHKUO4aQnPZ6qBHtrTH9LoO836PjDdiaWO73fgPB05VfJs9FbZdmGPVEbXCeOP99Ww==
@@ -7932,6 +7968,14 @@ rc-tooltip@3.7.3, rc-tooltip@^3.7.3:
     babel-runtime "6.x"
     prop-types "^15.5.8"
     rc-trigger "^2.2.2"
+
+rc-tooltip@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/rc-tooltip/-/rc-tooltip-5.0.2.tgz#e48258fc9931bd9281102b2d9eacc5b986cf3258"
+  integrity sha512-A4FejSG56PzYtSNUU4H1pVzfhtkV/+qMT2clK0CsSj+9mbc4USEtpWeX6A/jjVL+goBOMKj8qlH7BCZmZWh/Nw==
+  dependencies:
+    "@babel/runtime" "^7.11.2"
+    rc-trigger "^5.0.0"
 
 rc-trigger@^2.2.2:
   version "2.6.3"
@@ -7945,6 +7989,17 @@ rc-trigger@^2.2.2:
     rc-animate "2.x"
     rc-util "^4.4.0"
 
+rc-trigger@^5.0.0, rc-trigger@^5.2.1:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/rc-trigger/-/rc-trigger-5.2.2.tgz#a6669a48573464614e512741dfb6940933987196"
+  integrity sha512-e6tyCw/xqp4KfYodEK2ecgiUEWQCsqrw2rMXWF6zSeq9SYoXMVZJz4ao8xct4YSiAe7zuaCKkPprS0xdqnAtMg==
+  dependencies:
+    "@babel/runtime" "^7.11.2"
+    classnames "^2.2.6"
+    rc-align "^4.0.0"
+    rc-motion "^2.0.0"
+    rc-util "^5.5.0"
+
 rc-util@^4.0.4, rc-util@^4.4.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-4.6.0.tgz#ba33721783192ec4f3afb259e182b04e55deb7f6"
@@ -7954,6 +8009,15 @@ rc-util@^4.0.4, rc-util@^4.4.0:
     babel-runtime "6.x"
     prop-types "^15.5.10"
     shallowequal "^0.2.2"
+
+rc-util@^5.2.1, rc-util@^5.3.0, rc-util@^5.5.0, rc-util@^5.8.0:
+  version "5.8.1"
+  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-5.8.1.tgz#e3630abfb92b40becb31476cee136d65e80e02e0"
+  integrity sha512-kXV/QjL+azh3AxMk68gm8+nltVoL6bjeJJULAZLRCLus2Fhvo/aaMZokxYov/E0dbfjo31I78pF4yVljqQB7bA==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    react-is "^16.12.0"
+    shallowequal "^1.1.0"
 
 rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
   version "1.2.8"
@@ -8038,15 +8102,15 @@ react-dev-utils@^5.0.2:
     strip-ansi "3.0.1"
     text-table "0.2.0"
 
-react-dom@^16.8.6:
-  version "16.8.6"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
-  integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
+react-dom@^16.13.1:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
+  integrity sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.13.6"
+    scheduler "^0.19.1"
 
 react-error-overlay@^4.0.1:
   version "4.0.1"
@@ -8084,12 +8148,10 @@ react-input-autosize@^2.2.1:
   dependencies:
     prop-types "^15.5.8"
 
-react-input-autosize@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.2.tgz#fcaa7020568ec206bc04be36f4eb68e647c4d8c2"
-  integrity sha512-jQJgYCA3S0j+cuOwzuCd1OjmBmnZLdqQdiLKRYrsMMzbjUrVDS5RvJUDwJqA7sKuksDuzFtm6hZGKFu7Mjk5aw==
-  dependencies:
-    prop-types "^15.5.8"
+react-is@^16.12.0, react-is@^16.8.1:
+  version "16.13.1"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
+  integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
 react-is@^16.3.2:
   version "16.8.6"
@@ -8115,21 +8177,22 @@ react-motion@^0.5.2:
     prop-types "^15.5.8"
     raf "^3.1.0"
 
-react-mutation-mapper@^0.6.25:
-  version "0.6.25"
-  resolved "https://registry.yarnpkg.com/react-mutation-mapper/-/react-mutation-mapper-0.6.25.tgz#962f8bab6ff0e61e3024fad40703f02a0f344e08"
-  integrity sha512-Q1MKaBeFRPCkQA5vBvVQcARSOOKtF6HqSNeAsZUWTpMItfr3vCLk/e59U38ajJdvxL1lAaOyn02VTJQ277SoTQ==
+react-mutation-mapper@^0.7.12:
+  version "0.7.12"
+  resolved "https://registry.yarnpkg.com/react-mutation-mapper/-/react-mutation-mapper-0.7.12.tgz#b57923cfdd454993385b2d2045b50a594afdf687"
+  integrity sha512-1cOfws9oFquI1R1cgRP+8rVNYCFiwz8yBhv6BKC47h+vUY70c9kIj43sx8zAwaXps3FIyriBpYIs2gUKIE0GuQ==
   dependencies:
     autobind-decorator "^2.1.0"
-    cbioportal-frontend-commons "^0.3.20"
-    cbioportal-utils "^0.2.17"
+    cbioportal-frontend-commons "^0.4.8"
+    cbioportal-utils "^0.2.25"
     classnames "^2.2.5"
-    genome-nexus-ts-api-client "^1.1.12"
+    genome-nexus-ts-api-client "^1.1.13"
     jquery "^3.2.1"
     lodash "^4.17.11"
-    mobxpromise "github:cbioportal/mobxpromise#v1.0.2"
-    oncokb-styles "~0.1.2"
-    oncokb-ts-api-client "^1.1.3"
+    memoize-weak-decorator "^1.0.3"
+    mobxpromise "github:cbioportal/mobxpromise#303db72588860bff0a6862a4f07a4e8a3578c94f"
+    oncokb-styles "~1.1.0"
+    oncokb-ts-api-client "^1.1.5"
     react-collapse "^4.0.3"
     react-if "^2.1.0"
     react-motion "^0.5.2"
@@ -8278,20 +8341,6 @@ react-select@^3.0.4:
     react-input-autosize "^2.2.1"
     react-transition-group "^2.2.1"
 
-react-select@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/react-select/-/react-select-3.1.0.tgz#ab098720b2e9fe275047c993f0d0caf5ded17c27"
-  integrity sha512-wBFVblBH1iuCBprtpyGtd1dGMadsG36W5/t2Aj8OE6WbByDg5jIFyT7X5gT+l0qmT5TqWhxX+VsKJvCEl2uL9g==
-  dependencies:
-    "@babel/runtime" "^7.4.4"
-    "@emotion/cache" "^10.0.9"
-    "@emotion/core" "^10.0.9"
-    "@emotion/css" "^10.0.9"
-    memoize-one "^5.0.0"
-    prop-types "^15.6.0"
-    react-input-autosize "^2.2.2"
-    react-transition-group "^4.3.0"
-
 react-table@^6.10.0:
   version "6.10.0"
   resolved "https://registry.yarnpkg.com/react-table/-/react-table-6.10.0.tgz#20444b19d8ca3c1a08e7544e5c3a93e4ba56690e"
@@ -8319,37 +8368,27 @@ react-transition-group@^4.0.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-transition-group@^4.3.0:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
-  integrity sha512-Djqr7OQ2aPUiYurhPalTrVy9ddmFCCzwhqQmtN+J3+3DzLO209Fdr70QrN8Z3DsglWql6iY1lDWAfpFiBtuKGw==
-  dependencies:
-    "@babel/runtime" "^7.5.5"
-    dom-helpers "^5.0.1"
-    loose-envify "^1.4.0"
-    prop-types "^15.6.2"
-
-react-variant-view@^0.1.13:
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/react-variant-view/-/react-variant-view-0.1.13.tgz#db1a6fc760ba42d469aa1f189197dc303614a996"
-  integrity sha512-+ghKYGunkPI+Qa3ya2sIB1MRe6/aTvB9abqlaTrgBd+eLJSmbezBNgd0Hb5eJGZR7nOIWl6l52FFygFkT1Lj0A==
+react-variant-view@^0.2.12:
+  version "0.2.12"
+  resolved "https://registry.yarnpkg.com/react-variant-view/-/react-variant-view-0.2.12.tgz#63640e949e9efe2e2a48a0190257c4a66eb9fe03"
+  integrity sha512-ar+kJby2uoz4veEuSw8vj02qGxBVaL86y59XX3y0cGxv9L34q6jRtyTetiZGsMQxcW9UDPe2kmyEMvDNbiEDtA==
   dependencies:
     autobind-decorator "^2.1.0"
-    cbioportal-frontend-commons "^0.3.20"
-    cbioportal-utils "^0.2.17"
+    cbioportal-frontend-commons "^0.4.8"
+    cbioportal-utils "^0.2.25"
     classnames "^2.2.5"
     font-awesome "^4.7.0"
-    genome-nexus-ts-api-client "^1.1.12"
+    genome-nexus-ts-api-client "^1.1.13"
     jquery "^3.2.1"
     lodash "^4.17.11"
-    mobxpromise "github:cbioportal/mobxpromise#v1.0.2"
+    mobxpromise "github:cbioportal/mobxpromise#303db72588860bff0a6862a4f07a4e8a3578c94f"
     oncokb-styles "~0.1.2"
-    oncokb-ts-api-client "^1.1.3"
+    oncokb-ts-api-client "^1.1.5"
     react-bootstrap "^0.31.5"
     react-collapse "4.0.3"
     react-if "^2.1.0"
     react-motion "^0.5.2"
-    react-mutation-mapper "^0.6.25"
+    react-mutation-mapper "^0.7.12"
     react-rangeslider "^2.2.0"
     react-select "^3.0.4"
     react-table "^6.10.0"
@@ -8357,15 +8396,14 @@ react-variant-view@^0.1.13:
     superagent "^3.8.3"
     typescript "4.0.3"
 
-react@^16.8.6:
-  version "16.8.6"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
-  integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
+react@16.14.0:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
+  integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.13.6"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
@@ -8660,7 +8698,7 @@ requires-port@^1.0.0:
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
-resize-observer-polyfill@^1.4.2:
+resize-observer-polyfill@^1.4.2, resize-observer-polyfill@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
   integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
@@ -8820,10 +8858,10 @@ sax@^1.1.4, sax@^1.2.1, sax@^1.2.4, sax@~1.2.1:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-scheduler@^0.13.6:
-  version "0.13.6"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
-  integrity sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==
+scheduler@^0.19.1:
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
+  integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -8997,6 +9035,11 @@ shallowequal@^0.2.2:
   integrity sha1-HjL9W8q2rWiKSBLLDMBO/HXHAU4=
   dependencies:
     lodash.keys "^3.1.2"
+
+shallowequal@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
+  integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
 
 shebang-command@^1.2.0:
   version "1.2.0"
@@ -9855,10 +9898,10 @@ typescript@4.0.3:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.3.tgz#153bbd468ef07725c1df9c77e8b453f8d36abba5"
   integrity sha512-tEu6DGxGgRJPb/mVPIZ48e69xCn2yRmCgYmDugAVwmJ6o+0u1RI18eO7E7WBTLYLaEVVOhwQmcdhQHweux/WPg==
 
-typescript@^3.8.3:
-  version "3.9.6"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.6.tgz#8f3e0198a34c3ae17091b35571d3afd31999365a"
-  integrity sha512-Pspx3oKAPJtjNwE92YS05HQoY7z2SFyOpHo9MqJor3BXAGNaPUs83CuVp9VISFkSjyRfiTpmKuAYGJB7S7hOxw==
+typescript@^4.0.3:
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.3.tgz#519d582bd94cba0cf8934c7d8e8467e473f53bb7"
+  integrity sha512-B3ZIOf1IKeH2ixgHhj6la6xdwR9QrLC5d1VKeCSY4tvkqhF2eqd9O7txNlS0PO3GrBAFIdr3L1ndNwteUbZLYg==
 
 ua-parser-js@^0.7.18:
   version "0.7.20"

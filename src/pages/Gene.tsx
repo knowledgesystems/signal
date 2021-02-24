@@ -1,4 +1,4 @@
-import {action, computed, observable} from "mobx";
+import {action, computed, makeObservable, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from 'react';
 
@@ -25,6 +25,15 @@ class Gene extends React.Component<IGeneProps>
     @observable
     private signalStatus: DataStatus = 'pending';
 
+    constructor(props: IGeneProps) {
+        super(props);
+        makeObservable(this);
+    }
+
+    @computed get loader() {
+        return loaderWithText("Fetching alterations...");
+    }
+    
     @computed
     private get hugoSymbol() {
         return this.props.hugoSymbol;
@@ -35,8 +44,11 @@ class Gene extends React.Component<IGeneProps>
         return new EnsemblGeneStore(this.hugoSymbol);
     }
 
-    private get loader() {
-        return loaderWithText("Fetching alterations...");
+    @computed
+    private get isLoading() {
+        // here we force access to each observable field so that mobx behaves as desired
+        const isPending = this.signalStatus === 'pending';
+        return this.geneStore.ensemblGeneDataStatus === "pending" || isPending;
     }
 
     public render()
@@ -49,7 +61,7 @@ class Gene extends React.Component<IGeneProps>
                 }}
             >
                 {
-                    this.signalStatus === 'pending' || this.geneStore.ensemblGeneDataStatus === "pending" ?
+                    this.isLoading ?
                         this.loader :
                         <MutationMapper
                             hugoSymbol={this.hugoSymbol}
@@ -74,7 +86,7 @@ class Gene extends React.Component<IGeneProps>
     @action.bound
     private handleSignalDataLoad(mutations: IExtendedSignalMutation[])
     {
-        this.signalStatus = 'complete';
+        this.signalStatus = 'complete';       
         this.signalMutations = mutations;
     }
 

@@ -2,10 +2,10 @@ import {action} from "mobx";
 import {observer} from "mobx-react";
 import {DataTable} from "react-mutation-mapper";
 
-import {IGeneFrequencySummary} from "..//model/GeneFrequencySummary";
+import {ISignalGeneFrequencySummary} from "cbioportal-utils";
 
 @observer
-export default class GeneFrequencyTableComponent extends DataTable<IGeneFrequencySummary>
+export default class GeneFrequencyTableComponent extends DataTable<ISignalGeneFrequencySummary>
 {
     @action.bound
     public collapseSubComponent() {

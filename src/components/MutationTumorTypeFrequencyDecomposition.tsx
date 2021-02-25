@@ -1,17 +1,17 @@
-import {action, observable} from "mobx";
+import {action, makeObservable, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 
-import {ITumorTypeDecomposition} from "../model/Mutation";
+import {MutationTumorTypeFrequencyTable} from 'cbioportal-frontend-commons';
+import {ISignalTumorTypeDecomposition} from "cbioportal-utils";
+
 import {DataStatus} from "../store/DataStatus";
-import MutationTumorTypeFrequencyTable from "./MutationTumorTypeFrequencyTable";
 
 import "react-table/react-table.css";
-import "./FrequencyTable.css";
 
 interface ITumorTypeFrequencyDecompositionProps
 {
-    dataPromise: Promise<ITumorTypeDecomposition[]>;
+    dataPromise: Promise<ISignalTumorTypeDecomposition[]>;
     hugoSymbol: string;
 }
 
@@ -19,10 +19,15 @@ interface ITumorTypeFrequencyDecompositionProps
 class MutationTumorTypeFrequencyDecomposition extends React.Component<ITumorTypeFrequencyDecompositionProps>
 {
     @observable
-    private data: ITumorTypeDecomposition[] = [];
+    private data: ISignalTumorTypeDecomposition[] = [];
 
     @observable
     private status: DataStatus = 'pending';
+
+    constructor(props: ITumorTypeFrequencyDecompositionProps) {
+        super(props);
+        makeObservable(this);
+    }
 
     public render()
     {
@@ -31,7 +36,6 @@ class MutationTumorTypeFrequencyDecomposition extends React.Component<ITumorType
         ): (
             <MutationTumorTypeFrequencyTable
                 data={this.data}
-                hugoSymbol={this.props.hugoSymbol}
             />
         );
     }
@@ -44,8 +48,9 @@ class MutationTumorTypeFrequencyDecomposition extends React.Component<ITumorType
     }
 
     @action.bound
-    private handleDataLoad(frequencies: ITumorTypeDecomposition[]) {
-        this.data = frequencies;
+    private handleDataLoad(frequencies: ISignalTumorTypeDecomposition[]) {
+        // filter out cancer types with zero frequency
+        this.data = frequencies.filter(f => f.frequency && f.frequency > 0);
         this.status = 'complete';
     }
 

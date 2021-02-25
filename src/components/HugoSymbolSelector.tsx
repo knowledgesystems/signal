@@ -3,16 +3,16 @@ import * as React from 'react';
 
 import {DropdownSelector, DropdownSelectorProps} from "react-mutation-mapper";
 
-export const CancerTypeSelector = observer((props: DropdownSelectorProps) =>
+export const HugoSymbolSelector = observer((props: DropdownSelectorProps) =>
 {
     return (
         <DropdownSelector
-            name="cancerTypeFilter"
-            placeholder="Cancer Type"
+            name="hugoSymbolFilter"
+            placeholder="Gene"
             showControls={true}
             {...props}
         />
     );
 });
 
-export default CancerTypeSelector;
+export default HugoSymbolSelector;

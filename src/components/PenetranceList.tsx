@@ -14,9 +14,14 @@ class PenetranceList extends React.Component<IGeneProps>
     {
         return (
             <span className={this.props.className || "pull-left ml-3"}>
-                {this.props.penetrance
-                    .sort(comparePenetrance)
-                    .map(p => <Penetrance key={p} value={p} />)}
+                {
+                    // since sort mutates the array we need to slice() here
+                    // otherwise mobx complains
+                    this.props.penetrance
+                        .slice()
+                        .sort(comparePenetrance)
+                        .map(p => <Penetrance key={p} value={p} />)
+                }
             </span>
         );
     }

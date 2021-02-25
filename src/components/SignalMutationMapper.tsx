@@ -1,6 +1,7 @@
 import _ from "lodash";
-import {action, computed, observable} from "mobx";
+import {action, computed, makeObservable, observable} from "mobx";
 import {observer} from "mobx-react";
+import pluralize from 'pluralize';
 import * as React from 'react';
 import {
     applyDataFilters,
@@ -14,13 +15,13 @@ import {
 
 import {
     CANCER_TYPE_FILTER_ID,
+    CANCER_TYPE_IGNORE_MUTATION_STATUS_FILTER_TYPE,
     findCancerTypeFilter,
     findMutationStatusFilter,
     findMutationTypeFilter,
     getDefaultMutationStatusFilterValues,
     MUTATION_STATUS_FILTER_ID,
     MUTATION_STATUS_FILTER_TYPE,
-    MutationStatusFilterValue,
     PROTEIN_IMPACT_TYPE_FILTER_ID
 } from "../util/FilterUtils";
 import {
@@ -32,6 +33,7 @@ import {
 import CancerTypeSelector from "./CancerTypeSelector";
 import MutationStatusSelector, {onMutationStatusFilterOptionSelect} from "./MutationStatusSelector";
 
+import { SignalMutationStatus } from 'cbioportal-utils';
 import {AxisScale, AxisScaleSwitch} from "./AxisScaleSwitch";
 import "./SignalMutationMapper.css";
 
@@ -81,9 +83,9 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
     public get selectedMutationStatusValues() {
         // default values in case no filter
         let values = [
-            {value: MutationStatusFilterValue.SOMATIC},
-            {value: MutationStatusFilterValue.BENIGN_GERMLINE},
-            {value: MutationStatusFilterValue.PATHOGENIC_GERMLINE}
+            {value: SignalMutationStatus.SOMATIC},
+            {value: SignalMutationStatus.BENIGN_GERMLINE},
+            {value: SignalMutationStatus.PATHOGENIC_GERMLINE}
         ];
 
         // no filter, return defaults
@@ -94,8 +96,8 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
             values = this.mutationStatusFilter.values.map(value => ({value}));
 
             // need to show PATHOGENIC_GERMLINE as selected when BIALLELIC_PATHOGENIC_GERMLINE is in the filter
-            if (this.mutationStatusFilter.values.includes(MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE)) {
-                values.push({value: MutationStatusFilterValue.PATHOGENIC_GERMLINE});
+            if (this.mutationStatusFilter.values.includes(SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE)) {
+                values.push({value: SignalMutationStatus.PATHOGENIC_GERMLINE});
             }
         }
 
@@ -120,27 +122,22 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
         return totalFilteredSamples(this.store.dataStore.allData);
     }
 
-    @computed
     protected get plotTopYAxisSymbol() {
         return this.showPercent ? "%" : "#";
     }
 
-    @computed
     protected get plotBottomYAxisSymbol() {
         return this.showPercent ? "%" : "#";
     }
 
-    @computed
     protected get plotTopYAxisDefaultMax() {
         return this.showPercent ? 0 : 5;
     }
 
-    @computed
     protected get plotBottomYAxisDefaultMax() {
         return this.showPercent ? 0 : 5;
     }
 
-    @computed
     protected get plotYMaxLabelPostfix() {
         return this.showPercent ? "%" : "";
     }
@@ -148,7 +145,7 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
     constructor(props: ISignalMutationMapperProps)
     {
         super(props);
-
+        makeObservable(this);
         if (props.onInit) {
             props.onInit(this);
         }
@@ -163,9 +160,9 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
             <div className="signal-mutation-filter-panel">
                 <div style={FILTER_UI_STYLE}>
                     <strong>
-                        {this.totalFilteredSamples}
-                        {this.totalSamples !== this.totalFilteredSamples && `/${this.totalSamples}`}
-                    </strong> {this.totalFilteredSamples === 1 ? `total sample`: `total samples`}
+                        {this.totalFilteredSamples.toLocaleString('en-US')}
+                        {this.totalSamples !== this.totalFilteredSamples && ` / ${this.totalSamples.toLocaleString('en-US')}`}
+                    </strong> {pluralize(`total sample`, this.totalFilteredSamples)}
                 </div>
                 <div style={FILTER_UI_STYLE}>
                     <MutationStatusSelector
@@ -244,31 +241,52 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
         ): info;
     }
 
+    public get defaultAnnotationColumnProps() {
+        // TODO most of this code is duplicated from react-mutation-mapper
+        //  we should make the default props accessible if possible
+        return {
+            enableOncoKb: true,
+            enableHotspot: true,
+            enableCivic: this.props.enableCivic || false,
+            enableMyCancerGenome: true,
+            hotspotData: this.store.indexedHotspotData,
+            oncoKbData: this.store.oncoKbData,
+            oncoKbCancerGenes: this.store.oncoKbCancerGenes,
+            usingPublicOncoKbInstance: this.store.usingPublicOncoKbInstance,
+            pubMedCache: this.pubMedCache,
+            civicGenes: this.store.civicGenes,
+            civicVariants: this.store.civicVariants
+        };
+    }
+
     @computed
     public get mutationRatesByMutationStatus() {
         // TODO pick only likely driver ones, not all somatic mutations
         const somaticFilter = {
             type: MUTATION_STATUS_FILTER_TYPE,
-            values: [MutationStatusFilterValue.SOMATIC]
+            values: [SignalMutationStatus.SOMATIC]
         };
 
         const benignGermlineFilter = {
             type: MUTATION_STATUS_FILTER_TYPE,
-            values: [MutationStatusFilterValue.BENIGN_GERMLINE]
+            values: [SignalMutationStatus.BENIGN_GERMLINE]
         };
 
         const pathogenicGermlineFilter = {
             type: MUTATION_STATUS_FILTER_TYPE,
-            values: [MutationStatusFilterValue.PATHOGENIC_GERMLINE]
+            values: [SignalMutationStatus.PATHOGENIC_GERMLINE]
         };
 
         const biallelicPathogenicGermlineFilter = {
             type: MUTATION_STATUS_FILTER_TYPE,
-            values: [MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE]
+            values: [SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE]
         };
 
-        const filtersWithoutMutationStatusFilter =
-            this.store.dataStore.dataFilters.filter(f => f.id !== MUTATION_STATUS_FILTER_ID);
+        const filtersWithoutMutationStatusFilter = this.store.dataStore.dataFilters
+            .filter(f => f.id !== MUTATION_STATUS_FILTER_ID)
+            // we cannot directly apply the default cancer type filter, we need to ignore mutation status
+            .map(f => f.id === CANCER_TYPE_FILTER_ID ?
+                {...f, type: CANCER_TYPE_IGNORE_MUTATION_STATUS_FILTER_TYPE}: f);
 
         // apply filters excluding the mutation status filter
         // this prevents ratio of unchecked mutation status values from being calculated as zero
@@ -285,10 +303,10 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
             sortedFilteredData, pathogenicGermlineFilter, biallelicPathogenicGermlineFilter, this.cancerTypeFilter);
 
         return {
-            [MutationStatusFilterValue.SOMATIC]: (somaticFrequency || 0) * 100,
-            [MutationStatusFilterValue.BENIGN_GERMLINE]: (benignGermlineFrequency || 0) * 100,
-            [MutationStatusFilterValue.PATHOGENIC_GERMLINE]: (pathogenicGermlineFrequency || 0) * 100,
-            [MutationStatusFilterValue.BIALLELIC_PATHOGENIC_GERMLINE]: (biallelicRatio || 0) * 100,
+            [SignalMutationStatus.SOMATIC]: (somaticFrequency || 0) * 100,
+            [SignalMutationStatus.BENIGN_GERMLINE]: (benignGermlineFrequency || 0) * 100,
+            [SignalMutationStatus.PATHOGENIC_GERMLINE]: (pathogenicGermlineFrequency || 0) * 100,
+            [SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE]: (biallelicRatio || 0) * 100,
         };
     }
 
@@ -341,6 +359,7 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
             this.props.onScaleToggle(this.showPercent);
         }
     }
+    
 }
 
 export default SignalMutationMapper;

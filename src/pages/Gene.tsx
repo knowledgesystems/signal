@@ -1,9 +1,9 @@
-import {action, computed, observable} from "mobx";
+import {action, computed, makeObservable, observable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from 'react';
 
+import {IExtendedSignalMutation} from "cbioportal-utils";
 import MutationMapper from "../components/MutationMapper";
-import {IExtendedMutation} from "../model/Mutation";
 import {DataStatus} from "../store/DataStatus";
 import EnsemblGeneStore from "../store/EnsemblGeneStore";
 import {fetchExtendedMutationsByGene} from "../util/MutationDataUtils";
@@ -12,17 +12,28 @@ import {loaderWithText} from "../util/StatusHelper";
 interface IGeneProps
 {
     hugoSymbol: string;
+    cancerTypes?: string[];
+    mutationStatuses?: string[];
 }
 
 @observer
 class Gene extends React.Component<IGeneProps>
 {
     @observable
-    private signalMutations: IExtendedMutation[] = [];
+    private signalMutations: IExtendedSignalMutation[] = [];
 
     @observable
     private signalStatus: DataStatus = 'pending';
 
+    constructor(props: IGeneProps) {
+        super(props);
+        makeObservable(this);
+    }
+
+    @computed get loader() {
+        return loaderWithText("Fetching alterations...");
+    }
+    
     @computed
     private get hugoSymbol() {
         return this.props.hugoSymbol;
@@ -33,8 +44,11 @@ class Gene extends React.Component<IGeneProps>
         return new EnsemblGeneStore(this.hugoSymbol);
     }
 
-    private get loader() {
-        return loaderWithText("Fetching alterations...");
+    @computed
+    private get isLoading() {
+        // here we force access to each observable field so that mobx behaves as desired
+        const isPending = this.signalStatus === 'pending';
+        return this.geneStore.ensemblGeneDataStatus === "pending" || isPending;
     }
 
     public render()
@@ -47,12 +61,14 @@ class Gene extends React.Component<IGeneProps>
                 }}
             >
                 {
-                    this.signalStatus === 'pending' || this.geneStore.ensemblGeneDataStatus === "pending" ?
+                    this.isLoading ?
                         this.loader :
                         <MutationMapper
                             hugoSymbol={this.hugoSymbol}
                             data={this.signalMutations}
                             ensemblGene={this.geneStore.ensemblGeneData}
+                            cancerTypes={this.props.cancerTypes}
+                            mutationStatuses={this.props.mutationStatuses}
                         />
                 }
             </div>
@@ -68,9 +84,9 @@ class Gene extends React.Component<IGeneProps>
     }
 
     @action.bound
-    private handleSignalDataLoad(mutations: IExtendedMutation[])
+    private handleSignalDataLoad(mutations: IExtendedSignalMutation[])
     {
-        this.signalStatus = 'complete';
+        this.signalStatus = 'complete';       
         this.signalMutations = mutations;
     }
 

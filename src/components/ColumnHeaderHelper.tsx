@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ColumnHeader} from "react-mutation-mapper";
+import {ColumnHeader, MutationColumn} from "react-mutation-mapper";
 
 export enum ColumnId {
     HUGO_SYMBOL = "hugoSymbol",
@@ -10,6 +10,7 @@ export enum ColumnId {
     GERMLINE = "germline",
     PERCENT_BIALLELIC = "percentBialleic",
     MUTATION_PERCENT = "mutationPercent",
+    CANCER_TYPE = "cancerType",
     SAMPLE_COUNT = "sampleCount"
 }
 
@@ -48,6 +49,12 @@ export const HEADER_COMPONENT: {[id: string] : JSX.Element} = {
             overlay={<span>Percent of pathogenic germline carriers biallelic in the corresponding tumor sample</span>}
         />
     ),
-    [ColumnId.MUTATION_PERCENT]: <ColumnHeader headerContent={<span className="pull-right mr-3">%</span>} />,
+    [ColumnId.MUTATION_PERCENT]: <ColumnHeader headerContent={<span className="pull-right mr-3">% Prevalence</span>} />,
+    [ColumnId.CANCER_TYPE]: (
+        <ColumnHeader
+            headerContent={<span className="pull-left">Cancer Type</span>}
+        />
+    ),
     [ColumnId.SAMPLE_COUNT]: <ColumnHeader headerContent={<span className="text-wrap"># Samples</span>} />,
+    [MutationColumn.ANNOTATION]: <ColumnHeader headerContent={<span className="pull-left">Somatic Annotation</span>} />,
 };

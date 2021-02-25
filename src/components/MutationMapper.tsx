@@ -1,44 +1,51 @@
 import autobind from "autobind-decorator";
-import {computed} from "mobx";
+import {
+    formatPercentValue,
+    isGermlineMutation,
+    isPathogenicMutation,
+    isSomaticMutation,
+    numberOfLeadingDecimalZeros,
+    SignalMutationStatus
+} from 'cbioportal-utils';
+import {computed, makeObservable} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
 import {
+    Annotation,
     CancerTypeFilter,
     ColumnSortDirection,
-    DataFilterType, defaultSortMethod,
-    formatPercentValue,
+    DataFilter,
+    DataFilterType,
+    defaultSortMethod,
     MUTATION_COLUMNS_DEFINITION,
     MutationColumn,
-    MutationStatus,
-    numberOfLeadingDecimalZeros,
     ProteinChange,
     TrackName
 } from "react-mutation-mapper";
 
+import {IExtendedSignalMutation, ISignalTumorTypeDecomposition} from "cbioportal-utils";
 import {IEnsemblGene} from "../model/EnsemblGene";
-import {IExtendedMutation, ITumorTypeDecomposition} from "../model/Mutation";
 import {
     applyCancerTypeFilter,
     applyMutationStatusFilter,
+    CANCER_TYPE_FILTER_ID,
+    CANCER_TYPE_IGNORE_MUTATION_STATUS_FILTER_TYPE,
     containsCancerType,
     getDefaultMutationStatusFilterValues,
+    isKnownTumorType,
     MUTATION_COUNT_FILTER_TYPE,
     MUTATION_STATUS_FILTER_ID,
     MUTATION_STATUS_FILTER_TYPE,
     MutationCountFilter,
     MutationStatusFilter,
-    MutationStatusFilterValue
 } from "../util/FilterUtils";
 import {
     calculateMutationRate,
     getVariantCount,
-    isGermlineMutation,
-    isPathogenicMutation,
-    isSomaticMutation
 } from "../util/MutationDataUtils";
 import {loaderWithText} from "../util/StatusHelper";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
-import {renderPenetrance, renderPercentage} from "./ColumnRenderHelper";
+import {renderCancerType, renderHgvsg, renderMutationStatus, renderPenetrance, renderPercentage} from "./ColumnRenderHelper";
 import {sortPenetrance} from "./GeneFrequencyTable";
 import MutationTumorTypeFrequencyDecomposition from "./MutationTumorTypeFrequencyDecomposition";
 import SignalMutationMapper from "./SignalMutationMapper";
@@ -50,29 +57,31 @@ const ONCOKB_API_URL = "https://www.cbioportal.org/proxy/oncokb";
 
 interface IMutationMapperProps
 {
-    data: IExtendedMutation[];
+    data: IExtendedSignalMutation[];
     hugoSymbol: string;
+    cancerTypes?: string[];
+    mutationStatuses?: string[];
     ensemblGene?: IEnsemblGene;
 }
 
-function mutationStatusAccessor(mutation: IExtendedMutation)
+function mutationStatusAccessor(mutation: IExtendedSignalMutation)
 {
     if (isSomaticMutation(mutation)) {
-        return MutationStatusFilterValue.SOMATIC;
+        return SignalMutationStatus.SOMATIC;
     }
     else if (isGermlineMutation(mutation)) {
         if (isPathogenicMutation(mutation)) {
-            return MutationStatusFilterValue.PATHOGENIC_GERMLINE;
+            return SignalMutationStatus.PATHOGENIC_GERMLINE;
         }
         else {
-            return MutationStatusFilterValue.BENIGN_GERMLINE;
+            return SignalMutationStatus.BENIGN_GERMLINE;
         }
     }
 
     return "Unknown";
 }
 
-function mutationPercentAccessor(mutation: IExtendedMutation)
+function mutationPercentAccessor(mutation: IExtendedSignalMutation)
 {
     if (isSomaticMutation(mutation)) {
         return mutation.somaticFrequency;
@@ -85,33 +94,64 @@ function mutationPercentAccessor(mutation: IExtendedMutation)
     }
 }
 
-function penetranceAccessor(mutation: IExtendedMutation)
+function cancerTypeAccessor(mutation: IExtendedSignalMutation)
+{
+    return mutation.tumorTypeDecomposition
+        // remove tumor types with non-zero frequency and unknown tumors
+        .filter(c => c.frequency && c.frequency > 0 && isKnownTumorType(c.tumorType))
+        // sort by frequency
+        .sort((a, b) => Math.sign((b.frequency || 0) - (a.frequency || 0)))
+        .map(c => c.tumorType);
+}
+
+function penetranceAccessor(mutation: IExtendedSignalMutation)
 {
     return [mutation.penetrance];
 }
 
 @observer
-class MutationMapper extends React.Component<IMutationMapperProps>
-{
+class MutationMapper extends React.Component<IMutationMapperProps> {
     private signalMutationMapper: SignalMutationMapper | undefined;
 
     @computed
-    get entrezGeneId()
-    {
+    get entrezGeneId() {
         return this.props.ensemblGene ?
-            parseInt(this.props.ensemblGene.entrezGeneId, 10): undefined;
+            parseInt(this.props.ensemblGene.entrezGeneId, 10) : undefined;
     }
 
     @computed
-    get showGermlinePercent()
-    {
+    get showGermlinePercent() {
         return this.signalMutationMapper ? this.signalMutationMapper.showPercent : true;
     }
 
     @computed
-    get showSomaticPercent()
-    {
+    get showSomaticPercent() {
         return this.signalMutationMapper ? this.signalMutationMapper.showPercent : true;
+    }
+
+    @computed
+    get dataFilters()
+    {
+        const filters: DataFilter[] = [{
+            id: MUTATION_STATUS_FILTER_ID,
+            type: MUTATION_STATUS_FILTER_TYPE,
+            values: this.props.mutationStatuses || getDefaultMutationStatusFilterValues()
+        }];
+
+        if (this.props.cancerTypes) {
+            filters.push({
+                id: CANCER_TYPE_FILTER_ID,
+                type: DataFilterType.CANCER_TYPE,
+                values: this.props.cancerTypes
+            });
+        }
+
+        return filters;
+    }
+
+    constructor(props: IMutationMapperProps) {
+        super(props);
+        makeObservable(this);
     }
 
     public render()
@@ -149,24 +189,7 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                         ...MUTATION_COLUMNS_DEFINITION[MutationColumn.MUTATION_STATUS],
                         accessor: mutationStatusAccessor,
                         width: 200,
-                        Cell: (column: any) =>
-                            <MutationStatus
-                                value={column.value}
-                                enableTooltip={false}
-                                displayValueMap={{
-                                    [MutationStatusFilterValue.SOMATIC.toLowerCase()]:
-                                        MutationStatusFilterValue.SOMATIC,
-                                    [MutationStatusFilterValue.PATHOGENIC_GERMLINE.toLowerCase()]:
-                                        MutationStatusFilterValue.PATHOGENIC_GERMLINE,
-                                    [MutationStatusFilterValue.BENIGN_GERMLINE.toLowerCase()]:
-                                        MutationStatusFilterValue.BENIGN_GERMLINE,
-                                }}
-                                styleMap={{
-                                    [MutationStatusFilterValue.PATHOGENIC_GERMLINE.toLowerCase()]: {
-                                        background: "#FFA963"
-                                    }
-                                }}
-                            />
+                        Cell: renderMutationStatus
                     },
                     {
                         id: ColumnId.PENETRANCE,
@@ -178,10 +201,18 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.MUTATION_TYPE],
                     {
                         id: ColumnId.MUTATION_PERCENT,
-                        name: "%",
+                        name: "% Prevalence",
                         Cell: renderPercentage,
                         accessor: mutationPercentAccessor,
                         Header: HEADER_COMPONENT[ColumnId.MUTATION_PERCENT],
+                        sortMethod: defaultSortMethod
+                    },
+                    {
+                        id: ColumnId.CANCER_TYPE,
+                        name: "Cancer Type",
+                        Cell: renderCancerType,
+                        accessor: cancerTypeAccessor,
+                        Header: HEADER_COMPONENT[ColumnId.CANCER_TYPE],
                         sortMethod: defaultSortMethod
                     },
                     {
@@ -198,9 +229,24 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                         Header: HEADER_COMPONENT[ColumnId.PERCENT_BIALLELIC],
                         sortMethod: defaultSortMethod
                     },
-                    MUTATION_COLUMNS_DEFINITION[MutationColumn.ANNOTATION],
+                    {
+                        ...MUTATION_COLUMNS_DEFINITION[MutationColumn.ANNOTATION],
+                        Header: HEADER_COMPONENT[MutationColumn.ANNOTATION],
+                        Cell: this.renderAnnotation,
+                        // TODO disable sort for now due to an undesired sort behavior
+                        //  (see https://github.com/cBioPortal/cbioportal/issues/8247)
+                        sortable: false
+                    },
+                    {
+                        // override default HGVSg column to customize the link
+                        ...MUTATION_COLUMNS_DEFINITION[MutationColumn.HGVSG],
+                        Cell: renderHgvsg,
+                        width: 200
+                    },
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.HGVSC],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.GNOMAD],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.CLINVAR],
+                    MUTATION_COLUMNS_DEFINITION[MutationColumn.DBSNP],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.CHROMOSOME],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.START_POSITION],
                     MUTATION_COLUMNS_DEFINITION[MutationColumn.END_POSITION],
@@ -210,8 +256,13 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                 customMutationTableProps={{
                     SubComponent: this.renderSubComponent
                 }}
-                mutationTableInitialSortColumn={MutationColumn.PROTEIN_CHANGE}
-                mutationTableInitialSortDirection={ColumnSortDirection.ASC}
+                // default mutation table waits for annotation column data by default to initiate sort
+                // we don't sort by annotation column, so setting this to an empty array to bypass the initial wait
+                mutationTableInitialSortRemoteData={[]}
+                mutationTableInitialSort={[
+                    {column: MutationColumn.MUTATION_STATUS, sortDirection: ColumnSortDirection.ASC},
+                    {column: MutationColumn.PROTEIN_CHANGE, sortDirection: ColumnSortDirection.ASC},
+                ]}
                 groupFilters={
                     [
                         {
@@ -226,13 +277,7 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                 }
                 plotYAxisLabelPadding={50}
                 plotLollipopTooltipCountInfo={this.lollipopTooltipCountInfo}
-                dataFilters={[
-                    {
-                        id: MUTATION_STATUS_FILTER_ID,
-                        type: MUTATION_STATUS_FILTER_TYPE,
-                        values: getDefaultMutationStatusFilterValues()
-                    }
-                ]}
+                dataFilters={this.dataFilters}
                 filterAppliersOverride={this.customFilterAppliers}
             />
         );
@@ -242,13 +287,14 @@ class MutationMapper extends React.Component<IMutationMapperProps>
     {
         return {
             [DataFilterType.CANCER_TYPE]: this.applyCancerTypeFilter,
+            [CANCER_TYPE_IGNORE_MUTATION_STATUS_FILTER_TYPE]: this.applyCancerTypeFilterIgnoreMutationStatus,
             [MUTATION_STATUS_FILTER_TYPE]: this.applyMutationStatusFilter,
             [MUTATION_COUNT_FILTER_TYPE]: this.applyMutationCountFilter
         };
     };
 
     @autobind
-    private lollipopTooltipCountInfo(count: number, mutations?: IExtendedMutation[]): JSX.Element
+    private lollipopTooltipCountInfo(count: number, mutations?: IExtendedSignalMutation[]): JSX.Element
     {
         const decimalZeros = numberOfLeadingDecimalZeros(count);
         const fractionDigits = decimalZeros < 0 ? 1: decimalZeros + 2;
@@ -259,19 +305,28 @@ class MutationMapper extends React.Component<IMutationMapperProps>
     }
 
     @autobind
-    private getMutationCount(mutation: IExtendedMutation)
+    private getDefaultMutationCount(mutation: IExtendedSignalMutation)
     {
+        // take the current cancer type and mutation status filter into account
         const cancerTypeFilter = this.signalMutationMapper ? this.signalMutationMapper.cancerTypeFilter : undefined;
         const mutationStatusFilter = this.signalMutationMapper ? this.signalMutationMapper.mutationStatusFilter : undefined;
 
-        // take the current cancer type and mutation status filter into account
+        return this.getMutationCount(mutation, cancerTypeFilter, mutationStatusFilter);
+    }
+
+    @autobind
+    private getMutationCount(
+        mutation: IExtendedSignalMutation,
+        cancerTypeFilter?: DataFilter,
+        mutationStatusFilter?: DataFilter)
+    {
         return mutation.tumorTypeDecomposition
             .map(t => getVariantCount(mutation, t, cancerTypeFilter, mutationStatusFilter))
             .reduce((sum, count) => sum + count);
     }
 
     @autobind
-    private getMutationRate(mutation: IExtendedMutation)
+    private getMutationRate(mutation: IExtendedSignalMutation)
     {
         const cancerTypeFilter = this.signalMutationMapper ? this.signalMutationMapper.cancerTypeFilter : undefined;
         const mutationStatusFilter = this.signalMutationMapper ? this.signalMutationMapper.mutationStatusFilter : undefined;
@@ -280,21 +335,22 @@ class MutationMapper extends React.Component<IMutationMapperProps>
     }
 
     @autobind
-    private getLollipopCountValue(mutation: IExtendedMutation)
+    private getLollipopCountValue(mutation: IExtendedSignalMutation)
     {
-        return this.needToShowPercent(mutation) ? this.getMutationRate(mutation) : this.getMutationCount(mutation);
+        return this.needToShowPercent(mutation) ? this.getMutationRate(mutation) : this.getDefaultMutationCount(mutation);
     }
 
-    private needToShowPercent(mutation: IExtendedMutation)
+    private needToShowPercent(mutation: IExtendedSignalMutation)
     {
         return (
-            mutation.mutationStatus.toLowerCase().includes(MutationStatusFilterValue.GERMLINE.toLowerCase()) &&
+            mutation.mutationStatus.toLowerCase().includes(SignalMutationStatus.GERMLINE.toLowerCase()) &&
             this.showGermlinePercent
         ) || (
-            mutation.mutationStatus.toLowerCase().includes(MutationStatusFilterValue.SOMATIC.toLowerCase()) &&
+            mutation.mutationStatus.toLowerCase().includes(SignalMutationStatus.SOMATIC.toLowerCase()) &&
             this.showSomaticPercent
         );
     }
+
     private get mutationCountFilter() {
         return {
             type: MUTATION_COUNT_FILTER_TYPE,
@@ -303,18 +359,30 @@ class MutationMapper extends React.Component<IMutationMapperProps>
     }
 
     @autobind
-    private applyCancerTypeFilter(filter: CancerTypeFilter, mutation: IExtendedMutation) {
+    private applyCancerTypeFilter(filter: CancerTypeFilter, mutation: IExtendedSignalMutation) {
         return applyCancerTypeFilter(filter, mutation) && this.applyMutationCountFilter(this.mutationCountFilter, mutation);
     }
 
     @autobind
-    private applyMutationStatusFilter(filter: MutationStatusFilter, mutation: IExtendedMutation) {
+    private applyCancerTypeFilterIgnoreMutationStatus(filter: CancerTypeFilter, mutation: IExtendedSignalMutation) {
+        return applyCancerTypeFilter(filter, mutation) && this.applyMutationCountFilterIgnoreMutationStatus(this.mutationCountFilter, mutation);
+    }
+
+    @autobind
+    private applyMutationStatusFilter(filter: MutationStatusFilter, mutation: IExtendedSignalMutation) {
         return applyMutationStatusFilter(filter, mutation) && this.applyMutationCountFilter(this.mutationCountFilter, mutation);
     }
 
     @autobind
-    private applyMutationCountFilter(filter: MutationCountFilter, mutation: IExtendedMutation) {
-        return filter.values.map(v => this.getMutationCount(mutation) > v).includes(true);
+    private applyMutationCountFilter(filter: MutationCountFilter, mutation: IExtendedSignalMutation) {
+        return filter.values.map(v => this.getDefaultMutationCount(mutation) > v).includes(true);
+    }
+
+    @autobind
+    private applyMutationCountFilterIgnoreMutationStatus(filter: MutationCountFilter, mutation: IExtendedSignalMutation) {
+        return filter.values.map(
+            v => this.getMutationCount(mutation, this.signalMutationMapper?.cancerTypeFilter) > v
+        ).includes(true);
     }
 
     private get loader() {
@@ -330,7 +398,7 @@ class MutationMapper extends React.Component<IMutationMapperProps>
                     dataPromise={
                         Promise.resolve(
                             row.original.tumorTypeDecomposition.filter(
-                                (c: ITumorTypeDecomposition) =>
+                                (c: ISignalTumorTypeDecomposition) =>
                                     containsCancerType(
                                         this.signalMutationMapper ?
                                             this.signalMutationMapper.cancerTypeFilter : undefined,
@@ -348,6 +416,25 @@ class MutationMapper extends React.Component<IMutationMapperProps>
         return props.isExpanded ?
             <i className="fa fa-minus-circle" /> :
             <i className="fa fa-plus-circle" />;
+    }
+
+    @autobind
+    private renderAnnotation(cellProps: any) {
+        const mutation: IExtendedSignalMutation = cellProps.original;
+
+        // disable certain annotations for germline mutations
+        const props = this.signalMutationMapper ? {
+            ...this.signalMutationMapper.defaultAnnotationColumnProps,
+            mutation: mutation as any,
+            enableOncoKb: isSomaticMutation(mutation) ?
+                this.signalMutationMapper.defaultAnnotationColumnProps.enableOncoKb : false,
+            enableHotspot: isSomaticMutation(mutation) ?
+                this.signalMutationMapper.defaultAnnotationColumnProps.enableHotspot : false,
+            enableMyCancerGenome: isSomaticMutation(mutation) ?
+                this.signalMutationMapper.defaultAnnotationColumnProps.enableMyCancerGenome : false,
+        }: undefined;
+
+        return props ? <Annotation {...props} />: undefined;
     }
 
     @autobind

@@ -1,12 +1,14 @@
 import autobind from "autobind-decorator";
 import {DefaultTooltip} from "cbioportal-frontend-commons";
-import {action, computed, observable} from "mobx";
+import {ISignalGeneFrequencySummary} from "cbioportal-utils";
+import {action, computed, makeObservable} from "mobx";
 import {observer} from "mobx-react";
+import pluralize from 'pluralize';
 import * as React from "react";
 import {ColumnSortDirection, defaultSortMethod} from "react-mutation-mapper";
-
-import {IGeneFrequencySummary, ITumorTypeFrequencySummary} from "../model/GeneFrequencySummary";
+import GeneFrequencyStore from "../store/GeneFrequencyStore";
 import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelper";
+import {containsCancerType, findCancerTypeFilter} from "../util/FilterUtils";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
 import {renderPenetrance, renderPercentage} from "./ColumnRenderHelper";
 import Gene from "./Gene";
@@ -15,12 +17,12 @@ import GeneTumorTypeFrequencyDecomposition from "./GeneTumorTypeFrequencyDecompo
 import { comparePenetrance } from './Penetrance';
 
 import "react-table/react-table.css";
-import "./FrequencyTable.css";
 
 interface IFrequencyTableProps
 {
-    geneFrequencySummaryData: IGeneFrequencySummary[];
-    tumorTypeFrequencySummaryMap: {[hugoSymbol: string]: ITumorTypeFrequencySummary[]};
+    store: GeneFrequencyStore;
+    onSearch?: (text: string) => void;
+    onGeneFrequencyTableRef?: (ref: GeneFrequencyTableComponent) => void;
 }
 
 function renderHugoSymbol(cellProps: any)
@@ -50,17 +52,14 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
 {
     private tableComponentRef: GeneFrequencyTableComponent;
 
-    @observable
-    private searchText: string | undefined;
+    constructor(props: IFrequencyTableProps) {
+        super(props);
+        makeObservable(this);
+    }
 
     @computed
     private get filteredData() {
-        const refinedSearchText = this.searchText ?
-            this.searchText!.trim().toLowerCase(): undefined;
-
-        return refinedSearchText ? this.props.geneFrequencySummaryData.filter(
-            s => s.hugoSymbol.toLowerCase().includes(refinedSearchText)
-        ): this.props.geneFrequencySummaryData;
+        return this.props.store.filteredGeneFrequencySummaryData;
     }
 
     @computed
@@ -68,10 +67,10 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
         return (
             <span>
                 <strong>{this.filteredData.length}</strong> {
-                    this.filteredData.length === 1 ? "Gene": "Genes"
+                    pluralize("Gene", this.filteredData.length)
                 } {
-                    this.filteredData.length !== this.props.geneFrequencySummaryData.length &&
-                    <span>(out of <strong>{this.props.geneFrequencySummaryData.length}</strong>)</span>
+                    this.filteredData.length !== this.props.store.geneFrequencySummaryData.length &&
+                    <span>(out of <strong>{this.props.store.geneFrequencySummaryData.length}</strong>)</span>
                 }
             </span>
         );
@@ -130,8 +129,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                         }
                     ]}
                     initialItemsPerPage={10}
-                    initialSortColumn={ColumnId.GERMLINE}
-                    initialSortDirection={ColumnSortDirection.DESC}
+                    initialSort={[{column: ColumnId.GERMLINE, sortDirection: ColumnSortDirection.DESC}]}
                     showColumnVisibility={false}
                     searchPlaceholder="Search Gene"
                 />
@@ -142,11 +140,11 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
     @autobind
     private renderExpander(props: {
         isExpanded: boolean;
-        original: IGeneFrequencySummary;
+        original: ISignalGeneFrequencySummary;
     }) {
         let component: JSX.Element;
 
-        if (this.props.tumorTypeFrequencySummaryMap[props.original.hugoSymbol]) {
+        if (this.props.store.tumorTypeFrequencyDataGroupedByGene[props.original.hugoSymbol]) {
             component = props.isExpanded ?
                 <i className="fa fa-minus-circle" /> :
                 <i className="fa fa-plus-circle" />;
@@ -169,9 +167,9 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
     }
 
     @autobind
-    private renderSubComponent(row: { original: IGeneFrequencySummary })
+    private renderSubComponent(row: { original: ISignalGeneFrequencySummary })
     {
-        const data = this.props.tumorTypeFrequencySummaryMap[row.original.hugoSymbol];
+        const data = this.props.store.tumorTypeFrequencyDataGroupedByGene[row.original.hugoSymbol];
 
         // do not render the table if there is no tumor type frequency summary data for this gene
         return data ? (
@@ -179,7 +177,16 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
                 <GeneTumorTypeFrequencyDecomposition
                     hugoSymbol={row.original.hugoSymbol}
                     penetrance={row.original.penetrance}
-                    dataPromise={Promise.resolve(data)}
+                    dataPromise={
+                        Promise.resolve(
+                            data.filter(d =>
+                                containsCancerType(
+                                    findCancerTypeFilter(this.props.store.tumorTypeFrequencySummaryDataFilters),
+                                    d.tumorType
+                                )
+                            )
+                        )
+                    }
                 />
             </div>
         ): null;
@@ -187,13 +194,20 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
 
     @action.bound
     private handleSearch(searchText: string) {
-        this.searchText = searchText;
+        if (this.props.onSearch) {
+            this.props.onSearch(searchText.trim().toLowerCase());
+        }
+
         this.tableComponentRef.collapseSubComponent();
     }
 
     @autobind
     private handleTableRef(ref: GeneFrequencyTableComponent) {
         this.tableComponentRef = ref;
+
+        if (this.props.onGeneFrequencyTableRef) {
+            this.props.onGeneFrequencyTableRef(ref);
+        }
     }
 }
 

@@ -18,15 +18,15 @@ export const MUTATION_RATE_HELPER = {
         description: "Percent of samples with a somatic mutation"
     },
     [SignalMutationStatus.BENIGN_GERMLINE]: {
-        title: "Rare Benign/VUS Germline",
-        description: "Percent of samples with a rare benign/VUS germline mutation"
+        title: "Germline - Benign/VUS",
+        description: "Percent of samples with a germline - benign/VUS mutation"
     },
     [SignalMutationStatus.PATHOGENIC_GERMLINE]: {
-        title: "Pathogenic Germline",
-        description: "Percent of samples with a pathogenic germline mutation"
+        title: "Germline - Pathogenic",
+        description: "Percent of samples with a germline - pathogenic mutation"
     },
     [SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE]: {
-        title: "Show Biallelic Only",
+        title: "Show Loss of WT Only",
         description: "Percent of pathogenic germline carriers biallelic in the corresponding tumor sample"
     }
 };

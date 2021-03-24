@@ -11,7 +11,9 @@ export enum ColumnId {
     PERCENT_BIALLELIC = "percentBialleic",
     MUTATION_PERCENT = "mutationPercent",
     CANCER_TYPE = "cancerType",
-    SAMPLE_COUNT = "sampleCount"
+    SAMPLE_COUNT = "sampleCount",
+    OVERALL_NUMBER_OF_GERMLINE_HOMOZYGOUS = "overallNumberOfGermlineHomozygous",
+    NUMBER_OF_GERMLINE_HOMOZYGOUS = "numberOfGermlineHomozygous"
 }
 
 export const HEADER_COMPONENT: {[id: string] : JSX.Element} = {
@@ -45,7 +47,7 @@ export const HEADER_COMPONENT: {[id: string] : JSX.Element} = {
     ),
     [ColumnId.PERCENT_BIALLELIC]: (
         <ColumnHeader
-            headerContent={<span className="pull-right mr-3">% Biallelic <i className="fa fa-info-circle" /></span>}
+            headerContent={<span className="pull-right mr-3">% Loss of WT <i className="fa fa-info-circle" /></span>}
             overlay={<span>Percent of pathogenic germline carriers biallelic in the corresponding tumor sample</span>}
         />
     ),
@@ -53,6 +55,16 @@ export const HEADER_COMPONENT: {[id: string] : JSX.Element} = {
     [ColumnId.CANCER_TYPE]: (
         <ColumnHeader
             headerContent={<span className="pull-left">Cancer Type</span>}
+        />
+    ),
+    [ColumnId.OVERALL_NUMBER_OF_GERMLINE_HOMOZYGOUS]: (
+        <ColumnHeader
+            headerContent={<span className="pull-left"># Germline Homozygous</span>}
+        />
+    ),
+    [ColumnId.NUMBER_OF_GERMLINE_HOMOZYGOUS]: (
+        <ColumnHeader
+            headerContent={<span className="pull-left"># Germline Homozygous</span>}
         />
     ),
     [ColumnId.SAMPLE_COUNT]: <ColumnHeader headerContent={<span className="text-wrap"># Samples</span>} />,

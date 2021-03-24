@@ -23,6 +23,7 @@ import {
     TrackName
 } from "react-mutation-mapper";
 
+import { renderNumber } from "cbioportal-frontend-commons";
 import {IExtendedSignalMutation, ISignalTumorTypeDecomposition} from "cbioportal-utils";
 import {IEnsemblGene} from "../model/EnsemblGene";
 import {
@@ -205,6 +206,14 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                         Cell: renderPercentage,
                         accessor: mutationPercentAccessor,
                         Header: HEADER_COMPONENT[ColumnId.MUTATION_PERCENT],
+                        sortMethod: defaultSortMethod
+                    },
+                    {
+                        id: ColumnId.OVERALL_NUMBER_OF_GERMLINE_HOMOZYGOUS,
+                        name: "% Germline Homozygous",
+                        Cell: renderNumber,
+                        accessor: "overallNumberOfGermlineHomozygous",
+                        Header: HEADER_COMPONENT[ColumnId.OVERALL_NUMBER_OF_GERMLINE_HOMOZYGOUS],
                         sortMethod: defaultSortMethod
                     },
                     {

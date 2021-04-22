@@ -113,7 +113,7 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
     {
         return {
             colors: ["darkbrown", "brown", "orange", "#fdff8d"],
-            title: "% Biallelic",
+            title: "% Loss of WT",
             width: 10,
             height: 100,
             min: 0,
@@ -124,7 +124,7 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
     public get discreteLegendProps()
     {
         return {
-            title: ["% Pathogenic", "Germline"],
+            title: ["% Germline -", "Pathogenic"],
             data: [
                 { name: "<0.5", symbol: { fill: "gray", stroke: "none", size: 2 } },
                 { name: "0.5-1", symbol: { fill: "gray", stroke: "none", size: 3 } },
@@ -246,14 +246,14 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
                     ({sampleCount} samples)
                 </div>
                 <div>
-                    Pathogenic Germline:{' '}
+                    Germline - Pathogenic:{' '}
                     <Link to={`/gene/${hugoSymbol}?cancerType=${tumorType}&mutationStatus=${SignalMutationStatus.PATHOGENIC_GERMLINE}`}>
                         {pathogenicGermline}%
                     </Link>{' '}
                     ({pathogenicGermlineRatio})
                 </div>
                 <div>
-                    Biallelic:{' '}
+                    Loss of WT:{' '}
                     <Link to={`/gene/${hugoSymbol}?cancerType=${tumorType}&mutationStatus=${SignalMutationStatus.BIALLELIC_PATHOGENIC_GERMLINE}`}>
                         {percentBiallelic}%
                     </Link>

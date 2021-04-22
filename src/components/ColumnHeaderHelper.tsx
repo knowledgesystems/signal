@@ -41,8 +41,8 @@ export const HEADER_COMPONENT: {[id: string] : JSX.Element} = {
     [ColumnId.SOMATIC]: <ColumnHeader headerContent={<span className="pull-right mr-3">% Somatic</span>} />,
     [ColumnId.GERMLINE]: (
         <ColumnHeader
-            headerContent={<span className="pull-right mr-3">% Germline Pathogenic <i className="fa fa-info-circle" /></span>}
-            overlay={/*TODO add overlay content */ <span>% Germline Pathogenic</span>}
+            headerContent={<span className="pull-right mr-3">% Germline - Pathogenic <i className="fa fa-info-circle" /></span>}
+            overlay={/*TODO add overlay content */ <span>% Germline - Pathogenic</span>}
         />
     ),
     [ColumnId.PERCENT_BIALLELIC]: (

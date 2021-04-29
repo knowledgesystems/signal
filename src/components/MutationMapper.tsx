@@ -232,7 +232,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                     },
                     {
                         id: ColumnId.PERCENT_BIALLELIC,
-                        name: "% Biallelic",
+                        name: "% Loss of WT",
                         Cell: renderPercentage,
                         accessor: "ratioBiallelicPathogenic",
                         Header: HEADER_COMPONENT[ColumnId.PERCENT_BIALLELIC],

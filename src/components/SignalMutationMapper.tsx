@@ -2,7 +2,6 @@ import _ from "lodash";
 import {action, computed, makeObservable, observable} from "mobx";
 import {observer} from "mobx-react";
 import pluralize from 'pluralize';
-import * as React from 'react';
 import {
     applyDataFilters,
     DataFilterType,
@@ -311,17 +310,17 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
     }
 
     @action.bound
-    protected onCancerTypeSelect(selectedCancerTypeIds: string[], allValuesSelected: boolean)
+    protected onCancerTypeSelect(selectedCancerTypeIds: string[], allValuesSelected?: boolean)
     {
         onFilterOptionSelect(selectedCancerTypeIds,
-            allValuesSelected,
+            allValuesSelected || false,
             this.store.dataStore,
             DataFilterType.CANCER_TYPE,
             CANCER_TYPE_FILTER_ID);
     }
 
     @action.bound
-    protected onMutationStatusSelect(selectedMutationStatusIds: string[], allValuesSelected: boolean)
+    protected onMutationStatusSelect(selectedMutationStatusIds: string[], allValuesSelected?: boolean)
     {
         const checkedMutationStatusValues = _.difference(
             selectedMutationStatusIds, this.lastSelectedMutationStatusValues);
@@ -338,10 +337,10 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
     }
 
     @action.bound
-    protected onProteinImpactTypeSelect(selectedMutationTypeIds: string[], allValuesSelected: boolean)
+    protected onProteinImpactTypeSelect(selectedMutationTypeIds: string[], allValuesSelected?: boolean)
     {
         onFilterOptionSelect(selectedMutationTypeIds.map(v => v.toLowerCase()),
-            allValuesSelected,
+            allValuesSelected || false,
             this.store.dataStore,
             DataFilterType.PROTEIN_IMPACT_TYPE,
             PROTEIN_IMPACT_TYPE_FILTER_ID);

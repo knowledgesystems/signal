@@ -50,7 +50,7 @@ export function sortPenetrance(a: string[], b: string[])
 @observer
 class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
 {
-    private tableComponentRef: GeneFrequencyTableComponent;
+    private tableComponentRef: GeneFrequencyTableComponent | undefined;
 
     constructor(props: IFrequencyTableProps) {
         super(props);
@@ -198,7 +198,7 @@ class GeneFrequencyTable extends React.Component<IFrequencyTableProps>
             this.props.onSearch(searchText.trim().toLowerCase());
         }
 
-        this.tableComponentRef.collapseSubComponent();
+        this.tableComponentRef?.collapseSubComponent();
     }
 
     @autobind

@@ -1,5 +1,4 @@
 import {observer} from "mobx-react";
-import * as React from 'react';
 
 import {DropdownSelector, DropdownSelectorProps} from "react-mutation-mapper";
 

@@ -10,7 +10,7 @@ interface ICellOverlayProps {
 class CellOverlay extends React.Component<ICellOverlayProps>
 {
     @observable
-    private content:JSX.Element;
+    private content: JSX.Element | undefined;
 
     constructor(props: ICellOverlayProps) {
         super(props);

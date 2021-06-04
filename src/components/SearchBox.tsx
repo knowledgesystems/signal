@@ -23,9 +23,9 @@ export default class SearchBox extends React.Component<ISearchBoxProps>
     };
 
     @observable
-    public keyword: string;
+    public keyword: string | undefined;
     @observable
-    public selectedOption: SignalQuery | null;
+    public selectedOption: SignalQuery | null = null;
 
     // https://github.com/JedWatson/react-select/issues/614#issuecomment-244006496
     private debouncedFetch = _.debounce((searchTerm, callback) => {
@@ -126,7 +126,7 @@ export default class SearchBox extends React.Component<ISearchBoxProps>
                 menuIsOpen={true}
                 isClearable={true}
                 value={this.selectedOption}
-                onChange={this.handleChange}
+                onChange={this.handleChange as any}
                 closeMenuOnSelect={false}
                 loadOptions={this.debouncedFetch}
                 inputValue={this.keyword}

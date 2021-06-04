@@ -49,7 +49,7 @@ const PenetranceButtonCol = (props: IPenetranceColProps) => {
 function getPenetranceProps(
     penetrance: PenetranceLevel,
     geneFrequencyStore?: GeneFrequencyStore,
-    onSelect?: (penetrance?: string) => void
+    onSelect?: (penetrance?: PenetranceLevel) => void
 ): IPenetranceButtonProps {
     return {
         penetrance,

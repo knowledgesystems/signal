@@ -1,5 +1,3 @@
-import * as React from "react";
-
 export function loaderWithText(text: string) {
     return (
         <div className="text-center">

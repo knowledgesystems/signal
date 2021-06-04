@@ -1,5 +1,4 @@
 import { observer } from "mobx-react";
-import * as React from 'react';
 import { Col } from 'react-bootstrap';
 import {CancerTypeFilter, FilterResetPanel} from "react-mutation-mapper";
 
@@ -14,10 +13,10 @@ export interface IGeneLevelFilterPanelProps {
     isFiltered?: boolean;
     cancerTypeFilter?: CancerTypeFilter;
     cancerTypesOptions?: Array<{value: string}>;
-    onCancerTypeSelect?: (selectedCancerTypeIds: string[], allValuesSelected: boolean) => void;
+    onCancerTypeSelect?: (selectedCancerTypeIds: string[], allValuesSelected?: boolean) => void;
     hugoSymbolFilter?: HugoSymbolFilter;
     hugoSymbolOptions?: Array<{value: string}>;
-    onHugoSymbolSelect?: (hugoSymbols: string[], allValuesSelected: boolean) => void;
+    onHugoSymbolSelect?: (hugoSymbols: string[], allValuesSelected?: boolean) => void;
 }
 
 const LandscapeFilterPanel = observer((props: IGeneLevelFilterPanelProps) =>

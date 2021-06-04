@@ -19,18 +19,20 @@ class Footer extends React.Component<{}>
     public get externalLinks() {
         return (
             <div>
-                <a href="https://www.mskcc.org" target="_blank">
+                <a href="https://www.mskcc.org" target="_blank" rel="noreferrer">
                     MSK {this.externalLinkIcon}
                 </a>
-                <a href="https://www.mskcc.org/research-areas/programs-centers/molecular-oncology"
-                   target="_blank"
+                <a
+                    href="https://www.mskcc.org/research-areas/programs-centers/molecular-oncology"
+                    target="_blank"
+                    rel="noreferrer"
                 >
                     CMO {this.externalLinkIcon}
                 </a>
-                <a href="https://www.genomenexus.org" target="_blank">
+                <a href="https://www.genomenexus.org" target="_blank" rel="noreferrer">
                     Genome Nexus {this.externalLinkIcon}
                 </a>
-                <a href="https://www.cbioportal.org" target="_blank">
+                <a href="https://www.cbioportal.org" target="_blank" rel="noreferrer">
                     cBioPortal {this.externalLinkIcon}
                 </a>
             </div>

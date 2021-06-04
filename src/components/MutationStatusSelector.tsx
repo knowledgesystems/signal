@@ -96,7 +96,7 @@ export function getMutationStatusFilterOptions()
 export function onMutationStatusFilterOptionSelect(selectedValues: string[],
                                                    checkedValues: string[],
                                                    uncheckedValues: string[],
-                                                   allValuesSelected: boolean,
+                                                   allValuesSelected: boolean | undefined,
                                                    dataStore: DataStore,
                                                    dataFilterType: string,
                                                    dataFilterId: string)

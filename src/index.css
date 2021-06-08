@@ -10,7 +10,7 @@ body {
 }
 
 .rc-tooltip {
-  opacity: 1 !important;
+  opacity: 1;
 }
 
 .btn-default {

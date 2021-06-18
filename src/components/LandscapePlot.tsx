@@ -78,7 +78,7 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
     {
         return this.genesWithSignificantPathogenicGermlineRatio.reduce(
             (acc, gene) => {
-                acc[gene] = this.genesWithSignificantPathogenicGermlineRatio.indexOf(gene);
+                (acc as any)[gene] = this.genesWithSignificantPathogenicGermlineRatio.indexOf(gene);
                 return acc;
             },
             {}
@@ -93,8 +93,8 @@ class LandscapePlot extends React.Component<ILandscapePlotProps>
             const percentBiallelic = findPercentBiallelic(d);
 
             return (
-                pathogenicGermline && pathogenicGermline.frequency > 0 ||
-                percentBiallelic && percentBiallelic.frequency > 0
+                (pathogenicGermline && pathogenicGermline.frequency > 0) ||
+                (percentBiallelic && percentBiallelic.frequency > 0)
             );
         }).sort((a, b) => {
             const aGermlineFreq = findPathogenicGermlineFrequency(a)?.frequency || 0;

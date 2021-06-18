@@ -1,5 +1,4 @@
 import {SignalMutationStatus} from "cbioportal-utils";
-import * as React from "react";
 import {Hgvsg, MutationStatus} from "react-mutation-mapper";
 import {Link} from "react-router-dom";
 

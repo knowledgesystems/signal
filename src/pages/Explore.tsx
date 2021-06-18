@@ -24,7 +24,7 @@ class Explore extends React.Component<IExploreProps>
 {
     private readonly filterHelper: GeneFrequencyFilterHelper;
 
-    private geneFrequencyTableComponent: GeneFrequencyTableComponent;
+    private geneFrequencyTableComponent: GeneFrequencyTableComponent | undefined;
 
     constructor(props: IExploreProps) {
         super(props);
@@ -82,7 +82,7 @@ class Explore extends React.Component<IExploreProps>
 
     @action.bound
     private defaultFilterHandler() {
-        this.geneFrequencyTableComponent.collapseSubComponent();
+        this.geneFrequencyTableComponent?.collapseSubComponent();
         // TODO also clear the search box text if possible
     }
 

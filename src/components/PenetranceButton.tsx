@@ -1,6 +1,5 @@
 import classnames from 'classnames';
 import pluralize from 'pluralize';
-import React from 'react';
 import { Button } from 'react-bootstrap';
 
 import {PenetranceLevel} from "../model/Penetrance";
@@ -12,7 +11,7 @@ export interface IPenetranceButtonProps {
     geneCount?: number;
     variantCount?: number;
     patientCount?: number;
-    onClick?: (penetrance?: string) => void;
+    onClick?: (penetrance?: PenetranceLevel) => void;
     className?: string;
     active?: boolean;
     href?: string;

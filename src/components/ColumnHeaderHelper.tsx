@@ -1,4 +1,3 @@
-import * as React from "react";
 import {ColumnHeader, MutationColumn} from "react-mutation-mapper";
 
 export enum ColumnId {

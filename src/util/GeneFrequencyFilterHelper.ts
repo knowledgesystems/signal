@@ -126,11 +126,13 @@ class GeneFrequencyFilterHelper
     }
 
     @action
-    public handlePenetranceSelect = (penetrance: PenetranceLevel) => {
+    public handlePenetranceSelect = (penetrance?: PenetranceLevel) => {
         let selectedPenetranceLevels = this.selectedPenetranceLevels || [];
 
-        selectedPenetranceLevels = selectedPenetranceLevels.includes(penetrance) ?
-            _.without(selectedPenetranceLevels, penetrance): [...selectedPenetranceLevels, penetrance];
+        if (penetrance) {
+            selectedPenetranceLevels = selectedPenetranceLevels.includes(penetrance) ?
+                _.without(selectedPenetranceLevels, penetrance): [...selectedPenetranceLevels, penetrance];
+        }
 
         this.selectedPenetranceLevels = selectedPenetranceLevels.length > 0 ?
             selectedPenetranceLevels: undefined;
@@ -145,7 +147,7 @@ class GeneFrequencyFilterHelper
     }
 
     @action
-    public handleCancerTypeSelect = (selectedCancerTypeIds: string[], allValuesSelected: boolean) =>
+    public handleCancerTypeSelect = (selectedCancerTypeIds: string[], allValuesSelected?: boolean) =>
     {
         this.selectedCancerTypes = allValuesSelected ? undefined: selectedCancerTypeIds;
 
@@ -159,7 +161,7 @@ class GeneFrequencyFilterHelper
     }
 
     @action
-    public handleHugoSymbolSelect = (selectedHugoSymbols: string[], allValuesSelected: boolean) =>
+    public handleHugoSymbolSelect = (selectedHugoSymbols: string[], allValuesSelected?: boolean) =>
     {
         this.selectedHugoSymbols = allValuesSelected ? undefined: selectedHugoSymbols;
 

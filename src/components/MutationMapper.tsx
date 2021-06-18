@@ -4,6 +4,7 @@ import {
     isGermlineMutation,
     isPathogenicMutation,
     isSomaticMutation,
+    Mutation,
     numberOfLeadingDecimalZeros,
     SignalMutationStatus
 } from 'cbioportal-utils';
@@ -174,7 +175,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                 mainLoadingIndicator={this.loader}
                 oncoKbUrl={ONCOKB_API_URL}
                 tracks={[TrackName.CancerHotspots, TrackName.OncoKB, TrackName.PTM]}
-                getMutationCount={this.getLollipopCountValue}
+                getMutationCount={this.getLollipopCountValue as (mutation: Partial<Mutation>) => number}
                 mutationTableColumns={[
                     {
                         // override default Protein Change column to disable mutation status indicator
@@ -188,14 +189,14 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                     {
                         // override default Mutation Status column to include benign/pathogenic germline status
                         ...MUTATION_COLUMNS_DEFINITION[MutationColumn.MUTATION_STATUS],
-                        accessor: mutationStatusAccessor,
+                        accessor: mutationStatusAccessor as (mutation: Partial<Mutation>) => string,
                         width: 200,
                         Cell: renderMutationStatus
                     },
                     {
                         id: ColumnId.PENETRANCE,
                         Cell: renderPenetrance,
-                        accessor: penetranceAccessor,
+                        accessor: penetranceAccessor as (mutation: Partial<Mutation>) => string[],
                         Header: HEADER_COMPONENT[ColumnId.PENETRANCE],
                         sortMethod: sortPenetrance
                     },
@@ -204,7 +205,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                         id: ColumnId.MUTATION_PERCENT,
                         name: "% Prevalence",
                         Cell: renderPercentage,
-                        accessor: mutationPercentAccessor,
+                        accessor: mutationPercentAccessor as (mutation: Partial<Mutation>) => number,
                         Header: HEADER_COMPONENT[ColumnId.MUTATION_PERCENT],
                         sortMethod: defaultSortMethod
                     },
@@ -220,7 +221,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                         id: ColumnId.CANCER_TYPE,
                         name: "Cancer Type",
                         Cell: renderCancerType,
-                        accessor: cancerTypeAccessor,
+                        accessor: cancerTypeAccessor as (mutation: Partial<Mutation>) => string[],
                         Header: HEADER_COMPONENT[ColumnId.CANCER_TYPE],
                         sortMethod: defaultSortMethod
                     },
@@ -285,7 +286,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                     ]
                 }
                 plotYAxisLabelPadding={50}
-                plotLollipopTooltipCountInfo={this.lollipopTooltipCountInfo}
+                plotLollipopTooltipCountInfo={this.lollipopTooltipCountInfo as (count: number, mutations?: Partial<Mutation>[]) => JSX.Element}
                 dataFilters={this.dataFilters}
                 filterAppliersOverride={this.customFilterAppliers}
             />
@@ -300,7 +301,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
             [MUTATION_STATUS_FILTER_TYPE]: this.applyMutationStatusFilter,
             [MUTATION_COUNT_FILTER_TYPE]: this.applyMutationCountFilter
         };
-    };
+    }
 
     @autobind
     private lollipopTooltipCountInfo(count: number, mutations?: IExtendedSignalMutation[]): JSX.Element

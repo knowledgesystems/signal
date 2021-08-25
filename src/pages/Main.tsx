@@ -14,6 +14,7 @@ import Download from "./Download";
 import Explore from "./Explore";
 import Gene from "./Gene";
 import Home from "./Home";
+import Terms from "./Terms";
 import Variant from "./Variant";
 
 class Main extends React.Component<{}>
@@ -70,6 +71,7 @@ class Main extends React.Component<{}>
                             <Route exact={true} path="/gene/:hugoSymbol" component={GenePage} />
                             <Route exact={true} path="/variant/:variant" component={VariantPage} />
                             <Route exact={true} path="/about" component={About}/>
+                            <Route exact={true} path="/terms" component={Terms}/>
                             <Route exact={true} path="/download" component={Download}/>
                         </Switch>
                     </Container>

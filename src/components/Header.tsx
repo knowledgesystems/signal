@@ -32,6 +32,7 @@ class Header extends React.Component<{}>
                                 <LinkContainer exact={true} to="/"><Nav.Link>Home</Nav.Link></LinkContainer>
                                 <LinkContainer exact={true} to="/explore"><Nav.Link>Explore</Nav.Link></LinkContainer>
                                 <LinkContainer exact={true} to="/about"><Nav.Link>About</Nav.Link></LinkContainer>
+                                <LinkContainer exact={true} to="/terms"><Nav.Link>Terms</Nav.Link></LinkContainer>
                                 <LinkContainer exact={true} to="/download"><Nav.Link>Download</Nav.Link></LinkContainer>
                             </Nav>
                         </Navbar.Collapse>

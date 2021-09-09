@@ -1,5 +1,6 @@
 import autobind from "autobind-decorator";
 import {
+    defaultSortMethod,
     formatPercentValue,
     isGermlineMutation,
     isPathogenicMutation,
@@ -17,7 +18,6 @@ import {
     ColumnSortDirection,
     DataFilter,
     DataFilterType,
-    defaultSortMethod,
     MUTATION_COLUMNS_DEFINITION,
     MutationColumn,
     ProteinChange,
@@ -174,7 +174,7 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                 filterMutationsBySelectedTranscript={true}
                 mainLoadingIndicator={this.loader}
                 oncoKbUrl={ONCOKB_API_URL}
-                tracks={[TrackName.CancerHotspots, TrackName.OncoKB, TrackName.PTM]}
+                tracks={[TrackName.CancerHotspots, TrackName.OncoKB, TrackName.dbPTM, TrackName.UniprotPTM]}
                 getMutationCount={this.getLollipopCountValue as (mutation: Partial<Mutation>) => number}
                 mutationTableColumns={[
                     {

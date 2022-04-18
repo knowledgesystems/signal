@@ -17,15 +17,18 @@ import {
     ColumnSortDirection,
     DataFilter,
     DataFilterType,
-    defaultSortMethod,
     MUTATION_COLUMNS_DEFINITION,
     MutationColumn,
     ProteinChange,
     TrackName
 } from "react-mutation-mapper";
-
 import { renderNumber } from "cbioportal-frontend-commons";
-import {IExtendedSignalMutation, ISignalTumorTypeDecomposition} from "cbioportal-utils";
+import {
+    IExtendedSignalMutation,
+    ISignalTumorTypeDecomposition,
+    defaultSortMethod
+} from "cbioportal-utils";
+
 import {IEnsemblGene} from "../model/EnsemblGene";
 import {
     applyCancerTypeFilter,
@@ -51,11 +54,11 @@ import {renderCancerType, renderHgvsg, renderMutationStatus, renderPenetrance, r
 import {sortPenetrance} from "./GeneFrequencyTable";
 import MutationTumorTypeFrequencyDecomposition from "./MutationTumorTypeFrequencyDecomposition";
 import SignalMutationMapper from "./SignalMutationMapper";
+import {getMutationMapperDataFetcher, ONCOKB_DOMAIN} from "../util/ApiClientUtils";
 
 // TODO make these externally configurable?
 const API_CACHE_LIMIT = 450;
 const ISOFORM_OVERRIDE_SOURCE = "mskcc";
-const ONCOKB_API_URL = "https://www.cbioportal.org/proxy/oncokb";
 
 interface IMutationMapperProps
 {
@@ -173,8 +176,9 @@ class MutationMapper extends React.Component<IMutationMapperProps> {
                 showOnlyAnnotatedTranscriptsInDropdown={true}
                 filterMutationsBySelectedTranscript={true}
                 mainLoadingIndicator={this.loader}
-                oncoKbUrl={ONCOKB_API_URL}
-                tracks={[TrackName.CancerHotspots, TrackName.OncoKB, TrackName.PTM]}
+                oncoKbUrl={ONCOKB_DOMAIN}
+                tracks={[TrackName.CancerHotspots, TrackName.OncoKB, TrackName.dbPTM]}
+                dataFetcher={getMutationMapperDataFetcher()}
                 getMutationCount={this.getLollipopCountValue as (mutation: Partial<Mutation>) => number}
                 mutationTableColumns={[
                     {

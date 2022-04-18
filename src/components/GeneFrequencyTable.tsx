@@ -1,11 +1,11 @@
 import autobind from "autobind-decorator";
 import {DefaultTooltip} from "cbioportal-frontend-commons";
-import {ISignalGeneFrequencySummary} from "cbioportal-utils";
+import {defaultSortMethod, ISignalGeneFrequencySummary} from "cbioportal-utils";
 import {action, computed, makeObservable} from "mobx";
 import {observer} from "mobx-react";
 import pluralize from 'pluralize';
 import * as React from "react";
-import {ColumnSortDirection, defaultSortMethod} from "react-mutation-mapper";
+import {ColumnSortDirection} from "react-mutation-mapper";
 import GeneFrequencyStore from "../store/GeneFrequencyStore";
 import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelper";
 import {containsCancerType, findCancerTypeFilter} from "../util/FilterUtils";

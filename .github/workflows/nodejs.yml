@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [15.0.1]
+        node-version: [15.2.1]
 
     steps:
       - uses: actions/checkout@v1
@@ -19,6 +19,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: yarn install, build, and test
         run: |
+          yarn policies set-version 1.22.5
           yarn
           yarn build
           yarn test

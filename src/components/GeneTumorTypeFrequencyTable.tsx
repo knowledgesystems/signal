@@ -1,11 +1,10 @@
 import {computed} from "mobx";
 import {observer} from "mobx-react";
 import * as React from "react";
-import {defaultSortMethod} from "react-mutation-mapper";
 import ReactTable from "react-table";
 
 import {FrequencyCell} from "cbioportal-frontend-commons";
-import {ISignalTumorTypeFrequencySummary} from "cbioportal-utils";
+import {defaultSortMethod, ISignalTumorTypeFrequencySummary} from "cbioportal-utils";
 import {biallelicAccessor, germlineAccessor, somaticAccessor} from "../util/ColumnHelper";
 import {ColumnId, HEADER_COMPONENT} from "./ColumnHeaderHelper";
 

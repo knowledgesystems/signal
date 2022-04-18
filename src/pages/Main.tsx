@@ -7,6 +7,7 @@ import {
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import GeneFrequencyStore from "../store/GeneFrequencyStore";
+import {getGenomeNexusClient, getMutationMapperDataFetcher, getOncoKbClient} from "../util/ApiClientUtils";
 import {getPenetranceLevels} from "../util/PenetranceUtils";
 import {getQueryParamAsArray, SearchParam} from "../util/RouterUtils";
 import About from "./About";
@@ -41,6 +42,9 @@ class Main extends React.Component<{}>
         const VariantPage = (props: any) => (
             <Variant
                 variant={props.match.params.variant}
+                genomeNexusClient={getGenomeNexusClient()}
+                oncoKbClient={getOncoKbClient()}
+                mutationMapperDataFetcher={getMutationMapperDataFetcher()}
             />
         );        
 

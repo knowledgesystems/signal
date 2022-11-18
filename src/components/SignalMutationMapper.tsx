@@ -2,13 +2,16 @@ import _ from "lodash";
 import {action, computed, makeObservable, observable} from "mobx";
 import {observer} from "mobx-react";
 import pluralize from 'pluralize';
+import { SignalMutationStatus } from 'cbioportal-utils';
 import {
+    AxisScale,
     applyDataFilters,
     DataFilterType,
     FilterResetPanel,
     MutationMapper as ReactMutationMapper,
     MutationMapperProps,
     onFilterOptionSelect,
+    PercentToggle,
     ProteinImpactTypeBadgeSelector
 } from "react-mutation-mapper";
 
@@ -32,8 +35,6 @@ import {
 import CancerTypeSelector from "./CancerTypeSelector";
 import MutationStatusSelector, {onMutationStatusFilterOptionSelect} from "./MutationStatusSelector";
 
-import { SignalMutationStatus } from 'cbioportal-utils';
-import {AxisScale, AxisScaleSwitch} from "./AxisScaleSwitch";
 import "./SignalMutationMapper.css";
 
 export interface ISignalMutationMapperProps extends MutationMapperProps
@@ -193,19 +194,11 @@ export class SignalMutationMapper extends ReactMutationMapper<ISignalMutationMap
      */
     protected get customControls(): JSX.Element | undefined
     {
-        return this.percentToggle;
-    }
-
-    protected get percentToggle(): JSX.Element | undefined
-    {
         return (
-            <div className="small" style={{display: "flex", alignItems: "center"}}>
-                <span style={{marginLeft: 10, marginRight: 10}}>Y-Axis: </span>
-                <AxisScaleSwitch
-                    selectedScale={this.showPercent ? AxisScale.PERCENT: AxisScale.COUNT}
-                    onChange={this.onScaleToggle}
-                />
-            </div>
+            <PercentToggle
+                axisMode={this.showPercent ? AxisScale.PERCENT: AxisScale.COUNT}
+                onScaleToggle={this.onScaleToggle}
+            />
         );
     }
 

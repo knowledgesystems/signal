@@ -69,7 +69,7 @@ class Footer extends React.Component<{}>
                             <MskccLogo imageHeight={50} />
                         </Col>
                         <Col md={true} className="m-auto">
-                            <div>&copy; 2022 Memorial Sloan Kettering Cancer Center</div>
+                            <div>&copy; 2023 Memorial Sloan Kettering Cancer Center</div>
                         </Col>
                     </Row>
                 </Container>

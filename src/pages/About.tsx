@@ -23,7 +23,7 @@ class About extends React.Component<{}>
                             target="_blank" 
                             rel="noreferrer"
                         >
-                        Srinivasan P, Bandlamudi C, et al. “The context-specific role of germline pathogenicity in tumorigenesis” Nature Genetics <i>in press</i>
+                        Srinivasan, P., Bandlamudi, C., Jonsson, P. et al. The context-specific role of germline pathogenicity in tumorigenesis. Nat Genet 53, 1577–1585 (2021).
                         </a>
                     </li>
                 </ul>

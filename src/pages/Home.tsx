@@ -81,6 +81,17 @@ class Home extends React.Component<IHomeProps>
                     <Col md={10} className="mx-auto d-flex text-center">
                         {this.blurb}
                     </Col>
+                    <div style={{margin: "10px auto", width: "fit-content", fontSize: "85%"}}>
+                        When using SignalDB, please cite{' '}
+                        <a 
+                            href="https://www.nature.com/articles/s41588-021-00949-1" 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            style={{paddingLeft: 0, fontWeight: 'bold'}}
+                        >
+                            Srinivasan et al., Nat Genet. 2021.
+                        </a>
+                    </div>
                 </Row>
             </div>
         ): null;

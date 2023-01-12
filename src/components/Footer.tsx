@@ -55,6 +55,28 @@ class Footer extends React.Component<{}>
     public render() {
         return (
             <footer className="mskcc-footer bg-mskcc-footer d-none d-md-block">
+                <div 
+                    style={{margin: "auto", width: "fit-content",}}
+                >
+                    Please review the{' '}
+                    <Link to="/terms" 
+                        style={{paddingLeft: 0, paddingRight: 0, fontWeight: 'bold'}}
+                    >
+                        terms of use
+                    </Link>
+                    {' '}before continuing.
+                </div>
+                <div style={{margin: "auto", width: "fit-content"}}>
+                    When using SignalDB, please cite{' '}
+                    <a 
+                        href="https://www.nature.com/articles/s41588-021-00949-1" 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        style={{paddingLeft: 0, fontWeight: 'bold'}}
+                    >
+                        Srinivasan et al., Nat Genet. 2021.
+                    </a>
+                </div>
                 <Container>
                     <Row className="text-center">
                         <Col>
@@ -69,9 +91,11 @@ class Footer extends React.Component<{}>
                             <MskccLogo imageHeight={50} />
                         </Col>
                         <Col md={true} className="m-auto">
-                            <div>&copy; 2022 Memorial Sloan Kettering Cancer Center</div>
+                            <div>&copy; {new Date().getFullYear()} Memorial Sloan Kettering Cancer Center</div>
                         </Col>
+                        
                     </Row>
+
                 </Container>
             </footer>
         );

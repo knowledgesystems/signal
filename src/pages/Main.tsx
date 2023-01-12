@@ -65,7 +65,7 @@ class Main extends React.Component<{}>
                         fluid={true}
                         style={{
                             paddingTop: 20,
-                            paddingBottom: 100,
+                            paddingBottom: 140,
                             color: "#2c3e50"
                         }}
                     >
